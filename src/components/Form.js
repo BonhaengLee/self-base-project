@@ -25,10 +25,10 @@ const Fm = styled.div`
 
 const FormInput = styled.input`
   flex: 1; /* 버튼을 뺀 빈 공간을 모두 채워줍니다 */
-  font-size: 1.25rem;
+  font-size: 1rem;
   outline: none;
   border: none;
-  border-bottom: 1px solid #c5f6fa;
+  border-bottom: 1px solid #f85270;
 `;
 
 const CreateButton = styled.div`
@@ -37,7 +37,7 @@ const CreateButton = styled.div`
   padding-left: 1rem;
   padding-right: 1rem;
   margin-left: 1rem;
-  background: #F85270;
+  background: #f85270;
   border-radius: 3px;
   color: white;
   font-weight: 600;

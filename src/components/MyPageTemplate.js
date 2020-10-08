@@ -4,10 +4,10 @@ import styled from "styled-components";
 
 MyPageTemplate.propTypes = {};
 
-function MyPageTemplate({ form, children }) {
+function MyPageTemplate({ form, children, title }) {
   return (
     <MyPageTemp>
-      <Title>마이 페이지</Title>
+      <Title>{title}</Title>
       <FormWrapper>{form}</FormWrapper>
       <ListsWrapper>{children}</ListsWrapper>
     </MyPageTemp>
@@ -15,29 +15,29 @@ function MyPageTemplate({ form, children }) {
 }
 
 const MyPageTemp = styled.main`
-    background: white;
-    width: 512px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); /* 그림자 */ 
-    margin: 0 auto; /* 페이지 중앙 정렬 */
-    margin-top: 4rem;
-  `;
+  background: white;
+  width: 1200px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); /* 그림자 */
+  margin: 0 auto; /* 페이지 중앙 정렬 */
+  margin-top: 1rem;
+`;
 
 const Title = styled.div`
-  padding: 2rem;
-  font-size: 2.5rem;
-  text-align: center;
+  padding: 1rem;
+  font-size: 1rem;
+  text-align: left;
   font-weight: 100;
-  background: #F85270;
+  background: #f85270;
   color: white;
 `;
 
 const FormWrapper = styled.section`
   padding: 1rem;
-  border-bottom: 1px solid #22b8cf;
+  border-bottom: 1px solid #f85270;
 `;
 
 const ListsWrapper = styled.section`
-  min-height: 5rem;
+  min-height: 1rem;
 `;
 
 export default MyPageTemplate;
