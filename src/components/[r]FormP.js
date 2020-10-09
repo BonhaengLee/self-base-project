@@ -56,7 +56,7 @@ export default function FormProvider(props) {
         submit: { submit },
       }}
     >
-      {this.props.children}
+      {props.children}
     </UserContext.Provider>
   );
 }

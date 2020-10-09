@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 function Input(props) {
@@ -12,14 +12,14 @@ function Input(props) {
   
   // setRef
 
-    const { errorMessage, label, name, value, type } = this.props;
+    const { errorMessage, label, name, value, type } = props;
     return (
       <div className="input-field">
         <input
           id={`input_${name}`}
           className="validate"
         //   ref={this.setRef}
-          onChange={this.handleChange}
+          onChange={handleChange}
           value={value}
           type={type}
         />

@@ -4,11 +4,12 @@ import styled from "styled-components";
 
 MyPageTemplate.propTypes = {};
 
-function MyPageTemplate({ form, children, title }) {
+function MyPageTemplate({ form, children}) {
   return (
     <MyPageTemp>
-      <Title>{title}</Title>
-      <FormWrapper>{form}</FormWrapper>
+      <Title>
+        {form}
+      </Title>
       <ListsWrapper>{children}</ListsWrapper>
     </MyPageTemp>
   );

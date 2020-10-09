@@ -12,20 +12,18 @@ function Mp({ formC, formCn, formP, childC, childCn, childP }) {
         <Header>마이 페이지</Header>
 
         <Item>
-          <MyPageTemplate form={formC} children={childC} title={"내 강의"} />
+          <MyPageTemplate form={formC} children={childC}/>
         </Item>
         <Item>
           <MyPageTemplate
             form={formCn}
             children={childCn}
-            title={"강의 노트"}
           />
         </Item>
         <Item>
           <MyPageTemplate
             form={formP}
             children={childP}
-            title={"프로필 설정"}
           />
         </Item>
       </Area>
@@ -55,6 +53,7 @@ const Item = styled.li`
 
 const Header = styled.header`
   font-size: 36px;
+  font-weight: 900;
   text-align: center;
   padding-top: 100px;
   padding-bottom: 100px;

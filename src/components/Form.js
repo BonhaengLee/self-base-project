@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 Form.propTypes = {};
 
@@ -10,10 +10,11 @@ Form.propTypes = {};
 // onKeyPress: 인풋에서 키를 입력 할 때 실행되는 함수.
 // 이 함수는 나중에 Enter 가 눌렸을 때 onCreate를 한 것과 동일한 작업을 하기 위해서 사용합니다.
 
-function Form({ value, onChange, onCreate, onKeyPress }) {
+function Form({ title, value, onChange, onCreate, onKeyPress }) {
   return (
     <Fm>
-      <FormInput value={value} onChange={onChange} onKeyPress={onKeyPress} />
+      {/* <FormInput value={value} onChange={onChange} onKeyPress={onKeyPress} /> */}
+      <Title>{title}</Title>
       <CreateButton onClick={onCreate}>추가</CreateButton>
     </Fm>
   );
@@ -21,6 +22,13 @@ function Form({ value, onChange, onCreate, onKeyPress }) {
 
 const Fm = styled.div`
   display: flex;
+`;
+
+const Title = styled.div`
+  font-weight: 900;
+  text-align: center;
+  font-size: 20px;
+  padding: 5px 5px 5px 5px;
 `;
 
 const FormInput = styled.input`
@@ -32,19 +40,24 @@ const FormInput = styled.input`
 `;
 
 const CreateButton = styled.div`
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  font-size: 100px
+  text-align : center;
   margin-left: 1rem;
-  background: #f85270;
+  margin-top: 7px;
+  padding: 0px 10px 0px 7px;
+  background: white;
   border-radius: 3px;
-  color: white;
-  font-weight: 600;
+  color: #f85270;
+  font-weight: 900;
   cursor: pointer;
+  height: 25px;
+  line-height: 25px;
+
+  
 
   &:hover {
     /* 마우스 클릭 전 커서를 갖다댄 오버 상태 */
+    color: white;
     background: #3bc9db;
   }
 `;

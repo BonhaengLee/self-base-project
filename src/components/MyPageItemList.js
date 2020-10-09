@@ -15,7 +15,7 @@ function MyPageItemList(props) {
     onRemove,
   } = props;
   //   객체 배열을 컴포넌트 배열로 변환
-  const mypageCourseList = mypages.map(({ id, text, checked }) => (
+  const mypageList = mypages.map(({ id, text, checked }) => (
     <MyPageItem
       id={id}
       text={text}
@@ -65,7 +65,7 @@ function MyPageItemList(props) {
   //   list = { mypagesProfile };
   // }
 
-  return <div>{mypageCourseList}</div>;
+  return <div>{mypageList}</div>;
 }
 
 export default MyPageItemList;

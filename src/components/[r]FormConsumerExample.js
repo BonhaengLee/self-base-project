@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Input from "./InputWithStyle";
+import Input from "./[r]InputWithStyle";
 import { Consumer } from "./FormContext";
 
 FormConsumerExample.propTypes = {};
