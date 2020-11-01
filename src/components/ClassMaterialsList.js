@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import TutorialDataService from '../services/tutorial';
-import Tutorial from './Material';
+import ClassMaterialDataService from '../services/classmaterial';
+import UpdateClassMaterial from './UpdateClassMaterial';
 
 ClassMaterialsList.propTypes = {};
 
 export default function ClassMaterialsList(props) {
-  const [tutorials, setTutorials] = useState([]);
-  const [currentTutorial, setCurrentTutorial] = useState(null);
+  const [classMaterials, setClassMaterials] = useState([]);
+  const [currentClassMaterial, setCurrentClassMaterial] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
 
   const onDataChange = (items) => {
@@ -17,7 +17,6 @@ export default function ClassMaterialsList(props) {
       let key = item.data().key;
       let title = item.data().title;
       let description = item.data().description;
-      let published = item.data().published;
       // console.log("key");
       // console.log(item.data().key);
       // console.log("data");
@@ -27,15 +26,14 @@ export default function ClassMaterialsList(props) {
         key: key,
         title: title,
         description: description,
-        published: published,
       });
     });
 
-    setTutorials(tus);
+    setClassMaterials(tus);
   };
 
   useEffect(() => {
-    TutorialDataService.getAll().then((snapshot) => {
+    ClassMaterialDataService.getAll().then((snapshot) => {
       console.log('데이터 가져옴');
       console.log(snapshot.docs.map((doc) => doc.data()));
       onDataChange(snapshot.docs);
@@ -43,23 +41,23 @@ export default function ClassMaterialsList(props) {
   }, []);
 
   const refreshList = () => {
-    TutorialDataService.getAll().then((snapshot) => {
+    ClassMaterialDataService.getAll().then((snapshot) => {
       console.log('데이터 가져옴');
       console.log(snapshot.docs.map((doc) => doc.data()));
       onDataChange(snapshot.docs);
     });
 
-    setCurrentTutorial(null);
+    setCurrentClassMaterial(null);
     setCurrentIndex(-1);
   };
 
   const setActiveTutorial = (tutorial, index) => {
-    setCurrentTutorial(tutorial);
+    setCurrentClassMaterial(tutorial);
     setCurrentIndex(index);
   };
 
   const removeAllTutorials = () => {
-    TutorialDataService.deleteAll();
+    ClassMaterialDataService.deleteAll();
     refreshList();
   };
 
@@ -67,14 +65,14 @@ export default function ClassMaterialsList(props) {
   // console.log(currentTutorial.key);
   return (
     <div className="list row">
-      <div className="col-md-6">
-        <h4 className="d-flex align-items-center justify-content-center">
-          내 강의
-        </h4>
+      <div className="col-md-12">
+        <h5 className="d-flex align-items-center justify-content-center">
+          강의 자료
+        </h5>
 
         <ul className="list-group">
-          {tutorials &&
-            tutorials.map((tutorial, index) => (
+          {classMaterials &&
+            classMaterials.map((tutorial, index) => (
               <li
                 className={
                   'list-group-item ' + (index === currentIndex ? 'active' : '')
@@ -88,8 +86,11 @@ export default function ClassMaterialsList(props) {
         </ul>
       </div>
       <div className="col-md-6">
-        {currentTutorial ? (
-          <Tutorial tutorial={currentTutorial} refreshList={refreshList} />
+        {currentClassMaterial ? (
+          <UpdateClassMaterial
+            tutorial={currentClassMaterial}
+            refreshList={refreshList}
+          />
         ) : (
           <div>
             <br />

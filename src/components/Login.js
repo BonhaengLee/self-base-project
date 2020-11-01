@@ -44,13 +44,7 @@ export default function Login() {
         <Card>
           <Card.Body>
             <h2 className="text-center mb-4">
-              <img
-                src={logo}
-                width="300"
-                height="185"
-                alt="testA"
-                style={{}}
-              ></img>
+              <img src={logo} width="300" height="185" alt="testA" style={{}} />
             </h2>
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit}>
