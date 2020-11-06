@@ -1,58 +1,58 @@
-import db from '../firebaseInit';
+import db from "../firebaseInit";
 
-class ClassMaterialDataService {
+class TutorialDataService {
   getAll() {
-    return db.collection('tutorials').get();
+    return db.collection("users").get();
   }
 
-  create(material) {
-    const uRef = db.collection('tutorials').doc();
-    console.log('uRef Key');
+  create(tutorial) {
+    const uRef = db.collection("users").doc();
+    console.log("uRef Key");
     console.log(uRef.id);
 
     uRef
       .set({
-        ...material,
+        ...tutorial,
         key: uRef.id,
       })
       .then(function () {
-        console.log('Document successfully written!');
+        console.log("Document successfully written!");
         return true;
       })
       .catch(function (error) {
-        console.error('Error writing document: ', error);
+        console.error("Error writing document: ", error);
       });
   }
 
   update(key, value) {
-    const kRef = db.collection('tutorials').doc(key);
+    const kRef = db.collection("users").doc(key);
     kRef
       //.update(value)
       .set(value, { merge: true })
       .then(() => {
-        console.log('Document updated'); // Document updated
+        console.log("Document updated"); // Document updated
         return true;
       })
       .catch((error) => {
-        console.error('Error updating doc', error);
+        console.error("Error updating doc", error);
       });
   }
 
   delete(key) {
-    db.collection('tutorials')
+    db.collection("users")
       .doc(key)
       .delete()
-      .then(() => console.log('Document deleted')) // Document deleted
-      .catch((error) => console.error('Error deleting document', error));
+      .then(() => console.log("Document deleted")) // Document deleted
+      .catch((error) => console.error("Error deleting document", error));
   }
 
   deleteAll() {
-    db.collection('tutorials')
+    db.collection("users")
       .doc()
       .delete()
-      .then(() => console.log('Document deleted')) // Document deleted
-      .catch((error) => console.error('Error deleting document', error));
+      .then(() => console.log("Document deleted")) // Document deleted
+      .catch((error) => console.error("Error deleting document", error));
   }
 }
 
-export default new ClassMaterialDataService();
+export default new TutorialDataService();

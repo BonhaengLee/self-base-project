@@ -1,29 +1,17 @@
+import { Grid, Paper } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import TutorialDataService from '../services/classmaterial';
-import styled from 'styled-components';
-import { Form } from 'react-bootstrap';
 
-Material.propTypes = {};
+export default function UpdateClassMaterial({ tutorial, refreshList }) {
+  const [currentTutorial, setCurrentTutorial] = useState();
 
-export default function Material(props) {
-  const [currentClassMaterial, setCurrentClassMaterial] = useState({
-    key: null,
-    title: '',
-    description: '',
-  });
-  //   const [currentTutorial, setCurrentTutorial] = useState(props.tutorial);
-  const [message, setMessage] = useState('');
-
-  // ComponentDidMount
   useEffect(() => {
-    setCurrentClassMaterial(props.tutorial);
-    console.log(props.tutorial);
-  }, [props.tutorial.title, props.tutorial.description]);
+    setCurrentTutorial(tutorial);
+  }, [tutorial]);
 
   const onChangeTitle = (e) => {
     const title = e.target.value;
-    setCurrentClassMaterial(function (prevState) {
+    setCurrentTutorial(function (prevState) {
       return {
         ...prevState,
         title: title,
@@ -33,99 +21,114 @@ export default function Material(props) {
 
   const onChangeDescription = (e) => {
     const description = e.target.value;
-    setCurrentClassMaterial((prevState) => ({
+    setCurrentTutorial((prevState) => ({
       ...prevState,
       description: description,
     }));
   };
 
-  const updatePublished = (status) => {
-    console.log('status 변경중p');
-    console.log(status);
-    setCurrentClassMaterial({ ...currentClassMaterial, published: status });
-    const data = currentClassMaterial;
-    console.log('tut 변경중p');
-    console.log(currentClassMaterial.published);
-    TutorialDataService.update(currentClassMaterial.key, { published: status });
-  };
-
   const updateTutorial = () => {
-    const data = currentClassMaterial;
+    const data = currentTutorial;
     console.log('currentTutkey');
-    console.log(currentClassMaterial.key);
-    TutorialDataService.update(currentClassMaterial.key, data);
-    props.refreshList();
+    console.log(currentTutorial.key);
+    TutorialDataService.update(currentTutorial.key, data);
+    refreshList();
   };
 
   const deleteTutorial = () => {
-    // if (TutorialDataService.delete(currentTutorial.key)) {
-    TutorialDataService.delete(currentClassMaterial.key);
-    props.refreshList();
-    // }
+    TutorialDataService.delete(currentTutorial.key);
+    refreshList();
   };
 
-  console.log('tut 변경중');
-  console.log(currentClassMaterial);
+  console.log(currentTutorial);
 
   return (
     <div>
-      {currentClassMaterial ? (
-        <div className="edit-form mt-4">
-          <h5>글 수정하기</h5>
+      {currentTutorial ? (
+        <div className="edit-form">
           <form>
-            <div className="form-group">
-              <Form.Group controlId="formGridTitle">
-                <Form.Control
-                  as="textarea"
-                  placeholder="제목"
-                  aria-label="With textarea"
-                  aria-describedby="basic-addon1"
-                  className="form-control"
-                  id="title"
-                  required
-                  value={currentClassMaterial.title}
-                  onChange={onChangeTitle}
-                  name="title"
-                />
-              </Form.Group>
-            </div>
-            <div className="form-group">
-              <Form.Group
-                controlId="formGridContents"
-                style={{ marginBottom: '15px' }}
-              >
-                <Form.Control
-                  as="textarea"
-                  rows="15"
-                  placeholder="내용 없음"
-                  aria-label="With textarea"
-                  aria-describedby="inputGroup-sizing-lg"
-                  className="form-control"
-                  id="description"
-                  required
-                  value={currentClassMaterial.description}
-                  onChange={onChangeDescription}
-                  name="description"
-                />
-              </Form.Group>
-            </div>
+            <Grid
+              className="form-group"
+              style={{
+                marginTop: '30px',
+                marginBottom: '30px',
+                marginRight: '10px',
+              }}
+            >
+              <label htmlFor="title">Title</label>
+              <input
+                type="text"
+                className="form-control"
+                id="title"
+                value={currentTutorial.title}
+                onChange={onChangeTitle}
+              />
+            </Grid>
+            <ul
+              className="list-group"
+              style={{
+                marginTop: '30px',
+                marginRight: '20px',
+                marginBottom: '30px',
+                listStyle: 'none',
+              }}
+            >
+              {currentTutorial.fileurl.map((url, index) => (
+                <li>
+                  {currentTutorial.fname[index]}
+                  <a href={url} style={{ marginLeft: '10px' }} download>
+                    Download
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <Grid
+              style={{
+                marginTop: '30px',
+                marginBottom: '30px',
+                marginRight: '10px',
+              }}
+            >
+              <label htmlFor="name" style={{ marginRight: '10px' }}>
+                작성자 :
+              </label>
+              {currentTutorial.name}
+            </Grid>
+
+            <Grid
+              className="form-group"
+              style={{
+                marginTop: '30px',
+                marginBottom: '30px',
+                marginRight: '10px',
+              }}
+            >
+              <label htmlFor="description">Description</label>
+              <input
+                type="text"
+                className="form-control"
+                id="description"
+                value={currentTutorial.description}
+                onChange={onChangeDescription}
+              />
+            </Grid>
           </form>
           <button className="badge badge-danger mr-2" onClick={deleteTutorial}>
-            삭제
+            Delete
           </button>
           <button
             type="submit"
             className="badge badge-success"
             onClick={updateTutorial}
           >
-            수정
+            Update
           </button>
-          <p>{message}</p>
         </div>
       ) : (
         <div>
           <br />
-          <p>Please click on a Course...</p>
+          <p>Please click on a Tutorial...</p>
         </div>
       )}
     </div>

@@ -64,8 +64,8 @@ export default function ClassMaterialsList(props) {
   // console.log("currentTuRkey");
   // console.log(currentTutorial.key);
   return (
-    <div className="list row">
-      <div className="col-md-12">
+    <div className="list row" style={{ width: '2000px' }}>
+      <div className="col-md-10">
         <h5 className="d-flex align-items-center justify-content-center">
           강의 자료
         </h5>
@@ -85,7 +85,7 @@ export default function ClassMaterialsList(props) {
             ))}
         </ul>
       </div>
-      <div className="col-md-6">
+      <div className="col-md-10">
         {currentClassMaterial ? (
           <UpdateClassMaterial
             tutorial={currentClassMaterial}

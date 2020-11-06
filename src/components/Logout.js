@@ -20,9 +20,13 @@ export default function Logout() {
   }
   return (
     <div className="w-100 text-center mt-3 bg-white rounded">
-      <Button variant="outline-danger" onClick={handleLogout}>
-        로그아웃
-      </Button>
+      {currentUser ? (
+        <>
+          <Button variant="outline-danger" onClick={handleLogout}>
+            로그아웃
+          </Button>
+        </>
+      ) : null}
     </div>
   );
 }

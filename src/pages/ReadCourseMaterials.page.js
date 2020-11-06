@@ -1,16 +1,16 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
-import ReadCourseMaterias from '../components/ReadCourseMaterias';
+import { Container, Row } from 'react-bootstrap';
+import ReadCourseMaterials from '../components/ReadCourseMaterials';
 
 export default function ReadCourseMateriasPlage() {
   return (
     <Container
       className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: '100vh' }}
+      style={{ minHeight: '70vh' }}
     >
-      <div className="w-50" style={{ maxWidth: '5500px' }}>
-        <ReadCourseMaterias />
-      </div>
+      <Row className="w-100" style={{ maxWidth: '5500px' }}>
+        <ReadCourseMaterials />
+      </Row>
     </Container>
   );
 }

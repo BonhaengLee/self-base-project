@@ -6,7 +6,7 @@ import SignUpPage from './pages/Signup.page';
 import DashBoardPage from './pages/Dashboard.page';
 import LoginPage from './pages/Login.page';
 import PrivateRoute from './components/PrivateRoute';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import ForgotPasswordPage from './pages/ForgotPassword.page';
 import UpdateProfilePage from './pages/UpdateProfile.page';
 import MypagePage from './pages/Mypage.page';
@@ -53,7 +53,7 @@ function App() {
         </nav>
       </nav>
 
-      <div className="container mt-1">
+      <div>
         {/* <h2>React Firebase Database CRUD</h2> */}
         <AuthProvider>
           <Switch>
