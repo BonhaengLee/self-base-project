@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import ForgotPassword from "../components/ForgotPassword";
+import ForgotPassword from "../auth/ForgotPassword";
 
 export default function ForgotPasswordPage() {
   return (

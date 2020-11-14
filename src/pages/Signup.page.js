@@ -1,5 +1,5 @@
 import React from "react";
-import Signup from "../components/Signup";
+import Signup from "../auth/Signup";
 import { Container } from "react-bootstrap";
 
 export default function SignupPage() {

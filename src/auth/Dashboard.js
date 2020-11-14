@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Card, Button, Alert } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import UploadFile from './UploadFile';
 
 export default function Dashboard() {
   const [error, setError] = useState('');

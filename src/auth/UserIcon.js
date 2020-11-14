@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import userIcon from './images/edumeet_userIcon.png';
+import userIcon from '../images/edumeet_userIcon.png';
 
 export default function UserIcon() {
   const { currentUser } = useAuth();

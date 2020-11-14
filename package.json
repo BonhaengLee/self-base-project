@@ -3,19 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.5.3",
     "firebase": "^8.0.0",
     "firebase-admin": "^9.3.0",
+    "formik": "^2.2.5",
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "styled-components": "^5.2.1",
-    "uuid": "^8.3.1"
+    "uuid": "^8.3.1",
+    "yup": "^0.29.3"
   },
   "scripts": {
     "start": "cross-env NODE_PATH=src react-scripts start",
@@ -39,6 +42,7 @@
     ]
   },
   "devDependencies": {
-    "cross-env": "^7.0.2"
+    "cross-env": "^7.0.2",
+    "video.js": "^7.10.2"
   }
 }

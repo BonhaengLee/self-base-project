@@ -12,7 +12,7 @@ AddCourseMaterials.propTypes = {};
 
 const db = firebaseApp.firestore();
 
-export default function AddCourseMaterials(props) {
+export default function AddCourseVideo(props) {
   const { currentUser } = useAuth();
 
   const [files, setFiles] = useState([]);

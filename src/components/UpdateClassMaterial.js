@@ -1,5 +1,5 @@
-import { Grid, Paper } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import { Card } from 'react-bootstrap';
 import TutorialDataService from '../services/classmaterial';
 
 export default function UpdateClassMaterial({ tutorial, refreshList }) {
@@ -43,11 +43,11 @@ export default function UpdateClassMaterial({ tutorial, refreshList }) {
   console.log(currentTutorial);
 
   return (
-    <div>
+    <div style={{ height: '600px' }}>
       {currentTutorial ? (
         <div className="edit-form">
           <form>
-            <Grid
+            <div
               className="form-group"
               style={{
                 marginTop: '30px',
@@ -55,80 +55,80 @@ export default function UpdateClassMaterial({ tutorial, refreshList }) {
                 marginRight: '10px',
               }}
             >
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                className="form-control"
-                id="title"
-                value={currentTutorial.title}
-                onChange={onChangeTitle}
-              />
-            </Grid>
-            <ul
-              className="list-group"
-              style={{
-                marginTop: '30px',
-                marginRight: '20px',
-                marginBottom: '30px',
-                listStyle: 'none',
-              }}
-            >
-              {currentTutorial.fileurl.map((url, index) => (
-                <li>
-                  {currentTutorial.fname[index]}
-                  <a href={url} style={{ marginLeft: '10px' }} download>
-                    Download
-                  </a>
-                </li>
-              ))}
-            </ul>
+              <div>
+                <label htmlFor="title">제목</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="title"
+                  value={currentTutorial.title}
+                  onChange={onChangeTitle}
+                />
+              </div>
+              <ul
+                className="list-group"
+                style={{
+                  marginTop: '30px',
+                  marginRight: '20px',
+                  marginBottom: '30px',
+                  listStyle: 'none',
+                }}
+              >
+                {currentTutorial.fileurl.map((url, index) => (
+                  <li>
+                    {currentTutorial.fname[index]}
+                    <a href={url} style={{ marginLeft: '10px' }} download>
+                      Download
+                    </a>
+                  </li>
+                ))}
+              </ul>
 
-            <Grid
-              style={{
-                marginTop: '30px',
-                marginBottom: '30px',
-                marginRight: '10px',
-              }}
-            >
-              <label htmlFor="name" style={{ marginRight: '10px' }}>
-                작성자 :
-              </label>
-              {currentTutorial.name}
-            </Grid>
+              <div
+                style={{
+                  marginTop: '30px',
+                  marginBottom: '30px',
+                  marginRight: '10px',
+                }}
+              >
+                <label htmlFor="name" style={{ marginRight: '10px' }}>
+                  작성자 :
+                </label>
+                {currentTutorial.name}
+              </div>
 
-            <Grid
-              className="form-group"
-              style={{
-                marginTop: '30px',
-                marginBottom: '30px',
-                marginRight: '10px',
-              }}
-            >
-              <label htmlFor="description">Description</label>
-              <input
-                type="text"
-                className="form-control"
-                id="description"
-                value={currentTutorial.description}
-                onChange={onChangeDescription}
-              />
-            </Grid>
+              <div
+                className="form-group"
+                style={{
+                  marginTop: '30px',
+                  marginBottom: '30px',
+                  marginRight: '10px',
+                }}
+              >
+                <label htmlFor="description">내용</label>
+                <textarea
+                  cols="50"
+                  rows="10"
+                  type="textarea"
+                  className="form-control"
+                  id="description"
+                  value={currentTutorial.description}
+                  onChange={onChangeDescription}
+                ></textarea>
+              </div>
+            </div>
           </form>
           <button className="badge badge-danger mr-2" onClick={deleteTutorial}>
             Delete
           </button>
-          <button
-            type="submit"
-            className="badge badge-success"
-            onClick={updateTutorial}
-          >
+          <button className="badge badge-success" onClick={updateTutorial}>
             Update
           </button>
         </div>
       ) : (
         <div>
           <br />
-          <p>Please click on a Tutorial...</p>
+          <p>Please click on a class materials...</p>
         </div>
       )}
     </div>

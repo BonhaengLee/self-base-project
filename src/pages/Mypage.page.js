@@ -1,16 +1,18 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
-import ClassMaterialsList from '../components/ClassMaterialsList';
+import { Container, Row, Col } from 'react-bootstrap';
+import ReadAndSearchCourseMaterials from '../components/ReadAndSearchCourseMaterials';
 
 export default function MypagePage() {
   return (
+    // <Container
+    //   className="d-flex align-items-center justify-content-center"
+    //   style={{ minHeight: '100vh' }}
+    // >
     <Container
       className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: '100vh' }}
+      style={{ minHeight: '50vh' }}
     >
-      <div className="w-50" style={{ maxWidth: '5500px' }}>
-        <ClassMaterialsList />
-      </div>
+      <ReadAndSearchCourseMaterials />
     </Container>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import Dashboard from '../components/Dashboard';
+import Dashboard from '../auth/Dashboard';
 
 export default function DashboardPage() {
   return (

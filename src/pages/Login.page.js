@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import Login from "../components/Login";
+import Login from "../auth/Login";
 
 export default function LoginPage() {
   return (

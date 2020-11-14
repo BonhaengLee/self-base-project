@@ -1,5 +1,5 @@
 import React from "react";
-import UpdateProfile from "../components/UpdateProfile";
+import UpdateProfile from "../auth/UpdateProfile";
 import { Container } from "react-bootstrap";
 
 export default function UpdateProfilePage() {

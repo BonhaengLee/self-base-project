@@ -57,10 +57,18 @@ export default function ReadCourseMaterialsList() {
 
   return (
     <>
-      <Col xs="6">
-        <Grid>강의 자료</Grid>
+      <Col
+        style={{
+          position: 'absolute',
+          left: '100px',
+          top: '100px',
+          width: '600px',
+        }}
+        xs="6"
+      >
+        <header style={{ fontSize: '20px' }}>강의 자료</header>
         <Paper
-          style={{ marginTop: '40px', marginBottom: '10px', width: '200px' }}
+          style={{ marginTop: '10px', marginBottom: '10px', width: '200px' }}
         >
           <TextField
             InputProps={{
@@ -83,7 +91,15 @@ export default function ReadCourseMaterialsList() {
           {tutorials && filteredComponents(tutorials)}
         </ul>
       </Col>
-      <Col xs="6">
+      <Col
+        style={{
+          position: 'absolute',
+          left: '700px',
+          top: '100px',
+          width: '600px',
+        }}
+        xs="6"
+      >
         <Paper style={{ padding: '20px' }}>
           {currentIndex >= 0 ? (
             <UpdateClassMaterial
@@ -93,7 +109,7 @@ export default function ReadCourseMaterialsList() {
           ) : (
             <div>
               <br />
-              <p>Please click on a Tutorial...</p>
+              <p>Please click on a posts...</p>
             </div>
           )}
         </Paper>
