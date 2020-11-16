@@ -4,11 +4,11 @@ const db = firebase.firestore();
 
 class TutorialDataService {
   getAll() {
-    return db.collection('users').get();
+    return db.collection('classMaterials').orderBy('postedOn', 'asc').get();
   }
 
   create(tutorial) {
-    const uRef = db.collection('users').doc();
+    const uRef = db.collection('classMaterials').doc();
     console.log('uRef Key');
     console.log(uRef.id);
 
@@ -27,7 +27,7 @@ class TutorialDataService {
   }
 
   update(key, value) {
-    const kRef = db.collection('users').doc(key);
+    const kRef = db.collection('classMaterials').doc(key);
     kRef
       //.update(value)
       .set(value, { merge: true })
@@ -41,7 +41,7 @@ class TutorialDataService {
   }
 
   delete(key) {
-    db.collection('users')
+    db.collection('classMaterials')
       .doc(key)
       .delete()
       .then(() => console.log('Document deleted')) // Document deleted
@@ -49,7 +49,7 @@ class TutorialDataService {
   }
 
   deleteAll() {
-    db.collection('users')
+    db.collection('classMaterials')
       .doc()
       .delete()
       .then(() => console.log('Document deleted')) // Document deleted

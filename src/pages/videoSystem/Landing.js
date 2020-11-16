@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Loader from '../../components/videoSystem/Loader';
 import accountLogo from '../../images/accountLogo.png';
+import viewEyeVisible from '../../images/view_eye_visible.png';
 import firebase from '../../firebase';
 
 const Container = styled.div`
@@ -30,6 +31,7 @@ const Container = styled.div`
       justify-content: center;
       align-items: center;
       row-gap: 0.5rem;
+      margin-left: -10;
 
       .thumbnail {
         height: 0;
@@ -199,7 +201,7 @@ const Landing = () => {
     <Container darkMode={darkMode}>
       {videos && videos.length > 0 ? (
         <>
-          <h1>Recent Videos</h1>
+          <h1>강의 영상</h1>
           <div className="videos">
             {videos.map((video) => (
               <div className="video" key={video.id}>
@@ -223,41 +225,25 @@ const Landing = () => {
                   </div>
                 )}
                 <div className="info">
-                  <div className="profile">
+                  {/* <div className="profile"> */}
+                  <div
+                    style={{
+                      width: '2.5rem',
+                      height: '2.5rem',
+                      borderRadius: '50%',
+                      display: 'grid',
+                      justifyItems: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
                     {/* {video.user.photoURL ? ( */}
                     <img
                       src={accountLogo}
-                      width="115"
+                      width="35"
                       height="35"
                       alt="testA"
+                      style={{ marginTop: '-10px' }}
                     />
-                    {/* ) : (
-                      <svg viewBox="0 0 34 34">
-                        <g transform="translate(1 1.247)">
-                          <path
-                            d="M36,27.916V23.61C36,18.855,32.418,15,28,15H12c-4.418,0-8,3.855-8,8.61v4.305"
-                            transform="translate(-4 3.838)"
-                            fill="none"
-                            stroke={darkMode ? '#FFFFFF' : '#07070A'}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                          />
-                          <ellipse
-                            cx="8"
-                            cy="9"
-                            rx="8"
-                            ry="9"
-                            transform="translate(8 -0.247)"
-                            fill="none"
-                            stroke={darkMode ? '#FFFFFF' : '#07070A'}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                          />
-                        </g>
-                      </svg>
-                    )} */}
                   </div>
                   <div className="meta">
                     <h3
@@ -269,33 +255,18 @@ const Landing = () => {
                     >
                       {video.title}
                     </h3>
-                    {/* <h5>{video.user.displayName}</h5> */}
                     <h5>{video.userEmail}</h5>
                     <div className="views">
-                      <svg className="eye" viewBox="0 0 26.292 19.667">
-                        <g transform="translate(0 -3)">
-                          <path
-                            d="M1,12.833S5.417,4,13.146,4s12.146,8.833,12.146,8.833-4.417,8.833-12.146,8.833S1,12.833,1,12.833Z"
-                            fill="none"
-                            stroke={darkMode ? '#FFFFFF' : '#07070A'}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                          />
-                          <circle
-                            cx="3.5"
-                            cy="3.5"
-                            r="3.5"
-                            transform="translate(10 9)"
-                            strokeWidth="2"
-                            stroke={darkMode ? '#FFFFFF' : '#07070A'}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            fill="none"
-                          />
-                        </g>
-                      </svg>
-                      <p>{video.views}</p>
+                      <img
+                        src={viewEyeVisible}
+                        width="35"
+                        height="35"
+                        alt="viewEyeVisible"
+                        style={{ marginLeft: '-53px' }}
+                      />
+                      <p style={{ color: 'black', marginTop: '10px' }}>
+                        {video.views}
+                      </p>
                     </div>
                   </div>
                 </div>

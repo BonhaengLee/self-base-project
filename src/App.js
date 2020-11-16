@@ -1,9 +1,8 @@
 import React, { Suspense, lazy } from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from './auth/PrivateRoute';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { CircularProgress } from '@material-ui/core';
-import Nav from './components/Nav';
 
 const DashBoardPage = lazy(() => import('./pages/Dashboard.page'));
 const UpdateProfilePage = lazy(() => import('./pages/UpdateProfile.page'));
@@ -21,22 +20,21 @@ const ForgotPasswordPage = lazy(() => import('./pages/ForgotPassword.page'));
 const Upload = lazy(() => import('./pages/videoSystem/Upload'));
 const Video = lazy(() => import('./pages/videoSystem/Video'));
 const Landing = lazy(() => import('./pages/videoSystem/Landing'));
+const Nav = lazy(() => import('./components/Nav'));
 
 function App() {
   return (
     <div style={{ flex: 1, flexDirection: 'flex-start' }}>
-      <Nav />
-
-      <div>
-        {/* <h2>React Firebase Database CRUD</h2> */}
-        <AuthProvider>
-          <Suspense
-            fallback={
-              <div>
-                <CircularProgress />
-              </div>
-            }
-          >
+      <Suspense
+        fallback={
+          <div>
+            <CircularProgress />
+          </div>
+        }
+      >
+        <Nav />
+        <div>
+          <AuthProvider>
             <Switch>
               <PrivateRoute exact path="/" component={DashBoardPage} />
               <PrivateRoute
@@ -53,9 +51,9 @@ function App() {
               <PrivateRoute path="/video/:id" component={Video} />
               <PrivateRoute path="/landing" component={Landing} />
             </Switch>
-          </Suspense>
-        </AuthProvider>
-      </div>
+          </AuthProvider>
+        </div>
+      </Suspense>
     </div>
   );
 }

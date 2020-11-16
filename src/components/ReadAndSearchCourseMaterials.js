@@ -59,10 +59,8 @@ export default function ReadCourseMaterialsList() {
     <>
       <Col
         style={{
-          position: 'absolute',
-          left: '100px',
-          top: '100px',
-          width: '600px',
+          top: '-50px',
+          
         }}
         xs="6"
       >
@@ -92,15 +90,15 @@ export default function ReadCourseMaterialsList() {
         </ul>
       </Col>
       <Col
-        style={{
-          position: 'absolute',
-          left: '700px',
-          top: '100px',
-          width: '600px',
-        }}
+        // style={{
+        //   position: 'absolute',
+        //   left: '700px',
+        //   top: '100px',
+        //   width: '600px',
+        // }}
         xs="6"
       >
-        <Paper style={{ padding: '20px' }}>
+        <Paper style={{ margin: '10px 10px', padding: '10px' }}>
           {currentIndex >= 0 ? (
             <UpdateClassMaterial
               tutorial={tutorials[currentIndex]}

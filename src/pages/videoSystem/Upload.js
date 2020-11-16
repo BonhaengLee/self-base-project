@@ -48,9 +48,7 @@ const Container = styled.div`
       justify-content: center;
       align-items: center;
       height: 15rem;
-      border: 3px dashed
-        ${({ darkMode }) =>
-          darkMode ? 'rgba(255, 255, 255, 1)' : 'rgba(7, 7, 10, 1)'};
+      border: 3px dashed rgba(7, 7, 10, 1);
 
       h2 {
         font-family: 'Poppins';
@@ -162,8 +160,19 @@ const Upload = () => {
       {currentUser ? (
         <Container darkMode={darkMode}>
           <div id="section-header">
-            <h1>Upload</h1>
-            <Button text="Cancel" onClick={() => history.push('/')} />
+            <h1>강의 영상 업로드</h1>
+            <button
+              style={{
+                paddingLeft: '5px',
+                paddingRight: '5px',
+                backgroundColor: '#FF4A4A',
+                color: 'white',
+                border: 'none',
+              }}
+              onClick={() => history.push('/')}
+            >
+              Cancel
+            </button>
           </div>
           {alert && <Alert type={alert.type} text={alert.text} />}
           <div id="files">

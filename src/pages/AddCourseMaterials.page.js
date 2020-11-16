@@ -6,9 +6,16 @@ export default function AddCourseMaterialsPage() {
   return (
     <Container
       className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: '100vh' }}
+      style={{
+        minHeight: '100vh',
+        width: '90%',
+        margin: '3rem auto',
+        display: 'grid',
+        gridTemplateColumns: '1fr',
+        rowGap: '1.5rem',
+      }}
     >
-      <div className="w-50" style={{ maxWidth: '5500px' }}>
+      <div className="w-100">
         <AddCourseMeterials />
       </div>
     </Container>

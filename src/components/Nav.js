@@ -1,6 +1,6 @@
 import { CircularProgress } from '@material-ui/core';
 import React, { Suspense, lazy } from 'react';
-import { Switch, Route, Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AuthProvider, useAuth } from '../contexts/AuthContext';
 import logo from '../images/edumeet_logo.PNG';
 
@@ -9,8 +9,6 @@ const Logout = lazy(() => import('../auth/Logout'));
 
 export default function Nav() {
   const { currentUser } = useAuth();
-  const history = useHistory();
-  const darkMode = true;
 
   return (
     <div>
@@ -49,22 +47,14 @@ export default function Nav() {
 
         {currentUser ? (
           <nav className="navbar-nav ml-auto">
-            <Suspense
-              fallback={
-                <div>
-                  <CircularProgress />
-                </div>
-              }
-            >
-              <AuthProvider>
-                <div className="nav-item">
-                  <UserIcon />
-                </div>
-                <div className="nav-item">
-                  <Logout />
-                </div>
-              </AuthProvider>
-            </Suspense>
+            <AuthProvider>
+              <div className="nav-item">
+                <UserIcon />
+              </div>
+              <div className="nav-item">
+                <Logout />
+              </div>
+            </AuthProvider>
           </nav>
         ) : null}
       </nav>

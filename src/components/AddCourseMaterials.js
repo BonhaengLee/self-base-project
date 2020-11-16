@@ -1,14 +1,10 @@
-import PropTypes from 'prop-types';
-import ClassMaterialDataService from '../services/classmaterial';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { firebaseApp } from '../firebase';
 import firebase from '../firebase';
 import { v4 as uuid } from 'uuid';
 import { useAuth } from '../contexts/AuthContext';
 import { Button, Form } from 'react-bootstrap';
 import uploadIcon from '../images/uploadFilesIcon.png';
-
-AddCourseMaterials.propTypes = {};
 
 const db = firebaseApp.firestore();
 
@@ -240,17 +236,17 @@ export default function AddCourseMaterials(props) {
     }
   }
 
-  const saveClassMaterials = () => {
-    if (
-      ClassMaterialDataService.create({
-        title: title,
-        description: description,
-        key: 0,
-      })
-    ) {
-      setSubmitted(true);
-    }
-  };
+  // const saveClassMaterials = () => {
+  //   if (
+  //     ClassMaterialDataService.create({
+  //       title: title,
+  //       description: description,
+  //       key: 0,
+  //     })
+  //   ) {
+  //     setSubmitted(true);
+  //   }
+  // };
 
   // update한 file의 이름과 사이즈를 출력해줌
   function updateImageDisplay(e) {
@@ -306,45 +302,67 @@ export default function AddCourseMaterials(props) {
     const promises = [];
     const id = uuid();
 
-    files.forEach((file) => {
-      fname.push(file.name);
-
-      const uploadTask = firebaseApp
-        .storage()
-        .ref()
-        .child(`your/file/path/${file.name}`)
-        .put(file);
-
-      uploadTask.on(
-        firebase.storage.TaskEvent.STATE_CHANGED,
-        function (snapshot) {
-          var percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(percent + '% done');
+    if (files.length === 0) {
+      const fileRef = db.collection('classMaterials').doc(id);
+      fileRef.set(
+        {
+          key: fileRef.id,
+          name: username,
+          title: title,
+          description: description,
+          fileurl: url,
+          fname: fname,
+          postedOn: firebase.firestore.FieldValue.serverTimestamp(),
         },
-        (error) => console.log(error.code),
-        () => {
-          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-            console.log(downloadURL);
-
-            url.push(downloadURL);
-
-            const fileRef = db.collection('users').doc(id);
-            fileRef.set(
-              {
-                //db.collection("users").doc(username).set({
-                key: fileRef.id,
-                name: username,
-                title: title,
-                description: description,
-                fileurl: url,
-                fname: fname,
-              },
-              { merge: true },
-            );
-          });
-        },
+        { merge: true },
       );
-    });
+      // fetchJobs();
+    } else {
+      files.forEach((file) => {
+        fname.push(file.name);
+
+        const uploadTask = firebaseApp
+          .storage()
+          .ref()
+          .child(`your/file/path/${file.name}`)
+          .put(file);
+
+        uploadTask.on(
+          firebase.storage.TaskEvent.STATE_CHANGED,
+          function (snapshot) {
+            var percent =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log(percent + '% done');
+          },
+          (error) => console.log(error.code),
+          () => {
+            uploadTask.snapshot.ref
+              .getDownloadURL()
+              .then(function (downloadURL) {
+                console.log(downloadURL);
+
+                url.push(downloadURL);
+
+                const fileRef = db.collection('classMaterials').doc(id);
+                fileRef.set(
+                  {
+                    //db.collection("users").doc(username).set({
+                    key: fileRef.id,
+                    name: username,
+                    title: title,
+                    description: description,
+                    fileurl: url,
+                    fname: fname,
+                    postedOn: firebase.firestore.FieldValue.serverTimestamp(),
+                  },
+                  { merge: true },
+                );
+              });
+          },
+        );
+      });
+    }
+
     return Promise.all(promises)
       .then(() => alert('All files uploaded'), console.log(files), setFiles([]))
       .catch((err) => console.log(err.code));
@@ -369,10 +387,20 @@ export default function AddCourseMaterials(props) {
   return (
     <form
       className="submit-form"
-      style={{ maxWidth: '5500px', minHeight: '300px' }}
+      style={{ maxWidth: '5500px', minHeight: '280px' }}
       onSubmit={onUploadSubmission}
       encType="multipart/form-data"
     >
+      <h1
+        style={{
+          fontFamily: 'Poppins',
+          fontSize: 40,
+          marginBottom: '20px',
+          marginTop: '-25px',
+        }}
+      >
+        강의 자료 업로드
+      </h1>
       {submitted ? (
         <div>
           <h4>글 작성이 완료되었습니다!</h4>
@@ -405,7 +433,7 @@ export default function AddCourseMaterials(props) {
             <Form.Label>Contents</Form.Label>
             <Form.Control
               as="textarea"
-              rows="15"
+              rows="12"
               placeholder="본문을 입력하세요"
               aria-label="With textarea"
               aria-describedby="inputGroup-sizing-lg"

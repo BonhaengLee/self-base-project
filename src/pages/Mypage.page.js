@@ -4,13 +4,10 @@ import ReadAndSearchCourseMaterials from '../components/ReadAndSearchCourseMater
 
 export default function MypagePage() {
   return (
-    // <Container
-    //   className="d-flex align-items-center justify-content-center"
-    //   style={{ minHeight: '100vh' }}
-    // >
     <Container
+      fluid="lg"
       className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: '50vh' }}
+      style={{ minHeight: '600px' }}
     >
       <ReadAndSearchCourseMaterials />
     </Container>

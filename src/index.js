@@ -9,12 +9,12 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
-  <AuthProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <AuthProvider>
       <App />
-    </BrowserRouter>
-  </AuthProvider>,
+    </AuthProvider>
+  </BrowserRouter>,
   document.getElementById('root'),
 );
 
-serviceWorker.unregister();
+// serviceWorker.unregister();

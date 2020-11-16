@@ -9,6 +9,9 @@ import Alert from '../../components/videoSystem/Alert';
 
 import firebase from '../../firebase';
 import { useAuth } from '../../contexts/AuthContext';
+import accountLogo from '../../images/accountLogo.png';
+import deleteRemove from '../../images/delete_remove.png';
+import viewEyeVisible from '../../images/view_eye_visible.png';
 
 const Container = styled.div`
   width: 90%;
@@ -64,11 +67,7 @@ const Container = styled.div`
         justify-content: flex-end;
         align-items: center;
         column-gap: 1rem;
-
-        svg {
-          width: 1.5rem;
-          height: 1.5rem;
-        }
+        cursor: auto;
       }
     }
   }
@@ -210,36 +209,31 @@ const Video = () => {
             </div>
             <div className="data">
               <div className="views">
-                <svg className="eye" viewBox="0 0 26.292 19.667">
-                  <g transform="translate(0 -3)">
-                    <path
-                      d="M1,12.833S5.417,4,13.146,4s12.146,8.833,12.146,8.833-4.417,8.833-12.146,8.833S1,12.833,1,12.833Z"
-                      fill="none"
-                      stroke={darkMode ? '#FFFFFF' : '#07070A'}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                    />
-                    <circle
-                      cx="3.5"
-                      cy="3.5"
-                      r="3.5"
-                      transform="translate(10 9)"
-                      strokeWidth="2"
-                      stroke={darkMode ? '#FFFFFF' : '#07070A'}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                    />
-                  </g>
-                </svg>
-                <p>{video && video.views}</p>
+                <img
+                  src={viewEyeVisible}
+                  width="35"
+                  height="35"
+                  alt="viewEyeVisible"
+                />
+                <p
+                  style={{
+                    color: 'black',
+                    marginTop: '14px',
+                    marginLeft: '5px',
+                  }}
+                >
+                  {video && video.views}
+                </p>
               </div>
               {/* {video && video.user.email === user?.email && ( */}
-                {video && video.userEmail === currentUser.email && (
+              {video && video.userEmail === currentUser.email && (
                 <div className="settings">
-                  <svg
-                    viewBox="0 0 50.299 55.666"
+                  <box
+                    style={{
+                      cursor: 'pointer',
+                      width: '25px',
+                      height: '35px',
+                    }}
                     onClick={async () => {
                       try {
                         await deleteVideo(video.id);
@@ -253,90 +247,32 @@ const Video = () => {
                       }
                     }}
                   >
-                    <g transform="translate(-2 -1)">
-                      <path
-                        d="M3,6H51.3"
-                        transform="translate(0 6.733)"
-                        fill="none"
-                        stroke={darkMode ? '#FFFFFF' : '#07070A'}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                      />
-                      <path
-                        d="M42.566,12.733V50.3A5.367,5.367,0,0,1,37.2,55.666H10.367A5.367,5.367,0,0,1,5,50.3V12.733m8.05,0V7.367A5.367,5.367,0,0,1,18.417,2H29.15a5.367,5.367,0,0,1,5.367,5.367v5.367"
-                        transform="translate(3.367 0)"
-                        fill="none"
-                        stroke={darkMode ? '#FFFFFF' : '#07070A'}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                      />
-                      <line
-                        y2="16"
-                        transform="translate(22 26)"
-                        fill="none"
-                        stroke={darkMode ? '#FFFFFF' : '#07070A'}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                      />
-                      <line
-                        y2="16"
-                        transform="translate(33 26)"
-                        fill="none"
-                        stroke={darkMode ? '#FFFFFF' : '#07070A'}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                      />
-                    </g>
-                  </svg>
+                    <img
+                      src={deleteRemove}
+                      width="35"
+                      height="35"
+                      alt="deleteRemove"
+                    />
+                  </box>
                 </div>
               )}
             </div>
           </div>
           <div className="user">
-            {/*   <div className="profile">
-              {video && video.user.photoURL ? (
-                <div
-                  className="avatar"
-                  style={{
-                    backgroundImage: `url(${video && video.user.photoURL})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                  }}
-                ></div>
-              ) : (
-                <svg viewBox="0 0 34 34">
-                  <g transform="translate(1 1.247)">
-                    <path
-                      d="M36,27.916V23.61C36,18.855,32.418,15,28,15H12c-4.418,0-8,3.855-8,8.61v4.305"
-                      transform="translate(-4 3.838)"
-                      fill="none"
-                      stroke={darkMode ? '#FFFFFF' : '#07070A'}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                    />
-                    <ellipse
-                      cx="8"
-                      cy="9"
-                      rx="8"
-                      ry="9"
-                      transform="translate(8 -0.247)"
-                      fill="none"
-                      stroke={darkMode ? '#FFFFFF' : '#07070A'}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                    />
-                  </g>
-                </svg>
-              )}
-            </div> */}
-            {/* <h3>{video && video.user.displayName}</h3> */}
-            <h3>{video && video.userEmail}</h3>
+            <div
+              style={{
+                width: '2.5rem',
+                height: '2.5rem',
+                borderRadius: '50%',
+                display: 'flex',
+                justifyItems: 'center',
+                alignItems: 'center',
+              }}
+            >
+              {/* {video.user.photoURL ? ( */}
+              <img src={accountLogo} width="35" height="35" alt="testA" />
+              <h3 style={{ marginLeft: '15px' }}>{video && video.userEmail}</h3>
+            </div>
           </div>
         </>
       ) : (

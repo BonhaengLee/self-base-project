@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import ClassMaterialDataService from '../services/classmaterial';
 import UpdateClassMaterial from './UpdateClassMaterial';
-import { Button, Form } from 'react-bootstrap';
-
-ClassMaterialsList.propTypes = {};
 
 export default function ClassMaterialsList(props) {
   const [classMaterials, setClassMaterials] = useState([]);
@@ -57,10 +53,10 @@ export default function ClassMaterialsList(props) {
     setCurrentIndex(index);
   };
 
-  const removeAllTutorials = () => {
-    ClassMaterialDataService.deleteAll();
-    refreshList();
-  };
+  // const removeAllTutorials = () => {
+  //   ClassMaterialDataService.deleteAll();
+  //   refreshList();
+  // };
 
   // console.log("currentTuRkey");
   // console.log(currentTutorial.key);
