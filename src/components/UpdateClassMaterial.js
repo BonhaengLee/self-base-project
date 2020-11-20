@@ -118,10 +118,10 @@ export default function UpdateClassMaterial({ tutorial, refreshList }) {
             </div>
           </form>
           <button className="badge badge-danger mr-2" onClick={deleteTutorial}>
-            Delete
+            삭제
           </button>
           <button className="badge badge-success" onClick={updateTutorial}>
-            Update
+            수정
           </button>
         </div>
       ) : (

@@ -165,6 +165,7 @@ const Landing = () => {
       const videosSnapshot = await firebase
         .firestore()
         .collection('videos')
+        .orderBy('postedOn', 'desc')
         .get();
       const videosPayload = [];
       videosSnapshot.forEach((video) =>

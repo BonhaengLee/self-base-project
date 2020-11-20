@@ -7,6 +7,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import * as serviceWorker from './serviceWorker';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../node_modules/video-react/dist/video-react.css';
 
 ReactDOM.render(
   <BrowserRouter>

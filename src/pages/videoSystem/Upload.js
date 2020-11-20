@@ -108,6 +108,7 @@ const Upload = () => {
         live: false,
         userEmail: currentUser.email,
         views: 0,
+        postedOn: firebase.firestore.FieldValue.serverTimestamp(),
       });
       const videoSnapshot = await firebase
         .storage()

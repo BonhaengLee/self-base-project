@@ -3,7 +3,8 @@ import React, { useState, useEffect, useContext } from 'react';
 // import { UserContext } from '../../contexts/UserContext';
 import { useParams, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import Player from '../../components/videoSystem/Player';
+// import Player from '../../components/videoSystem/Player';
+import { Player, ControlBar } from 'video-react';
 import Loader from '../../components/videoSystem/Loader';
 import Alert from '../../components/videoSystem/Alert';
 
@@ -12,6 +13,12 @@ import { useAuth } from '../../contexts/AuthContext';
 import accountLogo from '../../images/accountLogo.png';
 import deleteRemove from '../../images/delete_remove.png';
 import viewEyeVisible from '../../images/view_eye_visible.png';
+import ReplayControl from 'video-react/lib/components/control-bar/ReplayControl';
+import CurrentTimeDisplay from 'video-react/lib/components/time-controls/CurrentTimeDisplay';
+import TimeDivider from 'video-react/lib/components/time-controls/TimeDivider';
+import PlaybackRateMenuButton from 'video-react/lib/components/control-bar/PlaybackRateMenuButton';
+import VolumeMenuButton from 'video-react/lib/components/control-bar/VolumeMenuButton';
+import ForwardControl from 'video-react/lib/components/control-bar/ForwardControl';
 
 const Container = styled.div`
   width: 90%;
@@ -187,27 +194,33 @@ const Video = () => {
   }, []);
 
   return !loading ? (
-    <Container darkMode={darkMode}>
+    <Container darkMode={darkMode} style={{ marginTop: '70px' }}>
       {alert && <Alert type={alert.type} text={alert.text} />}
       {video && !error ? (
         <>
-          <h1>Video</h1>
+          {/* <h1>{video && video.title}</h1> */}
           <Player
-            autoplay={false}
-            controls={true}
-            sources={[
-              {
-                src: video && video.source,
-                type: 'video/mp4',
-              },
-            ]}
-          />
+            src={video && video.source}
+            type={'video/mp4'}
+            fluid={false}
+            height={720}
+            width={'100%'}
+          >
+            <ControlBar>
+              <ReplayControl seconds={10} order={1.1} />
+              <ForwardControl seconds={30} order={1.2} />
+              <CurrentTimeDisplay order={4.1} />
+              <TimeDivider order={4.2} />
+              <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
+              <VolumeMenuButton disabled />
+            </ControlBar>
+          </Player>
           <div className="info">
             <div className="meta">
               <h1>{video && video.title}</h1>
               <h3>{video && video.description}</h3>
             </div>
-            <div className="data">
+            <div className="data" style={{ marginTop: '-15px' }}>
               <div className="views">
                 <img
                   src={viewEyeVisible}
@@ -227,7 +240,7 @@ const Video = () => {
               </div>
               {/* {video && video.user.email === user?.email && ( */}
               {video && video.userEmail === currentUser.email && (
-                <div className="settings">
+                <div className="settings" style={{ marginTop: '-15px' }}>
                   <box
                     style={{
                       cursor: 'pointer',
@@ -256,22 +269,6 @@ const Video = () => {
                   </box>
                 </div>
               )}
-            </div>
-          </div>
-          <div className="user">
-            <div
-              style={{
-                width: '2.5rem',
-                height: '2.5rem',
-                borderRadius: '50%',
-                display: 'flex',
-                justifyItems: 'center',
-                alignItems: 'center',
-              }}
-            >
-              {/* {video.user.photoURL ? ( */}
-              <img src={accountLogo} width="35" height="35" alt="testA" />
-              <h3 style={{ marginLeft: '15px' }}>{video && video.userEmail}</h3>
             </div>
           </div>
         </>
