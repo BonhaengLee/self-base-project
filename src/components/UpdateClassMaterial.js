@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import TutorialDataService from '../services/classmaterial';
+import * as dateFns from 'date-fns';
+import { useAuth } from 'contexts/AuthContext';
 
 export default function UpdateClassMaterial({ tutorial, refreshList }) {
   const [currentTutorial, setCurrentTutorial] = useState();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     setCurrentTutorial(tutorial);
@@ -44,32 +47,138 @@ export default function UpdateClassMaterial({ tutorial, refreshList }) {
   return (
     <div style={{ height: '600px' }}>
       {currentTutorial ? (
-        <div className="edit-form">
-          <form>
+        currentTutorial.name === currentUser.email ? (
+          <div className="edit-form">
+            <form>
+              <div
+                style={{
+                  marginTop: '10px',
+                  marginBottom: '10px',
+                  marginRight: '10px',
+                }}
+              >
+                <label htmlFor="name" style={{ marginRight: '10px' }}>
+                  작성자 :
+                </label>
+                {currentTutorial.name}
+                <br />
+                <label htmlFor="name" style={{ marginRight: '10px' }}>
+                  작성일:
+                </label>
+                {dateFns.format(currentTutorial.postedOn, 'yyyy-MM-dd HH:MM')}
+              </div>
+              <div
+                className="form-group"
+                style={{
+                  marginTop: '10px',
+                  marginBottom: '10px',
+                  marginRight: '10px',
+                }}
+              >
+                <div>
+                  <label htmlFor="title">제목</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="title"
+                    value={currentTutorial.title}
+                    onChange={onChangeTitle}
+                  />
+                </div>
+
+                <ul
+                  className="list-group"
+                  style={{
+                    marginTop: '10px',
+                    marginRight: '20px',
+                    marginBottom: '10px',
+                    listStyle: 'none',
+                  }}
+                >
+                  {currentTutorial.fileurl.map((url, index) => (
+                    <li>
+                      {currentTutorial.fname[index]}
+                      <a href={url} style={{ marginLeft: '10px' }} download>
+                        Download
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+
+                <div
+                  className="form-group"
+                  style={{
+                    marginTop: '10px',
+                    marginBottom: '10px',
+                    marginRight: '10px',
+                  }}
+                >
+                  <label htmlFor="description">내용</label>
+                  <textarea
+                    cols="50"
+                    rows="10"
+                    type="textarea"
+                    className="form-control"
+                    id="description"
+                    value={currentTutorial.description}
+                    onChange={onChangeDescription}
+                  ></textarea>
+                </div>
+              </div>
+            </form>
+            <button
+              className="badge badge-danger mr-2"
+              onClick={deleteTutorial}
+            >
+              삭제
+            </button>
+            <button className="badge badge-success" onClick={updateTutorial}>
+              수정
+            </button>
+          </div>
+        ) : (
+          <div className="edit-form">
             <div
-              className="form-group"
               style={{
-                marginTop: '30px',
-                marginBottom: '30px',
+                marginTop: '10px',
+                marginBottom: '10px',
                 marginRight: '10px',
               }}
             >
-              <div>
+              <label htmlFor="name" style={{ marginRight: '10px' }}>
+                작성자 :
+              </label>
+              {currentTutorial.name}
+              <br />
+              <label htmlFor="name" style={{ marginRight: '10px' }}>
+                작성일:
+              </label>
+              {dateFns.format(currentTutorial.postedOn, 'yyyy-MM-dd HH:MM')}
+            </div>
+            <div
+              className="form-group"
+              style={{
+                marginTop: '10px',
+                marginBottom: '10px',
+                marginRight: '10px',
+              }}
+            >
+              <div style={{ width: '465px' }}>
                 <label htmlFor="title">제목</label>
                 <input
                   type="text"
                   className="form-control"
                   id="title"
                   value={currentTutorial.title}
-                  onChange={onChangeTitle}
                 />
               </div>
+
               <ul
                 className="list-group"
                 style={{
-                  marginTop: '30px',
+                  marginTop: '10px',
                   marginRight: '20px',
-                  marginBottom: '30px',
+                  marginBottom: '10px',
                   listStyle: 'none',
                 }}
               >
@@ -84,46 +193,26 @@ export default function UpdateClassMaterial({ tutorial, refreshList }) {
               </ul>
 
               <div
-                style={{
-                  marginTop: '30px',
-                  marginBottom: '30px',
-                  marginRight: '10px',
-                }}
-              >
-                <label htmlFor="name" style={{ marginRight: '10px' }}>
-                  작성자 :
-                </label>
-                {currentTutorial.name}
-              </div>
-
-              <div
                 className="form-group"
                 style={{
-                  marginTop: '30px',
-                  marginBottom: '30px',
+                  marginTop: '10px',
+                  marginBottom: '10px',
                   marginRight: '10px',
                 }}
               >
                 <label htmlFor="description">내용</label>
                 <textarea
-                  cols="50"
+                  cols="54"
                   rows="10"
                   type="textarea"
                   className="form-control"
                   id="description"
                   value={currentTutorial.description}
-                  onChange={onChangeDescription}
                 ></textarea>
               </div>
             </div>
-          </form>
-          <button className="badge badge-danger mr-2" onClick={deleteTutorial}>
-            삭제
-          </button>
-          <button className="badge badge-success" onClick={updateTutorial}>
-            수정
-          </button>
-        </div>
+          </div>
+        )
       ) : (
         <div>
           <br />

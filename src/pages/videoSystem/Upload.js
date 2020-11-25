@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 
 import firebase from '../../firebase';
 import { useAuth } from '../../contexts/AuthContext';
+import { MenuItem, Select } from '@material-ui/core';
 
 const Container = styled.div`
   width: 90%;
@@ -91,6 +92,7 @@ const Container = styled.div`
 `;
 
 const Upload = () => {
+  const menuItemClass = ['캡스톤디자인', '자기주도프로젝트', '자기주도연구'];
   // const { user } = useContext(UserContext);
   const { currentUser } = useAuth();
   //   const { darkMode, addVideo } = useContext(MainContext);
@@ -100,11 +102,12 @@ const Upload = () => {
   const [alert, setAlert] = useState(null);
   const history = useHistory();
 
-  const addVideo = async (title, description, video, thumbnail) => {
+  const addVideo = async (title, description, video, thumbnail, subject) => {
     try {
       const videoRef = await firebase.firestore().collection('videos').add({
         title,
         description,
+        subject,
         live: false,
         userEmail: currentUser.email,
         views: 0,
@@ -132,17 +135,19 @@ const Upload = () => {
       description: '',
       videoName: '',
       thumbnailName: '',
+      subjectName: '',
     },
     validationSchema: Yup.object().shape({
       title: Yup.string().required('Title is required'),
       description: Yup.string().required('Description is required'),
       videoName: Yup.string().required('Video is required'),
       thumbnailName: Yup.string().required('Thumbnail is required'),
+      subject: Yup.string().required('Subject is required'),
     }),
-    onSubmit: async ({ title, description, video, thumbnail }) => {
+    onSubmit: async ({ title, description, video, thumbnail, subject }) => {
       try {
         setLoading(true);
-        await addVideo(title, description, video, thumbnail);
+        await addVideo(title, description, video, thumbnail, subject);
         setLoading(false);
         setAlert({ type: 'success', text: 'Video uploaded successfully' });
         setTimeout(() => setAlert(null), 5000);
@@ -161,7 +166,7 @@ const Upload = () => {
       {currentUser ? (
         <Container darkMode={darkMode}>
           <div id="section-header">
-            <h1>강의 영상 업로드</h1>
+            <h1>강의 영상 등록</h1>
             <button
               style={{
                 paddingLeft: '5px',
@@ -172,14 +177,14 @@ const Upload = () => {
               }}
               onClick={() => history.push('/')}
             >
-              Cancel
+              돌아가기
             </button>
           </div>
           {alert && <Alert type={alert.type} text={alert.text} />}
           <div id="files">
             <label htmlFor="video">
               <div className="file-upload">
-                <h2>{videoUploadForm.values.videoName || 'Upload video'}</h2>
+                <h2>{videoUploadForm.values.videoName || '강의 영상 첨부'}</h2>
                 <input
                   type="file"
                   accept="video/*"
@@ -207,9 +212,7 @@ const Upload = () => {
               )}
             <label htmlFor="thumbnail">
               <div className="file-upload">
-                <h2>
-                  {videoUploadForm.values.thumbnailName || 'Upload thumbnail'}
-                </h2>
+                <h2>{videoUploadForm.values.thumbnailName || '썸네일 첨부'}</h2>
                 <input
                   type="file"
                   accept="image/*"
@@ -237,10 +240,23 @@ const Upload = () => {
               <p className="error">{videoUploadForm.errors.thumbnailName}</p>
             )}
           <div id="inputs">
+            <Select
+              onChange={videoUploadForm.handleChange}
+              onBlur={videoUploadForm.handleBlur}
+              name="subject"
+              value={videoUploadForm.values.subject}
+              disableUnderline
+              variant="outlined"
+              defaultValue="asdf"
+            >
+              {menuItemClass.map((item, i) => {
+                return <MenuItem value={item}>{item}</MenuItem>;
+              })}
+            </Select>
             <input
               type="text"
               name="title"
-              placeholder="Title"
+              placeholder="제목"
               value={videoUploadForm.values.title}
               onChange={videoUploadForm.handleChange}
               onBlur={videoUploadForm.handleBlur}
@@ -251,16 +267,17 @@ const Upload = () => {
             <input
               type="text"
               name="description"
-              placeholder="Description"
+              placeholder="내용"
               value={videoUploadForm.values.description}
               onChange={videoUploadForm.handleChange}
               onBlur={videoUploadForm.handleBlur}
             />
+
             {videoUploadForm.errors.description &&
               videoUploadForm.touched.description && (
                 <p className="error">{videoUploadForm.errors.description}</p>
               )}
-            <Button mode="form" text={loading ? <InlineLoader /> : 'Submit'} />
+            <Button mode="form" text={loading ? <InlineLoader /> : '등록'} />
           </div>
         </Container>
       ) : (

@@ -6,6 +6,7 @@ import Loader from '../../components/videoSystem/Loader';
 import accountLogo from '../../images/accountLogo.png';
 import viewEyeVisible from '../../images/view_eye_visible.png';
 import firebase from '../../firebase';
+import TurnedInNotSharpIcon from '@material-ui/icons/TurnedInNotSharp';
 
 const Container = styled.div`
   width: 90%;
@@ -157,9 +158,6 @@ const Container = styled.div`
 var videos = [];
 
 const Landing = () => {
-  // const { videos, getVideos, darkMode } = useContext(MainContext);
-  // const [videos, setVideos] = useState([]);
-
   const getVideos = async () => {
     try {
       const videosSnapshot = await firebase
@@ -169,7 +167,11 @@ const Landing = () => {
         .get();
       const videosPayload = [];
       videosSnapshot.forEach((video) =>
-        videosPayload.push({ ...video.data(), id: video.id }),
+        videosPayload.push({
+          ...video.data(),
+          postedOn: video.data().postedOn.toDate(),
+          id: video.id,
+        }),
       );
       // dispatch({ type: GET_VIDEOS, payload: videosPayload });
       console.log('vP', videosPayload);
@@ -240,10 +242,10 @@ const Landing = () => {
                     {/* {video.user.photoURL ? ( */}
                     <img
                       src={accountLogo}
-                      width="35"
-                      height="35"
+                      width="20"
+                      height="20"
                       alt="testA"
-                      style={{ marginTop: '-10px' }}
+                      style={{ marginTop: '19px' }}
                     />
                   </div>
                   <div className="meta">
@@ -253,19 +255,37 @@ const Landing = () => {
                           ? history.push(`live/${video.id}`)
                           : history.push(`video/${video.id}`)
                       }
+                      style={{ fontSize: '21px', marginLeft: '-45px' }}
                     >
                       {video.title}
                     </h3>
-                    <h5>{video.userEmail}</h5>
+                    <h3
+                      style={{
+                        fontSize: '18px',
+                        marginLeft: '-48px',
+                        color: '#880E4F',
+                      }}
+                    >
+                      {video.subject}
+                    </h3>
+                    <h5 style={{ fontSize: '18px', marginLeft: '-9px' }}>
+                      {video.userEmail}
+                    </h5>
                     <div className="views">
                       <img
                         src={viewEyeVisible}
-                        width="35"
-                        height="35"
+                        width="30"
+                        height="30"
                         alt="viewEyeVisible"
-                        style={{ marginLeft: '-53px' }}
+                        style={{ marginLeft: '-51px', marginTop: '-13px' }}
                       />
-                      <p style={{ color: 'black', marginTop: '10px' }}>
+                      <p
+                        style={{
+                          color: 'black',
+                          fontSize: '18px',
+                          marginLeft: '-14px',
+                        }}
+                      >
                         {video.views}
                       </p>
                     </div>

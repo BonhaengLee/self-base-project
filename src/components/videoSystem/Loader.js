@@ -24,7 +24,6 @@ const Spinner = styled.div`
 `;
 
 const Loader = () => {
-  // const { darkMode } = useContext(MainContext);
   const darkMode = true;
 
   return <Spinner darkMode={darkMode}></Spinner>;

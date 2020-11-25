@@ -4,7 +4,7 @@ const db = firebase.firestore();
 
 class TutorialDataService {
   getAll() {
-    return db.collection('classMaterials').orderBy('postedOn', 'asc').get();
+    return db.collection('classMaterials').orderBy('postedOn', 'desc').get();
   }
 
   create(tutorial) {

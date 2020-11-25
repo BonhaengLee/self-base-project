@@ -5,12 +5,20 @@ import { v4 as uuid } from 'uuid';
 import { useAuth } from '../contexts/AuthContext';
 import { Button, Form } from 'react-bootstrap';
 import uploadIcon from '../images/uploadFilesIcon.png';
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from '@material-ui/core';
 
 const db = firebaseApp.firestore();
 
 export default function AddCourseMaterials(props) {
-  const { currentUser } = useAuth();
+  const menuItemClass = ['캡스톤디자인', '자기주도프로젝트', '자기주도연구'];
 
+  const { currentUser } = useAuth();
   const [files, setFiles] = useState([]);
   const inputRef = useRef();
   const previewRef = useRef();
@@ -18,6 +26,7 @@ export default function AddCourseMaterials(props) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [fileUrl, setFileUrl] = useState([]);
+  const [classes, setClasses] = useState(menuItemClass[0]);
   const [submitted, setSubmitted] = useState(false);
 
   const fileTypes = [
@@ -214,6 +223,10 @@ export default function AddCourseMaterials(props) {
     'application/zip',
   ];
 
+  const onChangeClass = (e) => {
+    setClasses(e.target.value);
+  };
+
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -312,6 +325,7 @@ export default function AddCourseMaterials(props) {
           description: description,
           fileurl: url,
           fname: fname,
+          class: classes,
           postedOn: firebase.firestore.FieldValue.serverTimestamp(),
         },
         { merge: true },
@@ -353,6 +367,7 @@ export default function AddCourseMaterials(props) {
                     description: description,
                     fileurl: url,
                     fname: fname,
+                    class: classes,
                     postedOn: firebase.firestore.FieldValue.serverTimestamp(),
                   },
                   { merge: true },
@@ -395,81 +410,84 @@ export default function AddCourseMaterials(props) {
         style={{
           fontFamily: 'Poppins',
           fontSize: 40,
-          marginBottom: '20px',
-          marginTop: '-25px',
         }}
       >
-        강의 자료 업로드
+        강의 자료 등록
       </h1>
-      {submitted ? (
-        <div>
-          <h4>글 작성이 완료되었습니다!</h4>
-          <button className="btn btn-success mt-1" onClick={newClassMaterials}>
-            글 작성하러 하기
-          </button>
-        </div>
-      ) : (
-        <div>
-          <Form.Group controlId="formGridTitle">
-            <Form.Label>Title</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="제목"
-              aria-label="With text"
-              aria-describedby="basic-addon1"
-              className="form-control"
-              id="title"
-              required
-              value={title}
-              onChange={onChangeTitle}
-              name="title"
-            />
-          </Form.Group>
 
-          <Form.Group
-            controlId="formGridContents"
-            style={{ marginBottom: '15px' }}
-          >
-            <Form.Label>Contents</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows="12"
-              placeholder="본문을 입력하세요"
-              aria-label="With textarea"
-              aria-describedby="inputGroup-sizing-lg"
-              className="form-control"
-              id="description"
-              required
-              value={description}
-              onChange={onChangeDescription}
-              name="description"
-            />
-          </Form.Group>
+      <div style={{ marginTop: '40px' }}>
+        {/* <InputLabel htmlFor="outlined-age-native-simple">강의</InputLabel> */}
+        <Select
+          onChange={onChangeClass}
+          name="class"
+          value={classes}
+          disableUnderline
+          variant="outlined"
+          style={{ marginBottom: '15px' }}
+        >
+          {menuItemClass.map((item, i) => {
+            return <MenuItem value={item}>{item}</MenuItem>;
+          })}
+        </Select>
+        <Form.Group controlId="formGridTitle">
+          {/* <InputLabel htmlFor="outlined-age-native-simple">제목</InputLabel> */}
+          <Form.Control
+            type="text"
+            placeholder="제목"
+            aria-label="With text"
+            aria-describedby="basic-addon1"
+            className="form-control"
+            id="title"
+            required
+            value={title}
+            onChange={onChangeTitle}
+            name="title"
+          />
+        </Form.Group>
 
-          <div>
-            <label htmlFor="file_uploads">
-              <img src={uploadIcon} width="35" height="35" alt="testA" />
-            </label>
-            <input
-              type="file"
-              id="file_uploads"
-              name="file_uploads"
-              multiple
-              onChange={updateImageDisplay}
-              style={{ opacity: 0, width: '1px', height: '1px' }}
-              ref={inputRef}
-            />
-          </div>
-          <div className="preview" ref={previewRef}>
-            <p>No files currently selected for upload</p>
-          </div>
-          <div>
-            <Button className="w-20" type="submit">
-              Submit
-            </Button>
-          </div>
+        <Form.Group
+          controlId="formGridContents"
+          style={{ marginBottom: '15px' }}
+        >
+          {/* <InputLabel htmlFor="outlined-age-native-simple">내용</InputLabel> */}
+          <Form.Control
+            as="textarea"
+            rows="12"
+            placeholder="본문을 입력하세요"
+            aria-label="With textarea"
+            aria-describedby="inputGroup-sizing-lg"
+            className="form-control"
+            id="description"
+            required
+            value={description}
+            onChange={onChangeDescription}
+            name="description"
+          />
+        </Form.Group>
+
+        <div>
+          <label htmlFor="file_uploads">
+            <img src={uploadIcon} width="35" height="35" alt="testA" />
+          </label>
+          <input
+            type="file"
+            id="file_uploads"
+            name="file_uploads"
+            multiple
+            onChange={updateImageDisplay}
+            style={{ opacity: 0, width: '1px', height: '1px' }}
+            ref={inputRef}
+          />
         </div>
-      )}
+        <div className="preview" ref={previewRef}>
+          <p>No files currently selected for upload</p>
+        </div>
+        <div>
+          <Button className="w-20" type="submit">
+            등록
+          </Button>
+        </div>
+      </div>
     </form>
   );
 }

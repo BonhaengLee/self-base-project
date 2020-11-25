@@ -9,7 +9,9 @@ export default function UserIcon() {
       {currentUser ? (
         <>
           <img src={userIcon} width="55" height="55" alt="testA" style={{}} />
-          <strong style={{ fontSize: '14px' }}>{currentUser.email}</strong>
+          <strong style={{ fontSize: '14px', color: 'black' }}>
+            {currentUser.email}
+          </strong>
         </>
       ) : null}
     </a>

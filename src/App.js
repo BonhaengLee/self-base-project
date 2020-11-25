@@ -8,6 +8,10 @@ const DashBoardPage = lazy(() => import('./pages/Dashboard.page'));
 const UpdateProfilePage = lazy(() => import('./pages/UpdateProfile.page'));
 const SignUpPage = lazy(() => import('./pages/Signup.page'));
 const LoginPage = lazy(() => import('./pages/Login.page'));
+
+const AddClass = lazy(() => import('./pages/AddClass'));
+const AddTeacher = lazy(() => import('./pages/AddTeacher'));
+
 const AddCourseMaterialsPage = lazy(() =>
   import('./pages/AddCourseMaterials.page'),
 );
@@ -24,15 +28,21 @@ const Nav = lazy(() => import('./components/Nav'));
 
 function App() {
   return (
-    <div style={{ flex: 1, flexDirection: 'flex-start' }}>
+    <div
+      style={{
+        flex: 1,
+        flexDirection: 'flex-start',
+        backgroundcolor: 'rgb(245,248,250)',
+      }}
+    >
       <Suspense
         fallback={
           <div>
-            <CircularProgress />
+            <CircularProgress fullWidth />
           </div>
         }
       >
-        <Nav />
+        <Nav style={{ backgroundColor: 'white' }} />
         <div>
           <AuthProvider>
             <Switch>
@@ -46,6 +56,8 @@ function App() {
               <PrivateRoute path="/mypage" component={MypagePage} />
               <Route path="/forgot-password" component={ForgotPasswordPage} />
               <PrivateRoute path="/add" component={AddCourseMaterialsPage} />
+              <PrivateRoute path="/add-class" component={AddClass} />
+              <PrivateRoute path="/add-teacher" component={AddTeacher} />
               <PrivateRoute path="/read" component={ReadCourseMaterialsPage} />
               <PrivateRoute path="/upload" component={Upload} />
               <PrivateRoute path="/video/:id" component={Video} />

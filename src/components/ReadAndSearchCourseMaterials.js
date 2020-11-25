@@ -1,10 +1,4 @@
-import {
-  InputAdornment,
-  Paper,
-  SvgIcon,
-  TextField,
-  Grid,
-} from '@material-ui/core';
+import { InputAdornment, Paper, SvgIcon, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { Col } from 'react-bootstrap';
 import TutorialDataService from '../services/classmaterial';
@@ -18,7 +12,12 @@ export default function ReadCourseMaterialsList() {
 
   const loadTutorialData = () => {
     TutorialDataService.getAll().then((snapshot) => {
-      setTutorials(snapshot.docs.map((item) => ({ ...item.data() })));
+      setTutorials(
+        snapshot.docs.map((item) => ({
+          ...item.data(),
+          postedOn: item.data().postedOn.toDate(),
+        })),
+      );
     });
   };
 
@@ -60,11 +59,11 @@ export default function ReadCourseMaterialsList() {
       <Col
         style={{
           top: '-50px',
-          
         }}
         xs="6"
+        elevation={3}
       >
-        <header style={{ fontSize: '20px' }}>강의 자료</header>
+        <h1 style={{ marginBottom: '40px' }}>강의 자료</h1>
         <Paper
           style={{ marginTop: '10px', marginBottom: '10px', width: '200px' }}
         >
@@ -89,16 +88,15 @@ export default function ReadCourseMaterialsList() {
           {tutorials && filteredComponents(tutorials)}
         </ul>
       </Col>
-      <Col
-        // style={{
-        //   position: 'absolute',
-        //   left: '700px',
-        //   top: '100px',
-        //   width: '600px',
-        // }}
-        xs="6"
-      >
-        <Paper style={{ margin: '10px 10px', padding: '10px' }}>
+      <Col xs="6">
+        <Paper
+          style={{
+            margin: '10px 10px',
+            padding: '10px',
+            backgroundColor: 'rgb(238,238,238)',
+          }}
+          elevation={3}
+        >
           {currentIndex >= 0 ? (
             <UpdateClassMaterial
               tutorial={tutorials[currentIndex]}

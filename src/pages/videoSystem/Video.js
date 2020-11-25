@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { Player, ControlBar } from 'video-react';
 import Loader from '../../components/videoSystem/Loader';
 import Alert from '../../components/videoSystem/Alert';
+import * as dateFns from 'date-fns';
 
 import firebase from '../../firebase';
 import { useAuth } from '../../contexts/AuthContext';
@@ -22,7 +23,7 @@ import ForwardControl from 'video-react/lib/components/control-bar/ForwardContro
 
 const Container = styled.div`
   width: 90%;
-  margin: 3rem auto;
+  margin: 2rem auto;
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 1.5rem;
@@ -36,6 +37,7 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: 1rem;
+    margin-top: -10px;
 
     .meta {
       grid-template-columns: 1fr;
@@ -133,7 +135,11 @@ const Video = () => {
         .collection('videos')
         .doc(id)
         .get();
-      return { ...video.data(), id: video.id };
+      return {
+        ...video.data(),
+        postedOn: video.data().postedOn.toDate(),
+        id: video.id,
+      };
     } catch (err) {
       throw err;
     }
@@ -208,16 +214,24 @@ const Video = () => {
           >
             <ControlBar>
               <ReplayControl seconds={10} order={1.1} />
-              <ForwardControl seconds={30} order={1.2} />
+              <ForwardControl seconds={10} order={1.2} />
               <CurrentTimeDisplay order={4.1} />
               <TimeDivider order={4.2} />
-              <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} order={7.1} />
+              <PlaybackRateMenuButton
+                rates={[2, 1.75, 1.5, 1.25, 1.0, 0.5]}
+                order={7.1}
+              />
               <VolumeMenuButton disabled />
             </ControlBar>
           </Player>
           <div className="info">
             <div className="meta">
-              <h1>{video && video.title}</h1>
+              <h2>{video && video.title}</h2>
+              <div>
+                <h3 style={{ fontSize: '18px', color: 'black' }}>
+                  {dateFns.format(video.postedOn, 'yyyy-MM-dd HH:MM')}
+                </h3>
+              </div>
               <h3>{video && video.description}</h3>
             </div>
             <div className="data" style={{ marginTop: '-15px' }}>
@@ -240,7 +254,7 @@ const Video = () => {
               </div>
               {/* {video && video.user.email === user?.email && ( */}
               {video && video.userEmail === currentUser.email && (
-                <div className="settings" style={{ marginTop: '-15px' }}>
+                <div className="settings">
                   <box
                     style={{
                       cursor: 'pointer',
@@ -265,6 +279,7 @@ const Video = () => {
                       width="35"
                       height="35"
                       alt="deleteRemove"
+                      style={{ marginTop: '-20px' }}
                     />
                   </box>
                 </div>
