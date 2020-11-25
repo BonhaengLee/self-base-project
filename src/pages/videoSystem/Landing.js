@@ -245,7 +245,7 @@ const Landing = () => {
                       width="20"
                       height="20"
                       alt="testA"
-                      style={{ marginTop: '19px' }}
+                      style={{ marginTop: '15px' }}
                     />
                   </div>
                   <div className="meta">
@@ -263,7 +263,7 @@ const Landing = () => {
                       style={{
                         fontSize: '18px',
                         marginLeft: '-48px',
-                        color: '#880E4F',
+                        color: '#1A237E',
                       }}
                     >
                       {video.subject}

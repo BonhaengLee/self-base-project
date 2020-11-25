@@ -12,6 +12,7 @@ import {
   Select,
   Typography,
 } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 const db = firebaseApp.firestore();
 
@@ -28,6 +29,7 @@ export default function AddCourseMaterials(props) {
   const [fileUrl, setFileUrl] = useState([]);
   const [classes, setClasses] = useState(menuItemClass[0]);
   const [submitted, setSubmitted] = useState(false);
+  const history = useHistory();
 
   const fileTypes = [
     'image/apng',
@@ -414,6 +416,19 @@ export default function AddCourseMaterials(props) {
       >
         강의 자료 등록
       </h1>
+      <Button
+        style={{
+          backgroundColor: '#FF4A4A',
+          color: 'white',
+          border: 'none',
+          marginTop: '20px',
+          paddingTop: '8px',
+          height: '55px',
+        }}
+        onClick={() => history.push('/mypage')}
+      >
+        돌아가기
+      </Button>
 
       <div style={{ marginTop: '40px' }}>
         {/* <InputLabel htmlFor="outlined-age-native-simple">강의</InputLabel> */}
@@ -482,11 +497,19 @@ export default function AddCourseMaterials(props) {
         <div className="preview" ref={previewRef}>
           <p>No files currently selected for upload</p>
         </div>
-        <div>
-          <Button className="w-20" type="submit">
-            등록
-          </Button>
-        </div>
+        <Button
+          className="w-20"
+          type="submit"
+          fullWidth
+          style={{
+            backgroundColor: '#FF4A4A',
+            border: 'none',
+            width: '1110px',
+            height: '50px',
+          }}
+        >
+          등록
+        </Button>
       </div>
     </form>
   );

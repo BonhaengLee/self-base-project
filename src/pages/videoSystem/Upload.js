@@ -11,7 +11,8 @@ import * as Yup from 'yup';
 
 import firebase from '../../firebase';
 import { useAuth } from '../../contexts/AuthContext';
-import { MenuItem, Select } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const Container = styled.div`
   width: 90%;
@@ -175,7 +176,7 @@ const Upload = () => {
                 color: 'white',
                 border: 'none',
               }}
-              onClick={() => history.push('/')}
+              onClick={() => history.push('/mypage')}
             >
               돌아가기
             </button>
@@ -240,19 +241,21 @@ const Upload = () => {
               <p className="error">{videoUploadForm.errors.thumbnailName}</p>
             )}
           <div id="inputs">
-            <Select
-              onChange={videoUploadForm.handleChange}
-              onBlur={videoUploadForm.handleBlur}
-              name="subject"
-              value={videoUploadForm.values.subject}
-              disableUnderline
-              variant="outlined"
-              defaultValue="asdf"
-            >
-              {menuItemClass.map((item, i) => {
-                return <MenuItem value={item}>{item}</MenuItem>;
-              })}
-            </Select>
+            <FormControl variant="filled" style={{ minWidth: 130 }} fullWidth>
+              <InputLabel htmlFor="filled-age-native-simple">과목</InputLabel>
+              <Select
+                onChange={videoUploadForm.handleChange}
+                onBlur={videoUploadForm.handleBlur}
+                name="subject"
+                value={videoUploadForm.values.subject}
+                disableUnderline
+                variant="outlined"
+              >
+                {menuItemClass.map((item, i) => {
+                  return <MenuItem value={item}>{item}</MenuItem>;
+                })}
+              </Select>
+            </FormControl>
             <input
               type="text"
               name="title"
