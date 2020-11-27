@@ -3,6 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from './auth/PrivateRoute';
 import { AuthProvider } from './contexts/AuthContext';
 import { CircularProgress } from '@material-ui/core';
+import styled from 'styled-components';
+import HomeImage from './images/black-and-white-bamboo-surface-merge-for-background_7182-2053.jpg';
 
 const DashBoardPage = lazy(() => import('./pages/Dashboard.page'));
 const UpdateProfilePage = lazy(() => import('./pages/UpdateProfile.page'));
@@ -28,21 +30,24 @@ const Nav = lazy(() => import('./components/Nav'));
 
 function App() {
   return (
-    <div
-      style={{
-        flex: 1,
-        flexDirection: 'flex-start',
-        backgroundcolor: 'rgb(245,248,250)',
-      }}
-    >
+    <Container>
       <Suspense
         fallback={
-          <div>
-            <CircularProgress fullWidth />
-          </div>
+          <>
+            <CircularProgress
+              style={{
+                marginLeft: '750px',
+                marginTop: '300px',
+                height: '65px',
+                width: '65px',
+              }}
+            />
+          </>
         }
       >
-        <Nav style={{ backgroundColor: 'white' }} />
+        <Nav
+          style={{ backgroundColor: 'white', fontFamily: 'CookieRun Bold' }}
+        />
         <div>
           <AuthProvider>
             <Switch>
@@ -66,8 +71,26 @@ function App() {
           </AuthProvider>
         </div>
       </Suspense>
-    </div>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+      to right,
+      rgba(20, 20, 20, 0.1) 10%,
+      rgba(20, 20, 20, 0.25) 25%,
+      rgba(20, 20, 20, 0.4) 50%,
+      rgba(20, 20, 20, 0.6) 80%
+    ),
+    url(${HomeImage});
+  background-size: cover;
+  font-family: 'CookieRun Bold';
+`;
 
 export default App;

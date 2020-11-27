@@ -9,9 +9,10 @@ const Logout = lazy(() => import('../auth/Logout'));
 
 const useStyles = makeStyles((theme) => ({
   typo1: {
-    color: 'black',
+    color: 'white',
     fontWeight: '400',
     fontSize: '20px',
+    fontFamily: 'CookieRun Bold',
     '&:hover': {
       color: '#C2185B',
     },
@@ -93,7 +94,7 @@ export default function Nav() {
           <img src={logo} width="115" height="35" alt="testA" />
         </a>
         <div className="navbar-nav mr-auto">
-          <li className="nav-item mr-1" style={{ marginTop: '-2px' }}>
+          <li className="nav-item mr-2" style={{ marginTop: '-2px' }}>
             <Link to={'/mypage'} className="nav-link">
               <Typography className={classes.typo1}>마이페이지</Typography>
             </Link>
@@ -103,7 +104,7 @@ export default function Nav() {
               <Typography className={classes.typo1}>강의 추가</Typography>
             </Link>
           </li> */}
-          <li className="nav-item mr-1" style={{ marginTop: '-2px' }}>
+          <li className="nav-item mr-2" style={{ marginTop: '-2px' }}>
             <Link to={'/add-teacher'} className="nav-link">
               <Typography className={classes.typo1}>구독 목록</Typography>
             </Link>

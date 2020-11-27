@@ -23,7 +23,7 @@ export default function Logout() {
       {currentUser ? (
         <>
           <Button variant="outline-danger" onClick={handleLogout}>
-            로그아웃
+            LOG OUT
           </Button>
         </>
       ) : null}

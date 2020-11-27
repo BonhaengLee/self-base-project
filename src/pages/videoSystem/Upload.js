@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 // import { MainContext } from '../contexts/MainContext';
 // import { UserContext } from '../contexts/UserContext';
 import styled from 'styled-components';
@@ -22,7 +22,7 @@ const Container = styled.div`
   row-gap: 1.5rem;
 
   h1 {
-    font-family: 'Poppins';
+    font-family: 'CookieRun Bold';
     font-size: 40;
   }
 
@@ -53,7 +53,7 @@ const Container = styled.div`
       border: 3px dashed rgba(7, 7, 10, 1);
 
       h2 {
-        font-family: 'Poppins';
+        font-family: 'CookieRun Bold';
         font-size: 30;
         cursor: pointer;
       }
@@ -163,130 +163,150 @@ const Upload = () => {
   });
 
   return (
-    <form onSubmit={videoUploadForm.handleSubmit}>
-      {currentUser ? (
-        <Container darkMode={darkMode}>
-          <div id="section-header">
-            <h1>강의 영상 등록</h1>
-            <button
-              style={{
-                paddingLeft: '5px',
-                paddingRight: '5px',
-                backgroundColor: '#FF4A4A',
-                color: 'white',
-                border: 'none',
-              }}
-              onClick={() => history.push('/mypage')}
-            >
-              돌아가기
-            </button>
-          </div>
-          {alert && <Alert type={alert.type} text={alert.text} />}
-          <div id="files">
-            <label htmlFor="video">
-              <div className="file-upload">
-                <h2>{videoUploadForm.values.videoName || '강의 영상 첨부'}</h2>
-                <input
-                  type="file"
-                  accept="video/*"
-                  name="video"
-                  id="video"
-                  style={{ display: 'none' }}
-                  onChange={(event) => {
-                    if (event.target.files[0]) {
-                      videoUploadForm.setFieldValue(
-                        'video',
-                        event.target.files[0],
-                      );
-                      videoUploadForm.setFieldValue(
-                        'videoName',
-                        event.target.files[0].name,
-                      );
-                    }
-                  }}
-                />
-              </div>
-            </label>
-            {videoUploadForm.errors.videoName &&
-              videoUploadForm.touched.videoName && (
-                <p className="error">{videoUploadForm.errors.videoName}</p>
+    <Container style={{ marginBottom: '20px' }}>
+      <form onSubmit={videoUploadForm.handleSubmit}>
+        {currentUser ? (
+          <Container darkMode={darkMode}>
+            <div id="section-header">
+              <h1>강의 영상 등록</h1>
+              <button
+                style={{
+                  paddingLeft: '5px',
+                  paddingRight: '5px',
+                  backgroundColor: '#FF4A4A',
+                  color: 'white',
+                  border: 'none',
+                }}
+                onClick={() => history.push('/mypage')}
+              >
+                돌아가기
+              </button>
+            </div>
+            {alert && <Alert type={alert.type} text={alert.text} />}
+            <div id="files">
+              <label htmlFor="video">
+                <div className="file-upload">
+                  <h2>
+                    {videoUploadForm.values.videoName || '강의 영상 첨부'}
+                  </h2>
+                  <input
+                    type="file"
+                    accept="video/*"
+                    name="video"
+                    id="video"
+                    style={{ display: 'none' }}
+                    onChange={(event) => {
+                      if (event.target.files[0]) {
+                        videoUploadForm.setFieldValue(
+                          'video',
+                          event.target.files[0],
+                        );
+                        videoUploadForm.setFieldValue(
+                          'videoName',
+                          event.target.files[0].name,
+                        );
+                      }
+                    }}
+                  />
+                </div>
+              </label>
+              {videoUploadForm.errors.videoName &&
+                videoUploadForm.touched.videoName && (
+                  <p className="error">{videoUploadForm.errors.videoName}</p>
+                )}
+              <label htmlFor="thumbnail">
+                <div className="file-upload">
+                  <h2>
+                    {videoUploadForm.values.thumbnailName || '썸네일 첨부'}
+                  </h2>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    name="thumbnail"
+                    id="thumbnail"
+                    style={{ display: 'none' }}
+                    onChange={(event) => {
+                      if (event.target.files[0]) {
+                        videoUploadForm.setFieldValue(
+                          'thumbnail',
+                          event.target.files[0],
+                        );
+                        videoUploadForm.setFieldValue(
+                          'thumbnailName',
+                          event.target.files[0].name,
+                        );
+                      }
+                    }}
+                  />
+                </div>
+              </label>
+            </div>
+            {videoUploadForm.errors.thumbnailName &&
+              videoUploadForm.touched.thumbnailName && (
+                <p className="error">{videoUploadForm.errors.thumbnailName}</p>
               )}
-            <label htmlFor="thumbnail">
-              <div className="file-upload">
-                <h2>{videoUploadForm.values.thumbnailName || '썸네일 첨부'}</h2>
-                <input
-                  type="file"
-                  accept="image/*"
-                  name="thumbnail"
-                  id="thumbnail"
-                  style={{ display: 'none' }}
-                  onChange={(event) => {
-                    if (event.target.files[0]) {
-                      videoUploadForm.setFieldValue(
-                        'thumbnail',
-                        event.target.files[0],
-                      );
-                      videoUploadForm.setFieldValue(
-                        'thumbnailName',
-                        event.target.files[0].name,
-                      );
-                    }
-                  }}
-                />
-              </div>
-            </label>
-          </div>
-          {videoUploadForm.errors.thumbnailName &&
-            videoUploadForm.touched.thumbnailName && (
-              <p className="error">{videoUploadForm.errors.thumbnailName}</p>
-            )}
-          <div id="inputs">
-            <FormControl variant="filled" style={{ minWidth: 130 }} fullWidth>
-              <InputLabel htmlFor="filled-age-native-simple">과목</InputLabel>
-              <Select
+            <div id="inputs">
+              <FormControl variant="filled" style={{ minWidth: 130 }} fullWidth>
+                <InputLabel
+                  htmlFor="filled-age-native-simple"
+                  style={{ fontFamily: 'CookieRun Bold' }}
+                >
+                  과목
+                </InputLabel>
+                <Select
+                  onChange={videoUploadForm.handleChange}
+                  onBlur={videoUploadForm.handleBlur}
+                  name="subject"
+                  value={videoUploadForm.values.subject}
+                  disableUnderline
+                  variant="outlined"
+                  style={{ fontFamily: 'CookieRun Bold' }}
+                >
+                  {menuItemClass.map((item, i) => {
+                    return (
+                      <MenuItem
+                        value={item}
+                        style={{ fontFamily: 'CookieRun Bold' }}
+                      >
+                        {item}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+              <input
+                type="text"
+                name="title"
+                placeholder="제목"
+                value={videoUploadForm.values.title}
                 onChange={videoUploadForm.handleChange}
                 onBlur={videoUploadForm.handleBlur}
-                name="subject"
-                value={videoUploadForm.values.subject}
-                disableUnderline
-                variant="outlined"
-              >
-                {menuItemClass.map((item, i) => {
-                  return <MenuItem value={item}>{item}</MenuItem>;
-                })}
-              </Select>
-            </FormControl>
-            <input
-              type="text"
-              name="title"
-              placeholder="제목"
-              value={videoUploadForm.values.title}
-              onChange={videoUploadForm.handleChange}
-              onBlur={videoUploadForm.handleBlur}
-            />
-            {videoUploadForm.errors.title && videoUploadForm.touched.title && (
-              <p className="error">{videoUploadForm.errors.title}</p>
-            )}
-            <input
-              type="text"
-              name="description"
-              placeholder="내용"
-              value={videoUploadForm.values.description}
-              onChange={videoUploadForm.handleChange}
-              onBlur={videoUploadForm.handleBlur}
-            />
+              />
+              {videoUploadForm.errors.title &&
+                videoUploadForm.touched.title && (
+                  <p className="error">{videoUploadForm.errors.title}</p>
+                )}
+              <input
+                type="text"
+                name="description"
+                placeholder="내용"
+                value={videoUploadForm.values.description}
+                onChange={videoUploadForm.handleChange}
+                onBlur={videoUploadForm.handleBlur}
+              />
 
-            {videoUploadForm.errors.description &&
-              videoUploadForm.touched.description && (
-                <p className="error">{videoUploadForm.errors.description}</p>
-              )}
-            <Button mode="form" text={loading ? <InlineLoader /> : '등록'} />
-          </div>
-        </Container>
-      ) : (
-        <Redirect to="/" />
-      )}
-    </form>
+              {videoUploadForm.errors.description &&
+                videoUploadForm.touched.description && (
+                  <p className="error">{videoUploadForm.errors.description}</p>
+                )}
+              <Button mode="form" text={loading ? <InlineLoader /> : '등록'} />
+            </div>
+          </Container>
+        ) : (
+          <Redirect to="/" />
+        )}
+      </form>
+    </Container>
   );
 };
 

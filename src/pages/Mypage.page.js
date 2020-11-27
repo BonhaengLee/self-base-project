@@ -32,7 +32,11 @@ export default function MypagePage() {
               component={Link}
               to={'/add'}
               fullWidth
-              style={{ fontSize: '65%', color: 'gray' }}
+              style={{
+                fontSize: '65%',
+                color: 'gray',
+                fontFamily: 'CookieRun Bold',
+              }}
             >
               추가하기 <PostAddIcon />
             </Button>
@@ -42,7 +46,11 @@ export default function MypagePage() {
               component={Link}
               to={'/read'}
               fullWidth
-              style={{ fontSize: '65%', color: 'gray' }}
+              style={{
+                fontSize: '65%',
+                color: 'gray',
+                fontFamily: 'CookieRun Bold',
+              }}
             >
               목록 보기 <ListAltIcon />
             </Button>
@@ -54,7 +62,11 @@ export default function MypagePage() {
               component={Link}
               to={'/upload'}
               fullWidth
-              style={{ fontSize: '65%', color: 'gray' }}
+              style={{
+                fontSize: '65%',
+                color: 'gray',
+                fontFamily: 'CookieRun Bold',
+              }}
             >
               추가하기 <QueuePlayNextIcon />
             </Button>
@@ -64,7 +76,11 @@ export default function MypagePage() {
               component={Link}
               to={'/landing'}
               fullWidth
-              style={{ fontSize: '65%', color: 'gray' }}
+              style={{
+                fontSize: '65%',
+                color: 'gray',
+                fontFamily: 'CookieRun Bold',
+              }}
             >
               목록 보기 <ListAltIcon />
             </Button>

@@ -105,7 +105,7 @@ export default function ReadCourseMaterialsList() {
           ) : (
             <div>
               <br />
-              <p>Please click on a posts...</p>
+              <p>강의 자료를 클릭하세요</p>
             </div>
           )}
         </Paper>

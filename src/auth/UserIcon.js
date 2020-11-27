@@ -1,3 +1,4 @@
+import { AccountCircle } from '@material-ui/icons';
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import userIcon from '../images/edumeet_userIcon.png';
@@ -8,8 +9,13 @@ export default function UserIcon() {
     <a href="/" className="navbar-brand w-100 text-center mt-1">
       {currentUser ? (
         <>
-          <img src={userIcon} width="55" height="55" alt="testA" style={{}} />
-          <strong style={{ fontSize: '14px', color: 'black' }}>
+          <AccountCircle />
+          <strong
+            style={{
+              fontSize: '14px',
+              color: 'black',
+            }}
+          >
             {currentUser.email}
           </strong>
         </>

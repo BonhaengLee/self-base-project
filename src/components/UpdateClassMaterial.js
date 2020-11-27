@@ -63,7 +63,7 @@ export default function UpdateClassMaterial({ tutorial, refreshList }) {
                 {currentTutorial.name}
                 <br />
                 <label htmlFor="name" style={{ marginRight: '10px' }}>
-                  작성일:
+                  작성일 :
                 </label>
                 {dateFns.format(currentTutorial.postedOn, 'yyyy-MM-dd HH:MM')}
               </div>
@@ -83,6 +83,7 @@ export default function UpdateClassMaterial({ tutorial, refreshList }) {
                     id="title"
                     value={currentTutorial.title}
                     onChange={onChangeTitle}
+                    style={{ width: '480px' }}
                   />
                 </div>
 
@@ -122,6 +123,7 @@ export default function UpdateClassMaterial({ tutorial, refreshList }) {
                     id="description"
                     value={currentTutorial.description}
                     onChange={onChangeDescription}
+                    style={{ width: '480px' }}
                   ></textarea>
                 </div>
               </div>
@@ -151,7 +153,7 @@ export default function UpdateClassMaterial({ tutorial, refreshList }) {
               {currentTutorial.name}
               <br />
               <label htmlFor="name" style={{ marginRight: '10px' }}>
-                작성일:
+                작성일 :
               </label>
               {dateFns.format(currentTutorial.postedOn, 'yyyy-MM-dd HH:MM')}
             </div>
@@ -170,6 +172,7 @@ export default function UpdateClassMaterial({ tutorial, refreshList }) {
                   className="form-control"
                   id="title"
                   value={currentTutorial.title}
+                  style={{ width: '480px' }}
                 />
               </div>
 
@@ -208,6 +211,7 @@ export default function UpdateClassMaterial({ tutorial, refreshList }) {
                   className="form-control"
                   id="description"
                   value={currentTutorial.description}
+                  style={{ width: '480px' }}
                 ></textarea>
               </div>
             </div>
@@ -216,7 +220,7 @@ export default function UpdateClassMaterial({ tutorial, refreshList }) {
       ) : (
         <div>
           <br />
-          <p>Please click on a class materials...</p>
+          <p>강의 자료를 클릭하세요</p>
         </div>
       )}
     </div>

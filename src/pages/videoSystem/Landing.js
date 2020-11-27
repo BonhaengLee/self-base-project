@@ -13,7 +13,7 @@ const Container = styled.div`
   margin: 3rem auto;
 
   h1 {
-    font-family: 'Poppins';
+    /* font-family: 'Poppins'; */
     font-size: 40;
   }
 
