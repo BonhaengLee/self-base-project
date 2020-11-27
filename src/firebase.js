@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/storage';
 import 'firebase/auth';
+import * as admin from 'firebase-admin';
 
 let firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -13,10 +14,10 @@ let firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
-// firebase.initializeApp(firebaseConfig);
+admin.initializeApp(firebaseConfig);
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 const auth = firebaseApp.auth();
 const firestore = firebaseApp.firestore();
 
-export { firebaseApp, auth, firestore };
+export { firebaseApp, auth, firestore, admin };
 export default firebase;

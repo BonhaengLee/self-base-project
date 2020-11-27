@@ -64,7 +64,7 @@ function App() {
               <Route path="/forgot-password" component={ForgotPasswordPage} />
               <PrivateRoute path="/add" component={AddCourseMaterialsPage} />
               <PrivateRoute path="/add-teacher" component={AddTeacher} />
-              <PrivateRoute path="/add-teacher" component={AddStudent} />
+              <PrivateRoute path="/add-student" component={AddStudent} />
               <PrivateRoute path="/read" component={ReadCourseMaterialsPage} />
               <PrivateRoute path="/upload" component={Upload} />
               <PrivateRoute path="/video/:id" component={Video} />

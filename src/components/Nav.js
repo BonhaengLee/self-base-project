@@ -110,7 +110,7 @@ export default function Nav() {
             </Link>
           </li>
           <li className="nav-item mr-2" style={{ marginTop: '-2px' }}>
-            <Link to={'/add-teacher'} className="nav-link">
+            <Link to={'/add-student'} className="nav-link">
               <Typography className={classes.typo1}>Students</Typography>
             </Link>
           </li>

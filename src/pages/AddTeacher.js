@@ -6,10 +6,11 @@ import {
 } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { firestore, firebaseApp } from '../firebase';
+import { firestore, firebaseApp, admin } from '../firebase';
 import * as dateFns from 'date-fns';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
+import { useAuth } from 'contexts/AuthContext';
 
 const Spinner = styled.div`
   position: absolute;
@@ -44,43 +45,65 @@ const columns = [
 // ];
 
 export default function AddTeacher() {
+  const { currentUser } = useAuth();
   const [teachers, setTeachers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [memo, setMemo] = useState('');
-  // const [details, setDetails] = useState('');
-  const [data, setData] = useState([]);
+
+  // const fetchJobs = async () => {
+  //   setCustomSearch(false);
+  //   setLoading(true);
+  //   const req = await firestore
+  //     .collection('jobs')
+  //     .orderBy('postedOn', 'desc')
+  //     .get();
+  //   const tempJobs = req.docs.map((job) => ({
+  //     ...job.data(),
+  //     id: job.id,
+  //     postedOn: job.data().postedOn.toDate(),
+  //   }));
+  //   setJobs(tempJobs);
+  //   setLoading(false);
+  // };
 
   const fetchTeachers = async () => {
     setLoading(true);
-    const req = await firestore.collection('teachers').get();
+    const req = await firestore
+      .collection('teachers')
+      .orderBy('id', 'desc')
+      .get();
     const tempTeachers = req.docs.map((teacher, i) => ({
       ...teacher.data(),
       tId: i + 1,
+      // postedOn: teacher.data().postedOn.toDate(),
     }));
-    setTeachers(...teachers, tempTeachers);
+    setTeachers(tempTeachers);
     setLoading(false);
   };
 
-  var count = 0;
-
   const postTeacher = async (email) => {
-    console.log(email);
-    const req = await firestore
-      .collection('teachers')
-      // .where('email', '==', email)
-      .doc(email)
-      .get()
-      .then(function (doc) {
-        if (doc.exists === false) {
-          f();
-          setLoading(false);
-        } else {
-        }
-      })
-      .catch(function (error) {
-        console.log('Error getting document:', error);
-      });
+    if (currentUser.email === email) {
+      console.log('자신의 이메일');
+    } else {
+      console.log(email);
+      const req = await firestore
+        .collection('teachers')
+        // .where('email', '==', email)
+        .doc(email)
+        .get()
+        .then(function (doc) {
+          if (doc.exists === false) {
+            f();
+            setLoading(false);
+          } else {
+          }
+        })
+        .catch(function (error) {
+          console.log('Error getting document:', error);
+        });
+    }
+    fetchTeachers();
   };
 
   const f = async () => {
@@ -92,31 +115,13 @@ export default function AddTeacher() {
         memo: memo,
         id: id,
         accept: 'X',
+        sender: currentUser.email,
+        // postedOn: firebaseApp.firestore.FieldValue.serverTimestamp(),
       },
       { merge: true },
     );
     setLoading(false);
   };
-
-  // const check = async (email) => {
-  //   setLoading(true);
-  //   const req = await firestore
-  //     .collection('teachers')
-  //     .where('email', '==', email)
-  //     .get();
-  //   const tempJobs = req.docs.map((job) => ({
-  //     ...job.data(),
-  //     id: job.id,
-  //     postedOn: job.data().postedOn.toDate(),
-  //   }));
-  //   if (tempJobs !== null || tempJobs !== undefined) {
-  //     setLoading(false);
-  //     return -1;
-  //   } else {
-  //     setLoading(false);
-  //     return 1;
-  //   }
-  // };
 
   const handleChangeEmail = (e) => {
     e.persist();
@@ -251,7 +256,7 @@ export default function AddTeacher() {
           <Button
             variant="contained"
             color="primary"
-            onClick={updateTeacher}
+            onClick={handlePurge}
             style={{ fontFamily: 'CookieRun Bold', marginTop: '5px' }}
           >
             삭제
