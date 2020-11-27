@@ -96,7 +96,7 @@ export default function Nav() {
         <div className="navbar-nav mr-auto">
           <li className="nav-item mr-2" style={{ marginTop: '-2px' }}>
             <Link to={'/mypage'} className="nav-link">
-              <Typography className={classes.typo1}>마이페이지</Typography>
+              <Typography className={classes.typo1}>MyPage</Typography>
             </Link>
           </li>
           {/* <li className="nav-item mr-1" style={{ marginTop: '-2px' }}>
@@ -106,7 +106,12 @@ export default function Nav() {
           </li> */}
           <li className="nav-item mr-2" style={{ marginTop: '-2px' }}>
             <Link to={'/add-teacher'} className="nav-link">
-              <Typography className={classes.typo1}>구독 목록</Typography>
+              <Typography className={classes.typo1}>Teachers</Typography>
+            </Link>
+          </li>
+          <li className="nav-item mr-2" style={{ marginTop: '-2px' }}>
+            <Link to={'/add-teacher'} className="nav-link">
+              <Typography className={classes.typo1}>Students</Typography>
             </Link>
           </li>
         </div>

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -19,14 +20,17 @@ export default function Logout() {
     }
   }
   return (
-    <div className="w-100 text-center mt-3 bg-white rounded">
+    <>
       {currentUser ? (
-        <>
-          <Button variant="outline-danger" onClick={handleLogout}>
-            LOG OUT
-          </Button>
-        </>
+        <Button
+          variant="dark"
+          onClick={handleLogout}
+          className="w-100 text-center mt-3 mr-1 bg-transprant rounded"
+          style={{ fontWeight: '700' }}
+        >
+          LOG OUT
+        </Button>
       ) : null}
-    </div>
+    </>
   );
 }

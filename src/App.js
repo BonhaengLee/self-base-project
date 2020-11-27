@@ -10,10 +10,8 @@ const DashBoardPage = lazy(() => import('./pages/Dashboard.page'));
 const UpdateProfilePage = lazy(() => import('./pages/UpdateProfile.page'));
 const SignUpPage = lazy(() => import('./pages/Signup.page'));
 const LoginPage = lazy(() => import('./pages/Login.page'));
-
-const AddClass = lazy(() => import('./pages/AddClass'));
 const AddTeacher = lazy(() => import('./pages/AddTeacher'));
-
+const AddStudent = lazy(() => import('./pages/AddStudent'));
 const AddCourseMaterialsPage = lazy(() =>
   import('./pages/AddCourseMaterials.page'),
 );
@@ -22,36 +20,40 @@ const ReadCourseMaterialsPage = lazy(() =>
 );
 const MypagePage = lazy(() => import('./pages/Mypage.page'));
 const ForgotPasswordPage = lazy(() => import('./pages/ForgotPassword.page'));
-
 const Upload = lazy(() => import('./pages/videoSystem/Upload'));
 const Video = lazy(() => import('./pages/videoSystem/Video'));
 const Landing = lazy(() => import('./pages/videoSystem/Landing'));
 const Nav = lazy(() => import('./components/Nav'));
 
+const Spinner = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border: 3px solid ${'rgba(255, 255, 255, 0.3)'};
+  border-top-color: ${'rgba(255, 255, 255, 1)'};
+  animation: anim 0.7s infinite linear;
+
+  @keyframes anim {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
 function App() {
   return (
     <Container>
-      <Suspense
-        fallback={
-          <>
-            <CircularProgress
-              style={{
-                marginLeft: '750px',
-                marginTop: '300px',
-                height: '65px',
-                width: '65px',
-              }}
-            />
-          </>
-        }
-      >
+      <Suspense fallback={<Spinner />}>
         <Nav
           style={{ backgroundColor: 'white', fontFamily: 'CookieRun Bold' }}
         />
         <div>
           <AuthProvider>
             <Switch>
-              <PrivateRoute exact path="/" component={DashBoardPage} />
+              <PrivateRoute exact path="/" component={MypagePage} />
               <PrivateRoute
                 path="/update-profile"
                 component={UpdateProfilePage}
@@ -61,8 +63,8 @@ function App() {
               <PrivateRoute path="/mypage" component={MypagePage} />
               <Route path="/forgot-password" component={ForgotPasswordPage} />
               <PrivateRoute path="/add" component={AddCourseMaterialsPage} />
-              <PrivateRoute path="/add-class" component={AddClass} />
               <PrivateRoute path="/add-teacher" component={AddTeacher} />
+              <PrivateRoute path="/add-teacher" component={AddStudent} />
               <PrivateRoute path="/read" component={ReadCourseMaterialsPage} />
               <PrivateRoute path="/upload" component={Upload} />
               <PrivateRoute path="/video/:id" component={Video} />
