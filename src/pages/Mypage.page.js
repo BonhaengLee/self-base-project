@@ -38,7 +38,7 @@ export default function MypagePage() {
                 fontFamily: 'CookieRun Bold',
               }}
             >
-              추가하기 <PostAddIcon />
+              추가하기 <PostAddIcon style={{ marginLeft: '5px' }} />
             </Button>
           </div>
           <div class="box e2" style={{ backgroundColor: '#ECEFF1' }}>
@@ -52,7 +52,7 @@ export default function MypagePage() {
                 fontFamily: 'CookieRun Bold',
               }}
             >
-              목록 보기 <ListAltIcon />
+              목록 보기 <ListAltIcon style={{ marginLeft: '5px' }} />
             </Button>
           </div>
         </div>
@@ -68,10 +68,18 @@ export default function MypagePage() {
                 fontFamily: 'CookieRun Bold',
               }}
             >
-              추가하기 <QueuePlayNextIcon />
+              추가하기 <QueuePlayNextIcon style={{ marginLeft: '5px' }} />
             </Button>
           </div>
-          <div class="box e2" style={{ backgroundColor: '#ECEFF1' }}>
+          <div
+            class="box e2"
+            style={{
+              backgroundColor: '#ECEFF1',
+              '&:hover': {
+                backgroundColor: '#C2185B',
+              },
+            }}
+          >
             <Button
               component={Link}
               to={'/landing'}
@@ -82,7 +90,7 @@ export default function MypagePage() {
                 fontFamily: 'CookieRun Bold',
               }}
             >
-              목록 보기 <ListAltIcon />
+              목록 보기 <ListAltIcon style={{ marginLeft: '5px' }} />
             </Button>
           </div>
         </div>

@@ -61,7 +61,12 @@ export default function Signup() {
           </Card.Body>
         </Card>
         <div className="w-100 text-center mt-2">
-          이미 계정이 있으신가요? <Link to="/login">로그인</Link>
+          이미 계정이 있으신가요?{' '}
+          <Button variant="light">
+            <Link to="/login" style={{ color: 'black' }}>
+              로그인
+            </Link>
+          </Button>
         </div>
       </>
     </div>

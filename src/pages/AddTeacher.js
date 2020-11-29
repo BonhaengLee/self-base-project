@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 import React, { lazy, Suspense, useEffect, useState } from 'react';
-import { firestore, firebaseApp, admin } from '../firebase';
+import { firestore, firebase } from '../firebase';
 import * as dateFns from 'date-fns';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
@@ -32,17 +32,11 @@ const Spinner = styled.div`
 
 const columns = [
   { field: 'tId', headerName: 'ID', width: 100 },
-  { field: 'email', headerName: 'Email', width: 230 },
-  { field: 'memo', headerName: 'Memo', width: 730 },
+  { field: 'email', headerName: "Teacher's email", width: 230 },
   { field: 'accept', headerName: 'Accept', width: 110 },
-  // { field: 'postedOn', headerName: 'PostedOn', width: 230 },
+  { field: 'memo', headerName: 'Memo', width: 230 },
+  { field: 'postedOn', headerName: 'PostedOn', width: 230 },
 ];
-
-// const rows = [
-//   { id: 1, Email: 'tt@tt.com', Subject: '캡스톤디자인', Memo: '메모 1' },
-//   { id: 2, Email: '123@123.com', Subject: '자기주도프로젝트', Memo: '메모 2' },
-//   { id: 3, Email: '456@456.com', Subject: '자기주도연구', Memo: '메모 3' },
-// ];
 
 export default function AddTeacher() {
   const { currentUser } = useAuth();
@@ -51,32 +45,18 @@ export default function AddTeacher() {
   const [email, setEmail] = useState('');
   const [memo, setMemo] = useState('');
 
-  // const fetchJobs = async () => {
-  //   setCustomSearch(false);
-  //   setLoading(true);
-  //   const req = await firestore
-  //     .collection('jobs')
-  //     .orderBy('postedOn', 'desc')
-  //     .get();
-  //   const tempJobs = req.docs.map((job) => ({
-  //     ...job.data(),
-  //     id: job.id,
-  //     postedOn: job.data().postedOn.toDate(),
-  //   }));
-  //   setJobs(tempJobs);
-  //   setLoading(false);
-  // };
-
   const fetchTeachers = async () => {
     setLoading(true);
     const req = await firestore
       .collection('teachers')
+      .where('sender', '==', currentUser.email)
       .orderBy('id', 'desc')
       .get();
     const tempTeachers = req.docs.map((teacher, i) => ({
       ...teacher.data(),
+      accept: teacher.data().accept === false ? 'X' : 'O',
       tId: i + 1,
-      // postedOn: teacher.data().postedOn.toDate(),
+      postedOn: dateFns.format(teacher.data().postedOn.toDate(), 'yyyy-MM-dd'),
     }));
     setTeachers(tempTeachers);
     setLoading(false);
@@ -89,10 +69,10 @@ export default function AddTeacher() {
       console.log(email);
       const req = await firestore
         .collection('teachers')
-        // .where('email', '==', email)
-        .doc(email)
+        .doc(currentUser.email + email)
         .get()
         .then(function (doc) {
+          // 중복 체크
           if (doc.exists === false) {
             f();
             setLoading(false);
@@ -103,23 +83,26 @@ export default function AddTeacher() {
           console.log('Error getting document:', error);
         });
     }
-    fetchTeachers();
+    // fetchTeachers();
   };
 
   const f = async () => {
     console.log('No such document!');
     const id = uuid();
-    await firestore.collection('teachers').doc(email).set(
-      {
-        email: email,
-        memo: memo,
-        id: id,
-        accept: 'X',
-        sender: currentUser.email,
-        // postedOn: firebaseApp.firestore.FieldValue.serverTimestamp(),
-      },
-      { merge: true },
-    );
+    await firestore
+      .collection('teachers')
+      .doc(currentUser.email + email)
+      .set(
+        {
+          email: email,
+          memo: memo,
+          id: id,
+          accept: false,
+          sender: currentUser.email,
+          postedOn: firebase.firestore.FieldValue.serverTimestamp(),
+        },
+        { merge: true },
+      );
     setLoading(false);
   };
 
@@ -143,23 +126,14 @@ export default function AddTeacher() {
     fetchTeachers();
   }, []);
 
-  // const remove = (rowId) => {
-  //   // Array.prototype.filter returns new array
-  //   // so we aren't mutating state here
-  //   const arrayCopy = teacher.filter((row) => row.id !== rowId);
-  //   setData(arrayCopy);
-  // };
-  const updateTeacher = async () => {
+  const deleteTeacher = async () => {
     teachers.map((item, i) => {
       firestore
         .collection('teachers')
-        .doc(item.id)
-        .set(
-          {
-            ...item,
-          },
-          { merge: true },
-        );
+        .doc(item.sender + item.email)
+        .delete()
+        .then(() => console.log('Document deleted')) // Document deleted
+        .catch((error) => console.error('Error deleting document', error));
     });
   };
 
@@ -178,7 +152,7 @@ export default function AddTeacher() {
         (r) => deletedRows.filter((sr) => sr.id === r.id).length < 1,
       ),
     );
-    updateTeacher();
+    deleteTeacher();
   };
 
   console.log(teachers);
@@ -193,6 +167,9 @@ export default function AddTeacher() {
         <Spinner />
       ) : (
         <>
+          <div style={{ width: '1000px', marginBottom: '10px' }}>
+            <h2>선생님 목록</h2>
+          </div>
           <div style={{ width: '1000px' }}>
             <box>
               <FilledInput
@@ -257,7 +234,11 @@ export default function AddTeacher() {
             variant="contained"
             color="primary"
             onClick={handlePurge}
-            style={{ fontFamily: 'CookieRun Bold', marginTop: '5px' }}
+            style={{
+              fontFamily: 'CookieRun Bold',
+              marginTop: '5px',
+              marginBottom: '20px',
+            }}
           >
             삭제
           </Button>

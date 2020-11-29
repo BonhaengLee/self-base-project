@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { firebaseApp } from '../firebase';
-import firebase from '../firebase';
+import { firebase } from '../firebase';
 import { v4 as uuid } from 'uuid';
 import { useAuth } from '../contexts/AuthContext';
 import { Button, Form } from 'react-bootstrap';

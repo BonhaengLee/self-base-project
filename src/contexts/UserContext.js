@@ -7,7 +7,7 @@ import {
   UPDATE_USER,
   DELETE_USER,
 } from './reducers/userReducer';
-import firebase from '../firebase';
+import { firebase } from '../firebase';
 
 export const UserContext = createContext();
 

@@ -7,7 +7,7 @@ import {
   GET_VIDEOS,
   SEARCH,
 } from './reducers/mainReducer';
-import firebase from '../firebase';
+import { firebase } from '../firebase';
 import { UserContext } from './UserContext';
 
 export const MainContext = createContext();

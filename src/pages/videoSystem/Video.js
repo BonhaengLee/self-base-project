@@ -9,7 +9,7 @@ import Loader from '../../components/videoSystem/Loader';
 import Alert from '../../components/videoSystem/Alert';
 import * as dateFns from 'date-fns';
 
-import firebase from '../../firebase';
+import { firebase } from '../../firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import accountLogo from '../../images/accountLogo.png';
 import deleteRemove from '../../images/delete_remove.png';

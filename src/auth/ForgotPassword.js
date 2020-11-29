@@ -50,7 +50,12 @@ export default function ForgotPassword() {
           </Card.Body>
         </Card>
         <div className="w-100 text-center mt-2">
-          계정이 없으신가요? <Link to="/signup">가입하기</Link>
+          계정이 없으신가요?{' '}
+          <Button variant="light">
+            <Link to="/signup" style={{ color: 'black' }}>
+              가입하기
+            </Link>
+          </Button>
         </div>
       </>
     </div>

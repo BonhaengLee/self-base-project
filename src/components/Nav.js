@@ -1,4 +1,4 @@
-import { makeStyles, Typography } from '@material-ui/core';
+import { Button, makeStyles, Typography } from '@material-ui/core';
 import React, { Suspense, lazy, useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthProvider, useAuth } from '../contexts/AuthContext';
@@ -13,6 +13,12 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: '400',
     fontSize: '20px',
     fontFamily: 'CookieRun Bold',
+
+    '&:focus': {
+      bordor: 0,
+      outline: 0,
+    },
+
     '&:hover': {
       color: '#C2185B',
     },
@@ -87,37 +93,72 @@ export default function Nav() {
     prevOpenV.current = openV;
   }, [openM, openV]);
 
+  const [cl1, setCl1] = useState('white');
+  const [cl2, setCl2] = useState('white');
+  const [cl3, setCl3] = useState('white');
+
+  function handleColor1() {
+    setCl1('#C2185B');
+    setCl2('white');
+    setCl3('white');
+  }
+
+  function handleColor2() {
+    setCl1('white');
+    setCl2('#C2185B');
+    setCl3('white');
+  }
+
+  function handleColor3() {
+    setCl1('white');
+    setCl2('white');
+    setCl3('#C2185B');
+  }
+
   return (
-    <div>
+    <div style={{ marginTop: '5px' }}>
       <nav className="navbar navbar-expand navbar-dark ">
         <a href="/mypage" className="navbar-brand">
           <img src={logo} width="115" height="35" alt="testA" />
         </a>
         <div className="navbar-nav mr-auto">
           <li className="nav-item mr-2" style={{ marginTop: '-2px' }}>
-            <Link to={'/mypage'} className="nav-link">
-              <Typography className={classes.typo1}>MyPage</Typography>
+            <Link to={'/mypage'} className="nav-link ">
+              <Button
+                onClick={handleColor1}
+                style={{ color: cl1 }}
+                className={classes.typo1}
+              >
+                Online-Courses
+              </Button>
             </Link>
           </li>
-          {/* <li className="nav-item mr-1" style={{ marginTop: '-2px' }}>
-            <Link to={'/add-class'} className="nav-link">
-              <Typography className={classes.typo1}>강의 추가</Typography>
-            </Link>
-          </li> */}
           <li className="nav-item mr-2" style={{ marginTop: '-2px' }}>
             <Link to={'/add-teacher'} className="nav-link">
-              <Typography className={classes.typo1}>Teachers</Typography>
+              <Button
+                onClick={handleColor2}
+                style={{ color: cl2 }}
+                className={classes.typo1}
+              >
+                Teachers
+              </Button>
             </Link>
           </li>
           <li className="nav-item mr-2" style={{ marginTop: '-2px' }}>
             <Link to={'/add-student'} className="nav-link">
-              <Typography className={classes.typo1}>Students</Typography>
+              <Button
+                onClick={handleColor3}
+                style={{ color: cl3 }}
+                className={classes.typo1}
+              >
+                Students
+              </Button>
             </Link>
           </li>
         </div>
 
         {currentUser ? (
-          <nav className="navbar-nav ml-auto">
+          <nav className="navbar-nav ml-auto" style={{ marginTop: '-9px' }}>
             <AuthProvider>
               <div className="nav-item">
                 <UserIcon />

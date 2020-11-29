@@ -1,6 +1,4 @@
 import React, { Fragment, useContext, useState } from 'react';
-// import { MainContext } from '../contexts/MainContext';
-// import { UserContext } from '../contexts/UserContext';
 import styled from 'styled-components';
 import { Redirect, useHistory } from 'react-router-dom';
 import Button from '../../components/videoSystem/Button';
@@ -9,7 +7,7 @@ import InlineLoader from '../../components/videoSystem/InlineLoader';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import firebase from '../../firebase';
+import { firebase } from '../../firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';

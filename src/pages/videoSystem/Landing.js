@@ -5,8 +5,13 @@ import styled from 'styled-components';
 import Loader from '../../components/videoSystem/Loader';
 import accountLogo from '../../images/accountLogo.png';
 import viewEyeVisible from '../../images/view_eye_visible.png';
-import firebase from '../../firebase';
-import TurnedInNotSharpIcon from '@material-ui/icons/TurnedInNotSharp';
+import { firebase } from '../../firebase';
+import ImportantDevicesIcon from '@material-ui/icons/ImportantDevices';
+import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacy';
+import FunctionsIcon from '@material-ui/icons/Functions';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import { InputAdornment, Paper, SvgIcon, TextField } from '@material-ui/core';
+import * as dateFns from 'date-fns';
 
 const Container = styled.div`
   width: 90%;
@@ -200,13 +205,221 @@ const Landing = () => {
     // eslint-disable-next-line
   }, []);
 
+  function subj(subj) {
+    if (subj === '캡스톤디자인') {
+      return (
+        <>
+          <ImportantDevicesIcon style={{ marginRight: '8px' }} />
+          {'   '}
+          {subj}
+        </>
+      );
+    } else if (subj === '자기주도프로젝트') {
+      return (
+        <>
+          <ImportantDevicesIcon style={{ marginRight: '8px' }} /> {'   '}
+          {subj}
+        </>
+      );
+    } else if (subj === '자기주도연구') {
+      return (
+        <>
+          <ImportantDevicesIcon style={{ marginRight: '8px' }} /> {'   '}
+          {subj}
+        </>
+      );
+    } else if (subj === '수학1') {
+      return (
+        <>
+          <FunctionsIcon style={{ marginRight: '8px' }} /> {'   '}
+          {subj}
+        </>
+      );
+    } else if (subj === '약품분자생물학') {
+      return (
+        <>
+          <LocalPharmacyIcon style={{ marginRight: '8px' }} /> {'   '}
+          {subj}
+        </>
+      );
+    } else if (subj === '국제금융론') {
+      return (
+        <>
+          <MonetizationOnIcon style={{ marginRight: '8px' }} /> {'   '}
+          {subj}
+        </>
+      );
+    } else {
+    }
+  }
+
+  function timeForToday(value) {
+    const today = new Date();
+    const timeValue = new Date(value);
+
+    const betweenTime = Math.floor(
+      (today.getTime() - timeValue.getTime()) / 1000 / 60,
+    );
+    if (betweenTime < 1) return '방금 전';
+    if (betweenTime < 60) {
+      return `${betweenTime}분 전`;
+    }
+
+    const betweenTimeHour = Math.floor(betweenTime / 60);
+    if (betweenTimeHour < 24) {
+      return `${betweenTimeHour}시간 전`;
+    }
+
+    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+    if (betweenTimeDay < 365) {
+      return `${betweenTimeDay}일 전`;
+    }
+
+    return `${Math.floor(betweenTimeDay / 365)}년 전`;
+  }
+
+  const [searchKeyword, setSearchKeyword] = useState('');
+
+  function handleFilterTextChange(e) {
+    e.preventDefault();
+    setSearchKeyword(e.target.value);
+  }
+
+  const filteredComponents = (data) => {
+    data = data.filter((c) => {
+      return c.title.indexOf(searchKeyword) > -1;
+    });
+    return data.map((c, index) => {
+      return (
+        <div className="video" key={c.id}>
+          {c.live ? (
+            <div
+              className="thumbnail"
+              onClick={() => history.push(`live/${c.id}`)}
+            >
+              <h2 className="live">LIVE</h2>
+            </div>
+          ) : (
+            <div
+              className="thumbnail"
+              onClick={() => history.push(`video/${c.id}`)}
+            >
+              {c.thumbnail ? (
+                <img alt="thumbnail" src={c.thumbnail} />
+              ) : (
+                <h2 className="no-thumbnail">No Thumbnail</h2>
+              )}
+            </div>
+          )}
+          <div className="info">
+            <div
+              style={{
+                width: '2.5rem',
+                height: '2.5rem',
+                borderRadius: '50%',
+                display: 'grid',
+                justifyItems: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <img
+                src={accountLogo}
+                width="20"
+                height="20"
+                alt="testA"
+                style={{ marginTop: '15px' }}
+              />
+            </div>
+            <div className="meta">
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <h3
+                  onClick={() =>
+                    c.live
+                      ? history.push(`live/${c.id}`)
+                      : history.push(`c/${c.id}`)
+                  }
+                  style={{
+                    fontSize: '21px',
+                    marginLeft: '-45px',
+                  }}
+                >
+                  {c.title}
+                </h3>
+                <div style={{ display: 'flex', marginRight: '5px' }}>
+                  <h3 style={{ fontSize: '18px', color: 'black' }}>
+                    {/* {dateFns.format(c.postedOn, 'yyyy-MM-dd HH:MM')} */}
+                    {timeForToday(c.postedOn)}
+                  </h3>
+                </div>
+              </div>
+              <h3
+                style={{
+                  fontSize: '18px',
+                  marginLeft: '-48px',
+                  color: '#1A237E',
+                }}
+              >
+                {subj(c.subject)}
+              </h3>
+              <h5 style={{ fontSize: '18px', marginLeft: '-9px' }}>
+                {c.userEmail}
+              </h5>
+              <div className="views">
+                <img
+                  src={viewEyeVisible}
+                  width="30"
+                  height="30"
+                  alt="viewEyeVisible"
+                  style={{ marginLeft: '-51px', marginTop: '-13px' }}
+                />
+                <p
+                  style={{
+                    color: 'black',
+                    fontSize: '18px',
+                    marginLeft: '-14px',
+                  }}
+                >
+                  {c.views}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    });
+  };
+
+  //   <ul className="list-group">
+  //   {videos && filteredComponents(videos)}
+  // </ul>
+
   return !loading ? (
     <Container darkMode={darkMode}>
       {videos && videos.length > 0 ? (
         <>
-          <h1>강의 영상</h1>
+          <h1 style={{ marginTop: '-20px' }}>강의 영상</h1>
+
+          <Paper style={{ marginTop: '30px', width: '200px' }}>
+            <TextField
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SvgIcon color="primary">
+                      <path
+                        fill="currentColor"
+                        d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"
+                      />
+                    </SvgIcon>
+                  </InputAdornment>
+                ),
+              }}
+              onChange={handleFilterTextChange}
+            />
+          </Paper>
+
           <div className="videos">
-            {videos.map((video) => (
+            {videos && filteredComponents(videos)}
+            {/* {videos.map((video) => (
               <div className="video" key={video.id}>
                 {video.live ? (
                   <div
@@ -228,7 +441,6 @@ const Landing = () => {
                   </div>
                 )}
                 <div className="info">
-                  {/* <div className="profile"> */}
                   <div
                     style={{
                       width: '2.5rem',
@@ -239,7 +451,6 @@ const Landing = () => {
                       alignItems: 'center',
                     }}
                   >
-                    {/* {video.user.photoURL ? ( */}
                     <img
                       src={accountLogo}
                       width="20"
@@ -266,7 +477,7 @@ const Landing = () => {
                         color: '#1A237E',
                       }}
                     >
-                      {video.subject}
+                      {subj(video.subject)}
                     </h3>
                     <h5 style={{ fontSize: '18px', marginLeft: '-9px' }}>
                       {video.userEmail}
@@ -292,7 +503,7 @@ const Landing = () => {
                   </div>
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
         </>
       ) : (
