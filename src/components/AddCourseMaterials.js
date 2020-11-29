@@ -14,11 +14,19 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import TutorialDataService from '../services/classmaterial';
 
 const db = firebaseApp.firestore();
 
 export default function AddCourseMaterials(props) {
-  const menuItemClass = ['캡스톤디자인', '자기주도프로젝트', '자기주도연구'];
+  const menuItemClass = [
+    '캡스톤디자인',
+    '자기주도프로젝트',
+    '자기주도연구',
+    '수학1',
+    '약품분자생물학',
+    '국제금융론',
+  ];
 
   const { currentUser } = useAuth();
   const [files, setFiles] = useState([]);
@@ -373,22 +381,6 @@ export default function AddCourseMaterials(props) {
       .then(() => alert('All files uploaded'), console.log(files), setFiles([]))
       .catch((err) => console.log(err.code));
   };
-
-  const newClassMaterials = () => {
-    setTitle('');
-    setDescription('');
-    setSubmitted(false);
-  };
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    try {
-      setSubmitted('');
-      onUploadSubmission();
-      setSubmitted('글 작성이 완료되었습니다!');
-    } catch {}
-  }
 
   return (
     <Container style={{ marginBottom: '30px' }}>

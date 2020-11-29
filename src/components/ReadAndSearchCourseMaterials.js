@@ -3,6 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { Col } from 'react-bootstrap';
 import TutorialDataService from '../services/classmaterial';
 import UpdateClassMaterial from './UpdateClassMaterial';
+import ImportantDevicesIcon from '@material-ui/icons/ImportantDevices';
+import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacy';
+import FunctionsIcon from '@material-ui/icons/Functions';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 
 export default function ReadCourseMaterialsList() {
   const [tutorials, setTutorials] = useState([]);
@@ -48,22 +52,86 @@ export default function ReadCourseMaterialsList() {
           onClick={() => setCurrentIndex(index)}
           key={index}
         >
+          <div
+            style={{
+              fontSize: '18px',
+              color: '#1A237E',
+            }}
+          >
+            {subj(c.class)}
+          </div>
           {c.title}
         </li>
       );
     });
   };
 
+  function subj(subj) {
+    if (subj === '캡스톤디자인') {
+      return (
+        <>
+          <ImportantDevicesIcon style={{ marginRight: '8px' }} />
+          {'   '}
+          {subj}
+        </>
+      );
+    } else if (subj === '자기주도프로젝트') {
+      return (
+        <>
+          <ImportantDevicesIcon style={{ marginRight: '8px' }} /> {'   '}
+          {subj}
+        </>
+      );
+    } else if (subj === '자기주도연구') {
+      return (
+        <>
+          <ImportantDevicesIcon style={{ marginRight: '8px' }} /> {'   '}
+          {subj}
+        </>
+      );
+    } else if (subj === '수학1') {
+      return (
+        <>
+          <FunctionsIcon style={{ marginRight: '8px' }} /> {'   '}
+          {subj}
+        </>
+      );
+    } else if (subj === '약품분자생물학') {
+      return (
+        <>
+          <LocalPharmacyIcon style={{ marginRight: '8px' }} /> {'   '}
+          {subj}
+        </>
+      );
+    } else if (subj === '국제금융론') {
+      return (
+        <>
+          <MonetizationOnIcon style={{ marginRight: '8px' }} /> {'   '}
+          {subj}
+        </>
+      );
+    } else {
+    }
+  }
+
   return (
     <>
       <Col
         style={{
           top: '-50px',
+          marginLeft: '-15px',
         }}
         xs="6"
         elevation={3}
       >
-        <h1 style={{ marginBottom: '40px' }}>강의 자료</h1>
+        <h1
+          style={{
+            marginBottom: '40px',
+            marginTop: '50px',
+          }}
+        >
+          강의 자료
+        </h1>
         <Paper
           style={{ marginTop: '10px', marginBottom: '10px', width: '200px' }}
         >

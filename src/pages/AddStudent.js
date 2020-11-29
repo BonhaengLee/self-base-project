@@ -28,7 +28,7 @@ const Spinner = styled.div`
 
 const columns = [
   { field: 'tId', headerName: 'ID', width: 100 },
-  { field: 'email', headerName: 'Email', width: 230 },
+  { field: 'email', headerName: "Student's email", width: 230 },
   { field: 'accept', headerName: 'Accept', width: 110 },
   { field: 'memo', headerName: 'Memo', width: 230 },
   { field: 'postedOn', headerName: 'PostedOn', width: 230 },
@@ -37,9 +37,6 @@ const columns = [
 export default function AddStudent() {
   const [studs, setStuds] = useState([]);
   const [accs, setAccs] = useState([]);
-  // const [acc, setAcc] = useState(false);
-  // const [update, setUpdate] = useState('');
-  // const [toUpdateId, setToUpdateId] = useState('');
   const [loading, setLoading] = useState(false);
   const { currentUser } = useAuth();
 

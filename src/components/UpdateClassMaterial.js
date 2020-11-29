@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TutorialDataService from '../services/classmaterial';
 import * as dateFns from 'date-fns';
 import { useAuth } from 'contexts/AuthContext';
+import { Button } from '@material-ui/core';
 
 export default function UpdateClassMaterial({ tutorial, refreshList }) {
   const [currentTutorial, setCurrentTutorial] = useState();
@@ -128,15 +129,27 @@ export default function UpdateClassMaterial({ tutorial, refreshList }) {
                 </div>
               </div>
             </form>
-            <button
-              className="badge badge-danger mr-2"
+
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ fontFamily: 'CookieRun Bold', marginTop: '5px' }}
               onClick={deleteTutorial}
             >
               삭제
-            </button>
-            <button className="badge badge-success" onClick={updateTutorial}>
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              style={{
+                fontFamily: 'CookieRun Bold',
+                marginTop: '5px',
+                marginLeft: '5px',
+              }}
+              onClick={updateTutorial}
+            >
               수정
-            </button>
+            </Button>
           </div>
         ) : (
           <div className="edit-form">
