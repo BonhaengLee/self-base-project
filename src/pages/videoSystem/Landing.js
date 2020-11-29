@@ -12,6 +12,7 @@ import FunctionsIcon from '@material-ui/icons/Functions';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import { InputAdornment, Paper, SvgIcon, TextField } from '@material-ui/core';
 import * as dateFns from 'date-fns';
+import { useAuth } from 'contexts/AuthContext';
 
 const Container = styled.div`
   width: 90%;
@@ -163,6 +164,24 @@ const Container = styled.div`
 var videos = [];
 
 const Landing = () => {
+  const [tch, setTch] = useState([]);
+  const { currentUser } = useAuth();
+
+  const fetchTeachers = async () => {
+    setLoading(true);
+    const req = await firebase
+      .firestore()
+      .collection('teachers')
+      .where('accept', '==', true)
+      .get();
+    const tempTeachers = req.docs.map((teacher, i) => ({
+      ...teacher.data(),
+    }));
+    setTch(tempTeachers, { email: currentUser.email });
+
+    setLoading(false);
+  };
+
   const getVideos = async () => {
     try {
       const videosSnapshot = await firebase
@@ -178,7 +197,6 @@ const Landing = () => {
           id: video.id,
         }),
       );
-      // dispatch({ type: GET_VIDEOS, payload: videosPayload });
       console.log('vP', videosPayload);
 
       videos = videosPayload;
@@ -195,6 +213,10 @@ const Landing = () => {
   useEffect(() => {
     (async () => {
       try {
+        setLoading(true);
+        await fetchTeachers();
+        setLoading(false);
+
         setLoading(true);
         await getVideos();
         setLoading(false);
@@ -389,9 +411,7 @@ const Landing = () => {
     });
   };
 
-  //   <ul className="list-group">
-  //   {videos && filteredComponents(videos)}
-  // </ul>
+  console.log(tch);
 
   return !loading ? (
     <Container darkMode={darkMode}>
@@ -417,94 +437,7 @@ const Landing = () => {
             />
           </Paper>
 
-          <div className="videos">
-            {videos && filteredComponents(videos)}
-            {/* {videos.map((video) => (
-              <div className="video" key={video.id}>
-                {video.live ? (
-                  <div
-                    className="thumbnail"
-                    onClick={() => history.push(`live/${video.id}`)}
-                  >
-                    <h2 className="live">LIVE</h2>
-                  </div>
-                ) : (
-                  <div
-                    className="thumbnail"
-                    onClick={() => history.push(`video/${video.id}`)}
-                  >
-                    {video.thumbnail ? (
-                      <img alt="thumbnail" src={video.thumbnail} />
-                    ) : (
-                      <h2 className="no-thumbnail">No Thumbnail</h2>
-                    )}
-                  </div>
-                )}
-                <div className="info">
-                  <div
-                    style={{
-                      width: '2.5rem',
-                      height: '2.5rem',
-                      borderRadius: '50%',
-                      display: 'grid',
-                      justifyItems: 'center',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <img
-                      src={accountLogo}
-                      width="20"
-                      height="20"
-                      alt="testA"
-                      style={{ marginTop: '15px' }}
-                    />
-                  </div>
-                  <div className="meta">
-                    <h3
-                      onClick={() =>
-                        video.live
-                          ? history.push(`live/${video.id}`)
-                          : history.push(`video/${video.id}`)
-                      }
-                      style={{ fontSize: '21px', marginLeft: '-45px' }}
-                    >
-                      {video.title}
-                    </h3>
-                    <h3
-                      style={{
-                        fontSize: '18px',
-                        marginLeft: '-48px',
-                        color: '#1A237E',
-                      }}
-                    >
-                      {subj(video.subject)}
-                    </h3>
-                    <h5 style={{ fontSize: '18px', marginLeft: '-9px' }}>
-                      {video.userEmail}
-                    </h5>
-                    <div className="views">
-                      <img
-                        src={viewEyeVisible}
-                        width="30"
-                        height="30"
-                        alt="viewEyeVisible"
-                        style={{ marginLeft: '-51px', marginTop: '-13px' }}
-                      />
-                      <p
-                        style={{
-                          color: 'black',
-                          fontSize: '18px',
-                          marginLeft: '-14px',
-                        }}
-                      >
-                        {video.views}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))} */}
-          </div>
+          <div className="videos">{videos && filteredComponents(videos)}</div>
         </>
       ) : (
         <div className="error">

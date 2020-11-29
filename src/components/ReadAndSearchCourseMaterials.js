@@ -118,7 +118,6 @@ export default function ReadCourseMaterialsList() {
     <>
       <Col
         style={{
-          top: '-50px',
           marginLeft: '-15px',
         }}
         xs="6"

@@ -27,11 +27,11 @@ const Spinner = styled.div`
 `;
 
 const columns = [
-  { field: 'tId', headerName: 'ID', width: 100 },
-  { field: 'email', headerName: "Student's email", width: 230 },
-  { field: 'accept', headerName: 'Accept', width: 110 },
-  { field: 'memo', headerName: 'Memo', width: 230 },
-  { field: 'postedOn', headerName: 'PostedOn', width: 230 },
+  { field: 'tId', headerName: 'ID', flex: 1 }, //width: 100 },
+  { field: 'sender', headerName: "Student's email", flex: 1.5 }, //width: 230 },
+  { field: 'accept', headerName: 'Accept', flex: 0.7 }, //width: 110 },
+  { field: 'postedOn', headerName: 'PostedOn', flex: 1 }, //width: 230 },
+  { field: 'memo', headerName: 'Memo', flex: 4 },
 ];
 
 export default function AddStudent() {

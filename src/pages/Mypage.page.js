@@ -19,14 +19,17 @@ export default function MypagePage() {
       style={{ minHeight: '600px' }}
     >
       <div class="wrapper">
-        <div class="box a" style={{ backgroundColor: '#E65100' }}>
+        <div class="box a" style={{ backgroundColor: 'rgba(252, 81, 133, 1)' }}>
           강의 자료 <ImportContactsIcon />
         </div>
-        <div class="box b" style={{ backgroundColor: '#004D40' }}>
+        <div
+          class="box b"
+          style={{ backgroundColor: 'rgba(102, 197, 175, 1)' }}
+        >
           강의 영상 <VideoLibraryIcon />
         </div>
 
-        <div class="box d" style={{ backgroundColor: '#E65100' }}>
+        <div class="box d" style={{ backgroundColor: 'rgba(252, 81, 133, 1)' }}>
           <div class="box e" style={{ backgroundColor: '#ECEFF1' }}>
             <Button
               component={Link}
@@ -56,7 +59,10 @@ export default function MypagePage() {
             </Button>
           </div>
         </div>
-        <div class="box d2" style={{ backgroundColor: '#004D40' }}>
+        <div
+          class="box d2"
+          style={{ backgroundColor: 'rgba(102, 197, 175, 1)' }}
+        >
           <div class="box e" style={{ backgroundColor: '#ECEFF1' }}>
             <Button
               component={Link}

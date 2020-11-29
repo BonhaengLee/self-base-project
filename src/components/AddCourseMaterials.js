@@ -410,6 +410,20 @@ export default function AddCourseMaterials(props) {
         >
           돌아가기
         </Button>
+        <Button
+          style={{
+            backgroundColor: '#444',
+            color: 'white',
+            border: 'none',
+            marginTop: '20px',
+            paddingTop: '8px',
+            height: '55px',
+            marginLeft: '5px',
+          }}
+          onClick={() => history.push('/read')}
+        >
+          목록
+        </Button>
 
         <div style={{ marginTop: '40px' }}>
           {/* <InputLabel htmlFor="outlined-age-native-simple">강의</InputLabel> */}

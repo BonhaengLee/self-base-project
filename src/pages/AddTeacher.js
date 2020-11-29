@@ -11,6 +11,7 @@ import * as dateFns from 'date-fns';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
 import { useAuth } from 'contexts/AuthContext';
+import { Fullscreen } from '@material-ui/icons';
 
 const Spinner = styled.div`
   position: absolute;
@@ -31,11 +32,11 @@ const Spinner = styled.div`
 `;
 
 const columns = [
-  { field: 'tId', headerName: 'ID', width: 100 },
-  { field: 'email', headerName: "Teacher's email", width: 230 },
-  { field: 'accept', headerName: 'Accept', width: 110 },
-  { field: 'memo', headerName: 'Memo', width: 230 },
-  { field: 'postedOn', headerName: 'PostedOn', width: 230 },
+  { field: 'tId', headerName: 'ID', flex: 1 }, //width: 100 },
+  { field: 'email', headerName: "Teacher's email", flex: 1.5 }, //width: 230 },
+  { field: 'accept', headerName: 'Accept', flex: 0.7 }, //width: 110 },
+  { field: 'postedOn', headerName: 'PostedOn', flex: 1 }, //width: 230 },
+  { field: 'memo', headerName: 'Memo', flex: 4 },
 ];
 
 export default function AddTeacher() {

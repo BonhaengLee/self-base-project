@@ -167,6 +167,7 @@ const Upload = () => {
           <Container darkMode={darkMode}>
             <div id="section-header">
               <h1>강의 영상 등록</h1>
+
               <button
                 style={{
                   paddingLeft: '5px',
@@ -180,6 +181,20 @@ const Upload = () => {
                 돌아가기
               </button>
             </div>
+            <button
+              style={{
+                paddingLeft: '5px',
+                paddingRight: '5px',
+                backgroundColor: '#444',
+                color: 'white',
+                border: 'none',
+                height: '50px',
+              }}
+              onClick={() => history.push('/landing')}
+            >
+              목록
+            </button>
+
             {alert && <Alert type={alert.type} text={alert.text} />}
             <div id="files">
               <label htmlFor="video">
