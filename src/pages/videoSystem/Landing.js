@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { MainContext } from '../../contexts/MainContext';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
@@ -162,6 +162,7 @@ const Container = styled.div`
 `;
 
 var videos = [];
+var arr = [];
 
 const Landing = () => {
   const [tch, setTch] = useState([]);
@@ -172,22 +173,42 @@ const Landing = () => {
     const req = await firebase
       .firestore()
       .collection('teachers')
+      .where('sender', '==', currentUser.email)
       .where('accept', '==', true)
       .get();
     const tempTeachers = req.docs.map((teacher, i) => ({
-      ...teacher.data(),
+      // ...teacher.data(),
+      email: teacher.data().email,
     }));
-    setTch(tempTeachers, { email: currentUser.email });
-
+    console.log(tempTeachers);
+    tempTeachers.map((t, i) => {
+      arr.push(Object.values(t));
+    });
+    console.log(arr);
+    setTch(tempTeachers);
     setLoading(false);
+
+    getVideos();
   };
+
+  var ar = [];
 
   const getVideos = async () => {
     try {
+      console.log(arr);
+
+      arr.map((x, i) => {
+        ar = [...ar, ...x];
+      });
+      ar.push(currentUser.email);
+      ar = Array.from(new Set(ar));
+      console.log(ar);
+
       const videosSnapshot = await firebase
         .firestore()
         .collection('videos')
         .orderBy('postedOn', 'desc')
+        .where('userEmail', 'in', ar)
         .get();
       const videosPayload = [];
       videosSnapshot.forEach((video) =>
@@ -197,10 +218,11 @@ const Landing = () => {
           id: video.id,
         }),
       );
-      console.log('vP', videosPayload);
+      // console.log('vP', videosPayload);
 
       videos = videosPayload;
-      console.log('vi', videos);
+      // console.log('vi', videos);
+      // ar.length = 0;
     } catch (err) {
       throw err;
     }
@@ -224,52 +246,51 @@ const Landing = () => {
         setLoading(false);
       }
     })();
-    // eslint-disable-next-line
   }, []);
 
   function subj(subj) {
     if (subj === '캡스톤디자인') {
       return (
-        <>
+        <div style={{ color: '#0D47A1' }}>
           <ImportantDevicesIcon style={{ marginRight: '8px' }} />
           {'   '}
           {subj}
-        </>
+        </div>
       );
     } else if (subj === '자기주도프로젝트') {
       return (
-        <>
+        <div style={{ color: '#311B92' }}>
           <ImportantDevicesIcon style={{ marginRight: '8px' }} /> {'   '}
           {subj}
-        </>
+        </div>
       );
     } else if (subj === '자기주도연구') {
       return (
-        <>
+        <div style={{ color: '#880E4F' }}>
           <ImportantDevicesIcon style={{ marginRight: '8px' }} /> {'   '}
           {subj}
-        </>
+        </div>
       );
     } else if (subj === '수학1') {
       return (
-        <>
+        <div style={{ color: '#263238' }}>
           <FunctionsIcon style={{ marginRight: '8px' }} /> {'   '}
           {subj}
-        </>
+        </div>
       );
     } else if (subj === '약품분자생물학') {
       return (
-        <>
+        <div style={{ color: '#BF360C' }}>
           <LocalPharmacyIcon style={{ marginRight: '8px' }} /> {'   '}
           {subj}
-        </>
+        </div>
       );
     } else if (subj === '국제금융론') {
       return (
-        <>
+        <div style={{ color: '#1B5E20' }}>
           <MonetizationOnIcon style={{ marginRight: '8px' }} /> {'   '}
           {subj}
-        </>
+        </div>
       );
     } else {
     }
@@ -342,6 +363,7 @@ const Landing = () => {
                 display: 'grid',
                 justifyItems: 'center',
                 alignItems: 'center',
+                opacity: 0.7,
               }}
             >
               <img
@@ -349,7 +371,7 @@ const Landing = () => {
                 width="20"
                 height="20"
                 alt="testA"
-                style={{ marginTop: '15px' }}
+                style={{ marginTop: '15px', opacity: 0.5 }}
               />
             </div>
             <div className="meta">
@@ -368,7 +390,9 @@ const Landing = () => {
                   {c.title}
                 </h3>
                 <div style={{ display: 'flex', marginRight: '5px' }}>
-                  <h3 style={{ fontSize: '18px', color: 'black' }}>
+                  <h3
+                    style={{ fontSize: '18px', color: 'black', opacity: 0.7 }}
+                  >
                     {/* {dateFns.format(c.postedOn, 'yyyy-MM-dd HH:MM')} */}
                     {timeForToday(c.postedOn)}
                   </h3>
@@ -383,7 +407,9 @@ const Landing = () => {
               >
                 {subj(c.subject)}
               </h3>
-              <h5 style={{ fontSize: '18px', marginLeft: '-9px' }}>
+              <h5
+                style={{ fontSize: '18px', marginLeft: '-9px', opacity: 0.5 }}
+              >
                 {c.userEmail}
               </h5>
               <div className="views">
@@ -392,13 +418,18 @@ const Landing = () => {
                   width="30"
                   height="30"
                   alt="viewEyeVisible"
-                  style={{ marginLeft: '-51px', marginTop: '-13px' }}
+                  style={{
+                    marginLeft: '-51px',
+                    marginTop: '-13px',
+                    opacity: 0.5,
+                  }}
                 />
                 <p
                   style={{
                     color: 'black',
                     fontSize: '18px',
                     marginLeft: '-14px',
+                    opacity: 0.5,
                   }}
                 >
                   {c.views}
@@ -412,6 +443,7 @@ const Landing = () => {
   };
 
   console.log(tch);
+  // console.log(vid);
 
   return !loading ? (
     <Container darkMode={darkMode}>

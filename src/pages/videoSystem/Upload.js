@@ -91,12 +91,16 @@ const Container = styled.div`
 `;
 
 const Upload = () => {
-  const menuItemClass = ['캡스톤디자인', '자기주도프로젝트', '자기주도연구'];
-  // const { user } = useContext(UserContext);
+  const menuItemClass = [
+    '캡스톤디자인',
+    '자기주도프로젝트',
+    '자기주도연구',
+    '수학1',
+    '약품분자생물학',
+    '국제금융론',
+  ];
   const { currentUser } = useAuth();
-  //   const { darkMode, addVideo } = useContext(MainContext);
   const darkMode = true;
-
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
   const history = useHistory();
@@ -185,7 +189,7 @@ const Upload = () => {
               style={{
                 paddingLeft: '5px',
                 paddingRight: '5px',
-                backgroundColor: '#444',
+                backgroundColor: '#004D40',
                 color: 'white',
                 border: 'none',
                 height: '50px',

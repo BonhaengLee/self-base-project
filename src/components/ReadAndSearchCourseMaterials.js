@@ -69,46 +69,46 @@ export default function ReadCourseMaterialsList() {
   function subj(subj) {
     if (subj === '캡스톤디자인') {
       return (
-        <>
+        <div style={{ color: '#0D47A1' }}>
           <ImportantDevicesIcon style={{ marginRight: '8px' }} />
           {'   '}
           {subj}
-        </>
+        </div>
       );
     } else if (subj === '자기주도프로젝트') {
       return (
-        <>
+        <div style={{ color: '#311B92' }}>
           <ImportantDevicesIcon style={{ marginRight: '8px' }} /> {'   '}
           {subj}
-        </>
+        </div>
       );
     } else if (subj === '자기주도연구') {
       return (
-        <>
+        <div style={{ color: '#880E4F' }}>
           <ImportantDevicesIcon style={{ marginRight: '8px' }} /> {'   '}
           {subj}
-        </>
+        </div>
       );
     } else if (subj === '수학1') {
       return (
-        <>
+        <div style={{ color: '#263238' }}>
           <FunctionsIcon style={{ marginRight: '8px' }} /> {'   '}
           {subj}
-        </>
+        </div>
       );
     } else if (subj === '약품분자생물학') {
       return (
-        <>
+        <div style={{ color: '#BF360C' }}>
           <LocalPharmacyIcon style={{ marginRight: '8px' }} /> {'   '}
           {subj}
-        </>
+        </div>
       );
     } else if (subj === '국제금융론') {
       return (
-        <>
+        <div style={{ color: '#1B5E20' }}>
           <MonetizationOnIcon style={{ marginRight: '8px' }} /> {'   '}
           {subj}
-        </>
+        </div>
       );
     } else {
     }
