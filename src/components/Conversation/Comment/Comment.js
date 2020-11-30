@@ -25,14 +25,14 @@ const Comment = ({
     if (vUser === email) {
       return (
         <>
-          <FaceIcon style={{ marginRight: '5px', color: 'red' }} />
+          <FaceIcon style={{ marginRight: '5px', color: '#C2185B' }} />
           {userName}
         </>
       );
     } else if (uId === currentUser.uid) {
       return (
         <>
-          <FaceIcon style={{ marginRight: '5px', color: 'blue' }} />
+          <FaceIcon style={{ marginRight: '5px', color: '#4285f4' }} />
           {userName}
         </>
       );

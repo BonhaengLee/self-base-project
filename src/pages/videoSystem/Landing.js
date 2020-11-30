@@ -188,7 +188,7 @@ const Landing = () => {
     setTch(tempTeachers);
     setLoading(false);
 
-    getVideos();
+    // getVideos();
   };
 
   var ar = [];
