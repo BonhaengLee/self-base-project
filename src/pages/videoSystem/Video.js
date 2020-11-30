@@ -20,6 +20,7 @@ import TimeDivider from 'video-react/lib/components/time-controls/TimeDivider';
 import PlaybackRateMenuButton from 'video-react/lib/components/control-bar/PlaybackRateMenuButton';
 import VolumeMenuButton from 'video-react/lib/components/control-bar/VolumeMenuButton';
 import ForwardControl from 'video-react/lib/components/control-bar/ForwardControl';
+import Authorized from 'layouts/Authorized';
 
 const Container = styled.div`
   width: 90%;
@@ -228,7 +229,9 @@ const Video = () => {
             <div className="meta">
               <h2>{video && video.title}</h2>
               <div>
-                <h3 style={{ fontSize: '18px', color: 'black' }}>
+                <h3 style={{ fontSize: '18px', color: 'black', opacity: 0.6 }}>
+                  {video.userEmail}
+                  {' | '}
                   {dateFns.format(video.postedOn, 'yyyy-MM-dd HH:MM')}
                 </h3>
               </div>
@@ -285,6 +288,10 @@ const Video = () => {
                 </div>
               )}
             </div>
+          </div>
+
+          <div>
+            <Authorized videoId={video.id} vUser={video.userEmail} />
           </div>
         </>
       ) : (

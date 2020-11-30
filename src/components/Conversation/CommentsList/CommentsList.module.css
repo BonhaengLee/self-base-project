@@ -1,0 +1,7 @@
+.Container {
+  overflow: scroll;
+  list-style-type: none;
+  margin: 0;
+  padding: 0 20px;
+  max-height: 500px;
+}

@@ -1,0 +1,33 @@
+.Comment {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.Username {
+  color: #444;
+  display: block;
+  font-weight: 600;
+}
+
+.Time {
+  font-weight: 400;
+  font-size: 12px;
+  color: #6c757d;
+  float: right;
+}
+
+.Bin {
+  width: 25px;
+  height: 25px;
+  margin-left: 10px;
+}
+
+.Bin:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.CommentBody {
+  margin-top: 5px;
+}

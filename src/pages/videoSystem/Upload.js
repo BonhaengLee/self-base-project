@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 import { firebase } from '../../firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { v4 as uuid } from 'uuid';
 
 const Container = styled.div`
   width: 90%;
@@ -106,12 +106,14 @@ const Upload = () => {
   const history = useHistory();
 
   const addVideo = async (title, description, video, thumbnail, subject) => {
+    const id = uuid();
     try {
       const videoRef = await firebase.firestore().collection('videos').add({
         title,
         description,
         subject,
         live: false,
+        vId: id,
         userEmail: currentUser.email,
         views: 0,
         postedOn: firebase.firestore.FieldValue.serverTimestamp(),

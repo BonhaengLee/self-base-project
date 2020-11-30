@@ -7,7 +7,8 @@ export default function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { signup } = useAuth();
+  const nameRef = useRef();
+  const { signup, updateDisplayName, addUserToDB } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -22,6 +23,8 @@ export default function Signup() {
       setError('');
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
+      await updateDisplayName(nameRef.current.value);
+      await addUserToDB();
       history.push('/');
     } catch {
       setError('회원가입에 실패했습니다.');
@@ -53,6 +56,10 @@ export default function Signup() {
                   ref={passwordConfirmRef}
                   required
                 />
+              </Form.Group>
+              <Form.Group id="name">
+                <Form.Label>이름</Form.Label>
+                <Form.Control type="text" ref={nameRef} required />
               </Form.Group>
               <Button disabled={loading} className="w-100" type="submit">
                 가입하기
