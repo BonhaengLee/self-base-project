@@ -6,10 +6,10 @@ import { styled } from '@material-ui/core/styles';
 import logo from '../images/edumeet_logo.PNG';
 
 const MyButton = styled(Button)({
-  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+  background: 'linear-gradient(45deg, #a1c4fd 30%, #c2e9fb 90%)',
   border: 0,
   borderRadius: 3,
-  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+  boxShadow: '0 2px 4px 1px #667eea',
   color: 'white',
   height: 48,
   padding: '0 30px',

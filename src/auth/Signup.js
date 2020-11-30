@@ -2,6 +2,17 @@ import React, { useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { styled } from '@material-ui/core/styles';
+
+const MyButton = styled(Button)({
+  background: 'linear-gradient(45deg, #a1c4fd 30%, #c2e9fb 90%)',
+  border: 0,
+  borderRadius: 3,
+  boxShadow: '0 2px 4px 1px #667eea',
+  color: 'white',
+  height: 48,
+  padding: '0 30px',
+});
 
 export default function Signup() {
   const emailRef = useRef();
@@ -61,9 +72,9 @@ export default function Signup() {
                 <Form.Label>이름</Form.Label>
                 <Form.Control type="text" ref={nameRef} required />
               </Form.Group>
-              <Button disabled={loading} className="w-100" type="submit">
+              <MyButton disabled={loading} className="w-100" type="submit">
                 가입하기
-              </Button>
+              </MyButton>
             </Form>
           </Card.Body>
         </Card>

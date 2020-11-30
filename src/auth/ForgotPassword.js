@@ -2,6 +2,17 @@ import React, { useRef, useState } from 'react';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
+import { styled } from '@material-ui/core/styles';
+
+const MyButton = styled(Button)({
+  background: 'linear-gradient(45deg, #a1c4fd 30%, #c2e9fb 90%)',
+  border: 0,
+  borderRadius: 3,
+  boxShadow: '0 2px 4px 1px #667eea',
+  color: 'white',
+  height: 48,
+  padding: '0 30px',
+});
 
 export default function ForgotPassword() {
   const emailRef = useRef();
@@ -40,9 +51,9 @@ export default function ForgotPassword() {
                 <Form.Control type="email" ref={emailRef} required />
               </Form.Group>
 
-              <Button disabled={loading} className="w-100" type="submit">
+              <MyButton disabled={loading} className="w-100" type="submit">
                 비밀번호 재설정
-              </Button>
+              </MyButton>
             </Form>
             <div className="w-100 text-center mt-3">
               <Link to="/login">로그인</Link>
