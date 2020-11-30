@@ -7,6 +7,7 @@ import ImportantDevicesIcon from '@material-ui/icons/ImportantDevices';
 import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacy';
 import FunctionsIcon from '@material-ui/icons/Functions';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import * as dateFns from 'date-fns';
 
 export default function ReadCourseMaterialsList() {
   const [tutorials, setTutorials] = useState([]);
@@ -51,14 +52,15 @@ export default function ReadCourseMaterialsList() {
           }
           onClick={() => setCurrentIndex(index)}
           key={index}
+          style={{ fontSize: '18px' }}
         >
           <div
             style={{
-              fontSize: '18px',
+              fontSize: '17px',
               color: '#1A237E',
             }}
           >
-            {subj(c.class)}
+            {subj(c.class, c.postedOn)}
           </div>
           {c.title}
         </li>
@@ -66,48 +68,72 @@ export default function ReadCourseMaterialsList() {
     });
   };
 
-  function subj(subj) {
+  function subj(subj, pst) {
     if (subj === '캡스톤디자인') {
       return (
-        <div style={{ color: '#0D47A1' }}>
+        <div style={{ color: '#0D47A1', display: 'flex' }}>
           <ImportantDevicesIcon style={{ marginRight: '8px' }} />
           {'   '}
           {subj}
+          {' | '}
+          <div style={{ opacity: 0.6, display: 'flex', marginLeft: '5px' }}>
+            {dateFns.format(pst, 'yyyy-MM-dd HH:MM')}
+          </div>
         </div>
       );
     } else if (subj === '자기주도프로젝트') {
       return (
-        <div style={{ color: '#311B92' }}>
+        <div style={{ color: '#311B92', display: 'flex' }}>
           <ImportantDevicesIcon style={{ marginRight: '8px' }} /> {'   '}
           {subj}
+          {' | '}
+          <div style={{ opacity: 0.6, display: 'flex', marginLeft: '5px' }}>
+            {dateFns.format(pst, 'yyyy-MM-dd HH:MM')}
+          </div>
         </div>
       );
     } else if (subj === '자기주도연구') {
       return (
-        <div style={{ color: '#880E4F' }}>
+        <div style={{ color: '#880E4F', display: 'flex' }}>
           <ImportantDevicesIcon style={{ marginRight: '8px' }} /> {'   '}
           {subj}
+          {' | '}
+          <div style={{ opacity: 0.6, display: 'flex', marginLeft: '5px' }}>
+            {dateFns.format(pst, 'yyyy-MM-dd HH:MM')}
+          </div>
         </div>
       );
     } else if (subj === '수학1') {
       return (
-        <div style={{ color: '#263238' }}>
+        <div style={{ color: '#263238', display: 'flex' }}>
           <FunctionsIcon style={{ marginRight: '8px' }} /> {'   '}
           {subj}
+          {' | '}
+          <div style={{ opacity: 0.6, display: 'flex', marginLeft: '5px' }}>
+            {dateFns.format(pst, 'yyyy-MM-dd HH:MM')}
+          </div>
         </div>
       );
     } else if (subj === '약품분자생물학') {
       return (
-        <div style={{ color: '#BF360C' }}>
+        <div style={{ color: '#BF360C', display: 'flex' }}>
           <LocalPharmacyIcon style={{ marginRight: '8px' }} /> {'   '}
           {subj}
+          {' | '}
+          <div style={{ opacity: 0.6, display: 'flex', marginLeft: '5px' }}>
+            {dateFns.format(pst, 'yyyy-MM-dd HH:MM')}
+          </div>
         </div>
       );
     } else if (subj === '국제금융론') {
       return (
-        <div style={{ color: '#1B5E20' }}>
+        <div style={{ color: '#1B5E20', display: 'flex' }}>
           <MonetizationOnIcon style={{ marginRight: '8px' }} /> {'   '}
           {subj}
+          {' | '}
+          <div style={{ opacity: 0.6, display: 'flex', marginLeft: '5px' }}>
+            {dateFns.format(pst, 'yyyy-MM-dd HH:MM')}
+          </div>
         </div>
       );
     } else {
@@ -119,6 +145,7 @@ export default function ReadCourseMaterialsList() {
       <Col
         style={{
           marginLeft: '-15px',
+          marginBottom: '40px',
         }}
         xs="6"
         elevation={3}

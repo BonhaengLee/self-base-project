@@ -201,7 +201,10 @@ const Video = () => {
   }, []);
 
   return !loading ? (
-    <Container darkMode={darkMode} style={{ marginTop: '70px' }}>
+    <Container
+      darkMode={darkMode}
+      style={{ marginTop: '70px'}}
+    >
       {alert && <Alert type={alert.type} text={alert.text} />}
       {video && !error ? (
         <>
