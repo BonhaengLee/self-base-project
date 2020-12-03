@@ -1,3 +1,12 @@
+# 아주대학교 자기주도프로젝트 20-2
+
+# EDUMEET : 교육용 동영상 관리 사이트
+
+RUN )
+
+    1. npm install
+    2. npm start
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
