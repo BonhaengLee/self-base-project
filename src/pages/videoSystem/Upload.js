@@ -191,7 +191,7 @@ const Upload = () => {
               style={{
                 paddingLeft: '5px',
                 paddingRight: '5px',
-                backgroundColor: '#004D40',
+                backgroundColor: '#444',
                 color: 'white',
                 border: 'none',
                 height: '50px',

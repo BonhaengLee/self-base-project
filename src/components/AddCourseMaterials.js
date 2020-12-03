@@ -32,13 +32,15 @@ export default function AddCourseMaterials(props) {
   const [files, setFiles] = useState([]);
   const inputRef = useRef();
   const previewRef = useRef();
-  const [username, setUserName] = useState(currentUser.email);
+  const [useremail, setUserEmail] = useState(currentUser.email);
+  const [username, setUserName] = useState(currentUser.displayName);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [fileUrl, setFileUrl] = useState([]);
   const [classes, setClasses] = useState(menuItemClass[0]);
   const [submitted, setSubmitted] = useState(false);
   const history = useHistory();
+  // const user = firebase.auth().currentUser;
 
   const fileTypes = [
     'image/apng',
@@ -319,6 +321,7 @@ export default function AddCourseMaterials(props) {
       fileRef.set(
         {
           key: fileRef.id,
+          email: useremail,
           name: username,
           title: title,
           description: description,
@@ -362,6 +365,7 @@ export default function AddCourseMaterials(props) {
                     //db.collection("users").doc(username).set({
                     key: fileRef.id,
                     name: username,
+                    email: useremail,
                     title: title,
                     description: description,
                     fileurl: url,

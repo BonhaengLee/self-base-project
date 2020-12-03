@@ -11,7 +11,7 @@ import * as dateFns from 'date-fns';
 import { firebase } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 
-export default function ReadCourseMaterialsList() {
+export default function MyReadCourseMaterialsList() {
   const [tutorials, setTutorials] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(-1);
   // 검색
@@ -44,12 +44,7 @@ export default function ReadCourseMaterialsList() {
   var ar = [];
   //db.collection('classMaterials').orderBy('postedOn', 'desc').get()
   const loadTutorialData = async () => {
-    arr.map((x, i) => {
-      ar = [...ar, ...x];
-    });
     ar.push(currentUser.email);
-    ar = Array.from(new Set(ar));
-    console.log(ar);
 
     TutorialDataService.getAll(ar).then((snapshot) => {
       setTutorials(

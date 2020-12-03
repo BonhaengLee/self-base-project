@@ -14,7 +14,7 @@
 
 .box {
   /* background-color: #444; */
-  color: #fff;
+  color: black;
   border-radius: 5px;
   padding: 20px;
   font-size: 150%;
@@ -27,11 +27,13 @@
 
 .a {
   grid-column: col / span 2;
+  margin-bottom: -12px;
   grid-row: row;
 }
 
 .b {
   grid-column: col 3 / span 2;
+  margin-bottom: -12px;
   grid-row: row;
 }
 
@@ -41,6 +43,7 @@
 }
 
 .d {
+  background-color: rgba(187, 174, 157);
   grid-column: col / span 2;
   grid-row: row 2;
   display: grid;
@@ -57,7 +60,12 @@
 }
 
 .e {
-  grid-column: 1 / 3;
+  grid-column: 1 / 2;
+  grid-row: 1;
+}
+
+.es {
+  grid-column: 2 / 3;
   grid-row: 1;
 }
 

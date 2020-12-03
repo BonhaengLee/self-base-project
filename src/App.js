@@ -18,11 +18,15 @@ const AddCourseMaterialsPage = lazy(() =>
 const ReadCourseMaterialsPage = lazy(() =>
   import('./pages/ReadCourseMaterials.page'),
 );
+const MyReadCourseMaterialsPage = lazy(() =>
+  import('./pages/MyReadCourseMaterials.page'),
+);
 const MypagePage = lazy(() => import('./pages/Mypage.page'));
 const ForgotPasswordPage = lazy(() => import('./pages/ForgotPassword.page'));
 const Upload = lazy(() => import('./pages/videoSystem/Upload'));
 const Video = lazy(() => import('./pages/videoSystem/Video'));
 const Landing = lazy(() => import('./pages/videoSystem/Landing'));
+const MyLanding = lazy(() => import('./pages/videoSystem/MyLanding'));
 const Nav = lazy(() => import('./components/Nav'));
 
 const Spinner = styled.div`
@@ -66,9 +70,14 @@ function App() {
               <PrivateRoute path="/add-teacher" component={AddTeacher} />
               <PrivateRoute path="/add-student" component={AddStudent} />
               <PrivateRoute path="/read" component={ReadCourseMaterialsPage} />
+              <PrivateRoute
+                path="/my-read"
+                component={MyReadCourseMaterialsPage}
+              />
               <PrivateRoute path="/upload" component={Upload} />
               <PrivateRoute path="/video/:id" component={Video} />
               <PrivateRoute path="/landing" component={Landing} />
+              <PrivateRoute path="/my-landing" component={MyLanding} />
             </Switch>
           </AuthProvider>
         </div>

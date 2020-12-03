@@ -1,6 +1,6 @@
 .Conversation {
   text-align: left;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 5px;
   box-shadow: 0 7px 6px -6px #777;
   border: 1px solid #d0d0d0;

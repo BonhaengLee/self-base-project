@@ -6,7 +6,7 @@ export default function UserIcon() {
   const { currentUser } = useAuth();
   return (
     <div className="w-100 text-center mt-3 mr-5 bg-transparent">
-      <a href="/">
+      <a href="/update-profile">
         {currentUser ? (
           <>
             <AccountCircle

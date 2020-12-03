@@ -26,7 +26,11 @@ const Authorized = (props) => {
   });
 
   return (
-    <div style={{ marginBottom: '30px' }}>
+    <div
+      style={{
+        marginBottom: '30px',
+      }}
+    >
       <CommentsContainer videoId={props.videoId}>
         {(comments, handleFetchMore, handleAddComment, handleDeleteComment) => (
           <Grid.Col>

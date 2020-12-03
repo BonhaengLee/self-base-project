@@ -3,8 +3,12 @@ import { firebase } from '../firebase';
 const db = firebase.firestore();
 
 class TutorialDataService {
-  getAll() {
-    return db.collection('classMaterials').orderBy('postedOn', 'desc').get();
+  getAll(ar) {
+    return db
+      .collection('classMaterials')
+      .orderBy('postedOn', 'desc')
+      .where('email', 'in', ar)
+      .get();
   }
 
   create(tutorial) {
