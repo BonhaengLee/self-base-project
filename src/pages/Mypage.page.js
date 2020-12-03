@@ -60,7 +60,7 @@ export default function MypagePage() {
             >
               <Button
                 component={Link}
-                to={'/read/my'}
+                to={'/my-read'}
                 fullWidth
                 style={{
                   fontSize: '65%',
@@ -116,7 +116,7 @@ export default function MypagePage() {
             >
               <Button
                 component={Link}
-                to={'/landing'}
+                to={'/my-landing'}
                 fullWidth
                 style={{
                   fontSize: '65%',

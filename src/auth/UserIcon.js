@@ -19,7 +19,7 @@ export default function UserIcon() {
                 color: 'black',
               }}
             >
-              {currentUser.email}
+              {currentUser.displayName}({currentUser.email})
             </strong>
           </>
         ) : null}

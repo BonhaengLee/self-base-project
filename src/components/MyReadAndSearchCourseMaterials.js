@@ -114,7 +114,10 @@ export default function MyReadCourseMaterialsList() {
     if (subj === '캡스톤디자인') {
       return (
         <div style={{ color: '#0D47A1', display: 'flex' }}>
-          <ImportantDevicesIcon style={{ marginRight: '8px' }} />
+          <p style={{ color: 'black' }}>{name} | </p>
+          <ImportantDevicesIcon
+            style={{ marginLeft: '4px', marginRight: '8px' }}
+          />
           {'   '}
           {subj}
           {' | '}
@@ -126,7 +129,11 @@ export default function MyReadCourseMaterialsList() {
     } else if (subj === '자기주도프로젝트') {
       return (
         <div style={{ color: '#311B92', display: 'flex' }}>
-          <ImportantDevicesIcon style={{ marginRight: '8px' }} /> {'   '}
+          <p style={{ color: 'black' }}>{name} | </p>
+          <ImportantDevicesIcon
+            style={{ marginLeft: '4px', marginRight: '8px' }}
+          />{' '}
+          {'   '}
           {subj}
           {' | '}
           <div style={{ opacity: 0.6, display: 'flex', marginLeft: '5px' }}>
@@ -137,7 +144,11 @@ export default function MyReadCourseMaterialsList() {
     } else if (subj === '자기주도연구') {
       return (
         <div style={{ color: '#880E4F', display: 'flex' }}>
-          <ImportantDevicesIcon style={{ marginRight: '8px' }} /> {'   '}
+          <p style={{ color: 'black' }}>{name} | </p>
+          <ImportantDevicesIcon
+            style={{ marginLeft: '4px', marginRight: '8px' }}
+          />{' '}
+          {'   '}
           {subj}
           {' | '}
           <div style={{ opacity: 0.6, display: 'flex', marginLeft: '5px' }}>
@@ -148,7 +159,11 @@ export default function MyReadCourseMaterialsList() {
     } else if (subj === '수학1') {
       return (
         <div style={{ color: '#263238', display: 'flex' }}>
-          <FunctionsIcon style={{ marginRight: '8px' }} /> {'   '}
+          <p style={{ color: 'black' }}>{name} | </p>
+          <FunctionsIcon
+            style={{ marginLeft: '4px', marginRight: '8px' }}
+          />{' '}
+          {'   '}
           {subj}
           {' | '}
           <div style={{ opacity: 0.6, display: 'flex', marginLeft: '5px' }}>
@@ -160,7 +175,10 @@ export default function MyReadCourseMaterialsList() {
       return (
         <div style={{ color: '#BF360C', display: 'flex' }}>
           <p style={{ color: 'black' }}>{name} | </p>
-          <LocalPharmacyIcon style={{ marginRight: '2px' }} /> {'   '}
+          <LocalPharmacyIcon
+            style={{ marginLeft: '4px', marginRight: '2px' }}
+          />{' '}
+          {'   '}
           {subj}
           {' | '}
           <div style={{ opacity: 0.6, display: 'flex', marginLeft: '5px' }}>
@@ -171,7 +189,11 @@ export default function MyReadCourseMaterialsList() {
     } else if (subj === '국제금융론') {
       return (
         <div style={{ color: '#1B5E20', display: 'flex' }}>
-          <MonetizationOnIcon style={{ marginRight: '8px' }} /> {'   '}
+          <p style={{ color: 'black' }}>{name} | </p>
+          <MonetizationOnIcon
+            style={{ marginLeft: '4px', marginRight: '8px' }}
+          />{' '}
+          {'   '}
           {subj}
           {' | '}
           <div style={{ opacity: 0.6, display: 'flex', marginLeft: '5px' }}>
