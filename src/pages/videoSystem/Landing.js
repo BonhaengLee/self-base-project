@@ -410,7 +410,7 @@ const Landing = () => {
               <h5
                 style={{ fontSize: '18px', marginLeft: '-9px', opacity: 0.5 }}
               >
-                {c.userEmail}
+                {c.username}({c.userEmail})
               </h5>
               <div className="views">
                 <img

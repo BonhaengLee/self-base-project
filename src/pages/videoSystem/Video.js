@@ -201,10 +201,7 @@ const Video = () => {
   }, []);
 
   return !loading ? (
-    <Container
-      darkMode={darkMode}
-      style={{ marginTop: '70px'}}
-    >
+    <Container darkMode={darkMode} style={{ marginTop: '70px' }}>
       {alert && <Alert type={alert.type} text={alert.text} />}
       {video && !error ? (
         <>
@@ -233,8 +230,7 @@ const Video = () => {
               <h2>{video && video.title}</h2>
               <div>
                 <h3 style={{ fontSize: '18px', color: 'black', opacity: 0.6 }}>
-                  {video.userEmail}
-                  {' | '}
+                  {video.username}({video.userEmail}){' | '}
                   {dateFns.format(video.postedOn, 'yyyy-MM-dd HH:MM')}
                 </h3>
               </div>

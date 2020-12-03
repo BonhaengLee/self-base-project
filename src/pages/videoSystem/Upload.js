@@ -115,6 +115,7 @@ const Upload = () => {
         live: false,
         vId: id,
         userEmail: currentUser.email,
+        username: currentUser.displayName,
         views: 0,
         postedOn: firebase.firestore.FieldValue.serverTimestamp(),
       });
