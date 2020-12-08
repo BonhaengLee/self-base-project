@@ -38,12 +38,15 @@ export default function ComplexGrid() {
             <ButtonBase className={classes.image}>
               <img className={classes.img} alt="complex" src={ac} />
             </ButtonBase>
+            <Typography style={{ fontWeight: 700, textAlign: 'center' }}>
+              설계실 곰돌이
+            </Typography>
           </Grid>
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography variant="subtitle1" style={{ fontWeight: 700 }}>
-                  설계실 곰돌이
+                  보완해주세요
                 </Typography>
                 <Paper
                   style={{
@@ -62,6 +65,36 @@ export default function ComplexGrid() {
                     }}
                   >
                     너무 잘 도와주신것 같아용!! 다음에 또 어시 하고 싶어용
+                    ㅎㅋㅋㅋㅋ
+                  </Typography>
+                </Paper>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} sm container>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography variant="subtitle1" style={{ fontWeight: 700 }}>
+                  만족해요
+                </Typography>
+                <Paper
+                  style={{
+                    height: '120px',
+                    marginBottom: '-10px',
+                    boxShadow: '5px 5px 5px 1px rgba(224, 224, 224, 0.8)',
+                  }}
+                >
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    style={{
+                      padding: '20px 20px',
+                      paddingTop: '40px',
+                      paddingBottom: '40px',
+                    }}
+                  >
+                    너무 잘 도와주신것 같아용!! 다음에 또 어시 하고
+                    싶어용asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf
                     ㅎㅋㅋㅋㅋ
                   </Typography>
                 </Paper>
