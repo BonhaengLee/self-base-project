@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Paper } from '@material-ui/core';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -6,26 +6,68 @@ import { Col, Container, ProgressBar, Row } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import './mypage.css';
 import ReviewGrid from '../components/ReviewSystem/ReviewGrid';
+import GroupedSelect from 'components/GroupedSelect';
+import { firebase } from '../firebase';
 
 export default function ReviewPage() {
   const { currentUser } = useAuth();
 
-  const now = 5;
+  const now = 50;
 
   const progressInstance = (
     <ProgressBar
       variant={'YOU_PICK_A_NAME'}
       className="progress-custom"
       min={0}
-      max={10}
+      max={100}
       now={now}
-      label={`${now}cm`}
+      label={`${now}%`}
       style={{
         height: '75px',
         fontColor: 'gray',
       }}
     />
   );
+
+  var ar = [];
+  var videos = [];
+
+  const getVideos = async () => {
+    try {
+      ar.push(currentUser.email);
+      const videosSnapshot = await firebase
+        .firestore()
+        .collection('videos')
+        .orderBy('postedOn', 'desc')
+        .where('userEmail', 'in', ar)
+        .get();
+      const videosPayload = [];
+      videosSnapshot.forEach((video) =>
+        videosPayload.push({
+          ...video.data(),
+          postedOn: video.data().postedOn.toDate(),
+          id: video.id,
+        }),
+      );
+      console.log(videosPayload);
+
+      videos = videosPayload;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        // setLoading(true);
+        // await fetchTeachers();
+        // setLoading(false);
+
+        await getVideos();
+      } catch (err) {}
+    })();
+  }, []);
 
   return (
     <Container>
@@ -84,7 +126,7 @@ export default function ReviewPage() {
                       color: 'gray',
                     }}
                   >
-                    <span>만족도</span>
+                    <span>만족도 : {now}%</span>
                   </Col>
                 </Row>
               </Container>
@@ -123,6 +165,7 @@ export default function ReviewPage() {
                 강의 후기
               </div>
               <div>
+                <GroupedSelect />
                 <ReviewGrid />
               </div>
             </Grid>

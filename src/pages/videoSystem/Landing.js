@@ -1,5 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { MainContext } from '../../contexts/MainContext';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Loader from '../../components/videoSystem/Loader';

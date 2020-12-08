@@ -1,9 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-// import { MainContext } from '../../contexts/MainContext';
-// import { UserContext } from '../../contexts/UserContext';
+import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-// import Player from '../../components/videoSystem/Player';
 import { Player, ControlBar } from 'video-react';
 import Loader from '../../components/videoSystem/Loader';
 import Alert from '../../components/videoSystem/Alert';
@@ -125,9 +122,6 @@ const Container = styled.div`
 `;
 
 const Video = () => {
-  // const { darkMode, getVideo, incrementVideoViews, deleteVideo } = useContext(
-  //   MainContext,
-  // );
   const darkMode = true;
   const getVideo = async (id) => {
     try {
@@ -175,7 +169,6 @@ const Video = () => {
     }
   };
 
-  // const { user } = useContext(UserContext);
   const { currentUser } = useAuth();
   const { id } = useParams();
   const [loading, setLoading] = useState(false);

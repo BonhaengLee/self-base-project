@@ -2,11 +2,9 @@ import React, { Suspense, lazy } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from './auth/PrivateRoute';
 import { AuthProvider } from './contexts/AuthContext';
-import { CircularProgress } from '@material-ui/core';
 import styled from 'styled-components';
 import HomeImage from './images/black-and-white-bamboo-surface-merge-for-background_7182-2053.jpg';
 
-const DashBoardPage = lazy(() => import('./pages/Dashboard.page'));
 const UpdateProfilePage = lazy(() => import('./pages/UpdateProfile.page'));
 const SignUpPage = lazy(() => import('./pages/Signup.page'));
 const LoginPage = lazy(() => import('./pages/Login.page'));
