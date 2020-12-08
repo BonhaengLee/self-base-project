@@ -27,6 +27,7 @@ const Landing = lazy(() => import('./pages/videoSystem/Landing'));
 const MyLanding = lazy(() => import('./pages/videoSystem/MyLanding'));
 const Nav = lazy(() => import('./components/Nav'));
 const ReviewPage = lazy(() => import('./pages/Review.page'));
+const writeReview = lazy(() => import('./components/ReviewSystem/Review'));
 
 const Spinner = styled.div`
   position: absolute;
@@ -78,6 +79,7 @@ function App() {
               <PrivateRoute path="/landing" component={Landing} />
               <PrivateRoute path="/my-landing" component={MyLanding} />
               <PrivateRoute path="/read-review" component={ReviewPage} />
+              <PrivateRoute path="/write-review" component={writeReview} />
             </Switch>
           </AuthProvider>
         </div>

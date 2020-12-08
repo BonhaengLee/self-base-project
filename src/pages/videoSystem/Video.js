@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Player, ControlBar } from 'video-react';
 import Loader from '../../components/videoSystem/Loader';
 import Alert from '../../components/videoSystem/Alert';
 import * as dateFns from 'date-fns';
-
+import CreateIcon from '@material-ui/icons/Create';
 import { firebase } from '../../firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import accountLogo from '../../images/accountLogo.png';
@@ -18,6 +18,7 @@ import PlaybackRateMenuButton from 'video-react/lib/components/control-bar/Playb
 import VolumeMenuButton from 'video-react/lib/components/control-bar/VolumeMenuButton';
 import ForwardControl from 'video-react/lib/components/control-bar/ForwardControl';
 import Authorized from 'layouts/Authorized';
+import { Button } from 'react-bootstrap';
 
 const Container = styled.div`
   width: 90%;
@@ -121,6 +122,27 @@ const Container = styled.div`
   }
 `;
 
+const Eraser = styled.div`
+  height: 40px;
+  width: 120px;
+  margin-left: 5px;
+  background-color: green;
+  cursor: pointer;
+  position: relative;
+  background-color: #ff4a4a;
+  padding: 5px 10px;
+  font-size: 18px;
+  outline: none;
+  color: white;
+  border-radius: 5px;
+  &:hover {
+    background-color: #fff;
+    box-shadow: 0px 15px 20px rgba(66, 66, 66, 0.4);
+    color: #757575;
+    transform: translateY(-3px);
+  }
+`;
+
 const Video = () => {
   const darkMode = true;
   const getVideo = async (id) => {
@@ -220,7 +242,20 @@ const Video = () => {
           </Player>
           <div className="info">
             <div className="meta">
-              <h2>{video && video.title}</h2>
+              <h2 style={{ display: 'flex' }}>
+                {video && video.title}
+                <Link to="/write-review" style={{ textDecoration: 'none' }}>
+                  <Button
+                    variant="dark"
+                    className="w-100 text-center ml-2 mr-1 mb-1 bg-transprant rounded"
+                    style={{ fontWeight: '700' }}
+                  >
+                    후기 작성
+                    <CreateIcon style={{ marginLeft: '5px' }} />
+                  </Button>{' '}
+                </Link>
+              </h2>
+
               <div>
                 <h3 style={{ fontSize: '18px', color: 'black', opacity: 0.6 }}>
                   {video.username}({video.userEmail}){' | '}

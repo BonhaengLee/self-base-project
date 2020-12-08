@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as Survey from 'survey-react';
 import 'survey-react/survey.css';
 
-Survey.StylesManager.applyTheme('orange');
+Survey.StylesManager.applyTheme('stone');
 export default function Review() {
   const [isCompleted, setIsCompleted] = useState(false);
 
@@ -54,7 +54,7 @@ export default function Review() {
     console.log('Survey results: ' + JSON.stringify(survey.data));
   }
   return (
-    <div style={{ marginTop: '300px' }}>
+    <div style={{ width: '1000px', margin: '0 auto' }}>
       {surveyRender}
       {onCompleteComponent}
     </div>
