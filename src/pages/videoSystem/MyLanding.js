@@ -1,6 +1,5 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { MainContext } from '../../contexts/MainContext';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Loader from '../../components/videoSystem/Loader';
 import accountLogo from '../../images/accountLogo.png';
@@ -11,7 +10,6 @@ import LocalPharmacyIcon from '@material-ui/icons/LocalPharmacy';
 import FunctionsIcon from '@material-ui/icons/Functions';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import { InputAdornment, Paper, SvgIcon, TextField } from '@material-ui/core';
-import * as dateFns from 'date-fns';
 import { useAuth } from 'contexts/AuthContext';
 
 const Container = styled.div`
@@ -158,6 +156,28 @@ const Container = styled.div`
       font-family: 'Poppins';
       text-align: center;
     }
+  }
+`;
+
+const Eraser = styled.div`
+  height: 70px;
+  width: 140px;
+  margin: 10px;
+  background-color: green;
+  cursor: pointer;
+  position: relative;
+  border-radius: 7px;
+  background-image: linear-gradient(95deg, #21b6ae 83%, white 17%);
+  padding: 5px 10px;
+  font-size: 18px;
+  outline: none;
+  color: white;
+  margin-bottom: -15px;
+  &:hover {
+    background-color: #2ee59d;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
   }
 `;
 
@@ -443,7 +463,10 @@ const MyLanding = () => {
     <Container darkMode={darkMode}>
       {videos && videos.length > 0 ? (
         <>
-          <h1 style={{ marginTop: '-20px' }}>강의 영상</h1>
+          <h1 style={{ marginTop: '-20px' }}>내 강의 영상</h1>
+          <Link to="/read-review" style={{ textDecoration: 'none' }}>
+            <Eraser>후기 확인</Eraser>
+          </Link>
 
           <Paper style={{ marginTop: '30px', width: '200px' }}>
             <TextField

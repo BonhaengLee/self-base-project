@@ -221,7 +221,7 @@ export default function MyReadCourseMaterialsList() {
             marginTop: '50px',
           }}
         >
-          강의 자료
+          내 강의 자료
         </h1>
         <Paper
           style={{ marginTop: '10px', marginBottom: '10px', width: '200px' }}

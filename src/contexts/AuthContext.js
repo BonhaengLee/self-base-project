@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
-import { auth, firestore } from '../firebase';
+import { auth, firestore, db } from '../firebase';
 
 const AuthContext = React.createContext();
 
@@ -17,7 +17,23 @@ export function AuthProvider({ children }) {
       return auth.currentUser
         .updateProfile({
           displayName: name,
-          // photoURL: url,
+        })
+        .then(
+          function (response) {
+            console.log('Updated', response);
+          },
+          function (error) {
+            console.log(error);
+          },
+        );
+    }
+  }
+
+  function updateDisplayPhoto(url) {
+    if (auth.currentUser) {
+      return auth.currentUser
+        .updateProfile({
+          photoURL: url,
         })
         .then(
           function (response) {
@@ -32,11 +48,12 @@ export function AuthProvider({ children }) {
 
   function addUserToDB() {
     const u = auth.currentUser;
-    return firestore.collection("users").doc().set({
+    return db.ref('users/' + u.uid).set({
       email: u.email,
       uid: u.uid,
-      name: u.displayName,
-      // photoURL: u.photoURL, // 프로필 이미지
+      uname: u.displayName,
+      photoURL: u.photoURL, // 프로필 이미지
+      manner: 0, // 매너 룰러 점수
     });
   }
 
@@ -83,6 +100,7 @@ export function AuthProvider({ children }) {
     updatePassword,
     updateDisplayName,
     addUserToDB,
+    updateDisplayPhoto,
   };
 
   return (

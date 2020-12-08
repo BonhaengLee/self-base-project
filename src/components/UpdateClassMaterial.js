@@ -48,7 +48,7 @@ export default function UpdateClassMaterial({ tutorial, refreshList }) {
   return (
     <div style={{ height: '600px' }}>
       {currentTutorial ? (
-        currentTutorial.name === currentUser.email ? (
+        currentTutorial.email === currentUser.email ? (
           <div className="edit-form">
             <form>
               <div
