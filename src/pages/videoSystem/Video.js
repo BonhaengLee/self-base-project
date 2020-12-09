@@ -215,6 +215,21 @@ const Video = () => {
     // eslint-disable-next-line
   }, []);
 
+  function hist(ID) {
+    history.push('/write-review/' + ID);
+  }
+
+  const appKeyPress = async (e) => {
+    try {
+      hist(video.vId);
+      // history.push("/chat/" + chatID);
+    } catch (error) {
+      console.log(error.message);
+      console.log('error');
+      setError(error.message);
+    }
+  };
+
   return !loading ? (
     <Container darkMode={darkMode} style={{ marginTop: '70px' }}>
       {alert && <Alert type={alert.type} text={alert.text} />}
@@ -244,16 +259,17 @@ const Video = () => {
             <div className="meta">
               <h2 style={{ display: 'flex' }}>
                 {video && video.title}
-                <Link to="/write-review" style={{ textDecoration: 'none' }}>
-                  <Button
-                    variant="dark"
-                    className="w-100 text-center ml-2 mr-1 mb-1 bg-transprant rounded"
-                    style={{ fontWeight: '700' }}
-                  >
-                    후기 작성
-                    <CreateIcon style={{ marginLeft: '5px' }} />
-                  </Button>{' '}
-                </Link>
+                {/* <Link to="/write-review" style={{ textDecoration: 'none' }}> */}
+                <Button
+                  variant="dark"
+                  className="text-center ml-2 mr-1 mb-1 bg-transprant rounded"
+                  onClick={appKeyPress}
+                  style={{ fontWeight: '700', width: '20px !important' }}
+                >
+                  후기 작성
+                  <CreateIcon style={{ marginLeft: '5px' }} />
+                </Button>{' '}
+                {/* </Link> */}
               </h2>
 
               <div>

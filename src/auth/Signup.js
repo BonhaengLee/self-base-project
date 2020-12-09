@@ -246,6 +246,9 @@ export default function Signup() {
                       width: '145px',
                       backgroundColor: 'lightgray',
                       color: 'white',
+                      marginBottom: '20px',
+                      border: 'none',
+                      padding: '2px',
                     }}
                     onClick={() => handleClick()}
                   >

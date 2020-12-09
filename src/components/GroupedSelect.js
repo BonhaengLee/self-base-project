@@ -18,42 +18,29 @@ const useStyles = makeStyles((theme) => ({
 export default function GroupedSelect(props) {
   const classes = useStyles();
   const OPTIONS = props.st;
-  const [subj, setSubj] = React.useState('');
-  const [vid, setVid] = React.useState('');
-
-  const handleChangeS = (event) => {
-    setSubj(event.target.value);
-  };
-  const handleChangeV = (event) => {
-    setVid(event.target.value);
-  };
 
   console.log(OPTIONS);
-  console.log(subj);
-  console.log(vid);
 
   return (
     <div style={{ marginTop: '-20px' }}>
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="grouped-select">과목 선택</InputLabel>
-        <Select defaultValue="" id="grouped-select" onChange={handleChangeS}>
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {OPTIONS.map((x, i) => {
-            return <MenuItem value={x.subject}>{x.subject}</MenuItem>;
-          })}
-        </Select>
-      </FormControl>
-
-      <FormControl className={classes.formControl}>
         <InputLabel htmlFor="grouped-select">영상 선택</InputLabel>
-        <Select defaultValue="" id="grouped-select" onChange={handleChangeV}>
+        <Select
+          defaultValue=""
+          id="grouped-select"
+          onChange={props.handleChangeV}
+        >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
           {OPTIONS.map((x, i) => {
-            return <MenuItem value={x.title}>{x.title}</MenuItem>;
+            return (
+
+              <MenuItem value={x.vId}>
+                [{x.subject}]{x.title}
+
+              </MenuItem>
+            );
           })}
         </Select>
       </FormControl>

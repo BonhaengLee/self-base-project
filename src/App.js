@@ -79,7 +79,7 @@ function App() {
               <PrivateRoute path="/landing" component={Landing} />
               <PrivateRoute path="/my-landing" component={MyLanding} />
               <PrivateRoute path="/read-review" component={ReviewPage} />
-              <PrivateRoute path="/write-review" component={writeReview} />
+              <PrivateRoute path="/write-review/:ID" component={writeReview} />
             </Switch>
           </AuthProvider>
         </div>

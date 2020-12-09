@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -6,13 +6,16 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import ac from '../../assets/ac.jpg';
 import GroupedSelect from 'components/GroupedSelect';
+import { firestore, firebaseApp } from '../../firebase';
+import styled from 'styled-components';
+import { v4 as uuid } from 'uuid';
+import { useAuth } from '../../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   paper: {
-    // padding: theme.spacing(2),
     margin: 'auto',
     maxWidth: 900,
   },
@@ -31,92 +34,229 @@ const useStyles = makeStyles((theme) => ({
 export default function ComplexGrid(props) {
   const classes = useStyles();
   const opt = props.st;
+  const [vid, setVid] = useState('');
+  const { currentUser } = useAuth();
 
-  console.log(opt);
+  useEffect(() => {
+    fetchReviews(vid);
+  }, [vid]);
 
-  useEffect(() => {}, [props.st]);
+  const handleChangeV = (event) => {
+    setVid(event.target.value);
+  };
+
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchReviews = async (vid) => {
+    setLoading(true);
+    console.log('vi', vid);
+    const id = uuid();
+
+    if (vid === '') {
+      const req = await firestore
+        .collection('reviews')
+        // .orderBy('postedOn', 'desc')
+        .get();
+      const tempReviews = req.docs.map((review) => ({
+        ...review.data(),
+        id: review.id,
+        // postedOn: review.data().postedOn.toDate(),
+      }));
+
+      tempReviews.map((x, i) => {
+        // console.log(JSON.parse(x['0']).understanding);
+        // console.log(JSON.parse(x['0']).satisfaction);
+        if (
+          JSON.parse(x['0']).understanding < 3 &&
+          JSON.parse(x['0']).satisfaction < 3
+        ) {
+          un -= parseInt(JSON.parse(x['0']).understanding) / 10;
+          st -= parseInt(JSON.parse(x['0']).satisfaction) / 10;
+        } else if (
+          JSON.parse(x['0']).satisfaction < 3 ||
+          JSON.parse(x['0']).understanding >= 3
+        ) {
+          un += parseInt(JSON.parse(x['0']).understanding) / 10;
+          st -= parseInt(JSON.parse(x['0']).satisfaction) / 10;
+        } else if (
+          JSON.parse(x['0']).satisfaction >= 3 ||
+          JSON.parse(x['0']).understanding >= 3
+        ) {
+          un += parseInt(JSON.parse(x['0']).understanding) / 10;
+          st += parseInt(JSON.parse(x['0']).satisfaction) / 10;
+        } else if (
+          JSON.parse(x['0']).satisfaction >= 3 ||
+          JSON.parse(x['0']).understanding < 3
+        ) {
+          un -= parseInt(JSON.parse(x['0']).understanding) / 10;
+          st += parseInt(JSON.parse(x['0']).satisfaction) / 10;
+        }
+        // un += parseInt(JSON.parse(x['0']).understanding) / 10;
+        // st += parseInt(JSON.parse(x['0']).satisfaction) / 10;
+        // console.log(un);
+      });
+      // await postScore(un, st);
+      const fileRef = db.collection('scores').doc(id);
+      fileRef.set(
+        {
+          un: 50 + un,
+          st: 50 + st,
+          email: currentUser.email,
+          // userId: currentUser.uId,
+          username: currentUser.displayName,
+          // postedOn: firebase.firestore.FieldValue.serverTimestamp(),
+        },
+        { merge: true },
+      );
+
+      setReviews(tempReviews);
+      props.handleEval(50 + un, 50 + st);
+      console.log(tempReviews);
+    } else {
+      const req = await firestore
+        .collection('reviews')
+        // .orderBy('postedOn', 'desc')
+        .where('videoId', '==', vid)
+        .get();
+      const tempReviews = req.docs.map((review) => ({
+        ...review.data(),
+        id: review.id,
+        // postedOn: review.data().postedOn.toDate(),
+      }));
+      setReviews(tempReviews);
+      console.log(tempReviews);
+    }
+    setLoading(false);
+  };
+
+  const db = firebaseApp.firestore();
+
+  // const postScore = async (un, st) => {
+
+  // };
+
+  console.log(reviews);
+  console.log(vid);
+
+  var un = 0;
+  var st = 0;
+  var details = [];
 
   return (
     <>
-      <GroupedSelect st={props.st} />
+      <GroupedSelect st={props.st} handleChangeV={handleChangeV} />
       <div className={classes.root}>
-        <Grid className={classes.paper}>
-          <Grid container spacing={2}>
-            <Grid item>
-              <ButtonBase className={classes.image}>
-                <img className={classes.img} alt="complex" src={ac} />
-              </ButtonBase>
-              <Typography style={{ fontWeight: 700, textAlign: 'center' }}>
-                설계실 곰돌이
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm container>
-              <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs>
-                  <Typography variant="subtitle1" style={{ fontWeight: 700 }}>
-                    보완해주세요
+        {reviews.map((x, i) => {
+          console.log(JSON.parse(x['0']).complement);
+          console.log(JSON.parse(x['0']).suggestions);
+          console.log(JSON.parse(x['0']).satisfaction);
+          console.log(JSON.parse(x['0']).understanding);
+
+          return loading === true ? (
+            <Spinner />
+          ) : (
+            <Grid className={classes.paper}>
+              <Grid container spacing={2}>
+                <Grid item>
+                  <ButtonBase className={classes.image}>
+                    <img
+                      className={classes.img}
+                      alt="complex"
+                      src={x['photo'] === null ? ac : x['photo']}
+                    />
+                  </ButtonBase>
+                  <Typography style={{ fontWeight: 700, textAlign: 'center' }}>
+                    {x['username']}
                   </Typography>
-                  <Paper
-                    style={{
-                      height: '120px',
-                      marginBottom: '-10px',
-                      boxShadow: '5px 5px 5px 1px rgba(224, 224, 224, 0.8)',
-                    }}
-                  >
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      style={{
-                        padding: '20px 20px',
-                        paddingTop: '40px',
-                        paddingBottom: '40px',
-                      }}
-                    >
-                      너무 잘 도와주신것 같아용!! 다음에 또 어시 하고 싶어용
-                      ㅎㅋㅋㅋㅋ
-                    </Typography>
-                  </Paper>
+                </Grid>
+                <Grid item xs={12} sm container>
+                  <Grid item xs container direction="column" spacing={2}>
+                    <Grid item xs>
+                      <Typography
+                        variant="subtitle1"
+                        style={{ fontWeight: 700 }}
+                      >
+                        보완해주세요
+                      </Typography>
+                      <Paper
+                        style={{
+                          height: '120px',
+                          marginBottom: '-10px',
+                          boxShadow: '5px 5px 5px 1px rgba(224, 224, 224, 0.8)',
+                        }}
+                      >
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          style={{
+                            padding: '20px 20px',
+                            paddingTop: '40px',
+                            paddingBottom: '40px',
+                          }}
+                        >
+                          {JSON.parse(x['0']).complement}
+                        </Typography>
+                      </Paper>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} sm container>
+                  <Grid item xs container direction="column" spacing={2}>
+                    <Grid item xs>
+                      <Typography
+                        variant="subtitle1"
+                        style={{ fontWeight: 700 }}
+                      >
+                        만족해요
+                      </Typography>
+                      <Paper
+                        style={{
+                          height: '120px',
+                          marginBottom: '-10px',
+                          boxShadow: '5px 5px 5px 1px rgba(224, 224, 224, 0.8)',
+                          overflow: 'auto',
+                        }}
+                      >
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          style={{
+                            padding: '20px 20px',
+                            paddingTop: '40px',
+                            paddingBottom: '40px',
+                          }}
+                        >
+                          {JSON.parse(x['0']).suggestions}
+                        </Typography>
+                      </Paper>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm container>
-              <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs>
-                  <Typography variant="subtitle1" style={{ fontWeight: 700 }}>
-                    만족해요
-                  </Typography>
-                  <Paper
-                    style={{
-                      height: '120px',
-                      marginBottom: '-10px',
-                      boxShadow: '5px 5px 5px 1px rgba(224, 224, 224, 0.8)',
-                      overflow: 'auto',
-                    }}
-                  >
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      style={{
-                        padding: '20px 20px',
-                        paddingTop: '40px',
-                        paddingBottom: '40px',
-                      }}
-                    >
-                      너무 잘 도와주신것 같아용!! 다음에 또 어시 하고
-                      싶어용asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf
-                      ㅎㅋㅋㅋㅋsdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf
-                      ㅎㅋㅋㅋㅋsdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf
-                      ㅎㅋㅋㅋㅋsdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf
-                      ㅎㅋㅋㅋㅋsdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf
-                      ㅎㅋㅋㅋㅋ
-                    </Typography>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+          );
+        })}
+        {/* {(details.push({ un: un, st: st }), postScore(details))} */}
       </div>
     </>
   );
 }
+
+const Spinner = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border: 3px solid ${'rgba(255, 255, 255, 0.3)'};
+  border-top-color: ${'rgba(255, 255, 255, 1)'};
+  animation: anim 0.7s infinite linear;
+
+  @keyframes anim {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;

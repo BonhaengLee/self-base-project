@@ -126,6 +126,7 @@ export default function AddStudent() {
       ),
     );
     acceptStuds();
+    // window.location.replace('/add-student'); // 새로고침 효과
   };
 
   const acceptStuds = async () => {

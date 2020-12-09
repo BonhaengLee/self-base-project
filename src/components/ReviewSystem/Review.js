@@ -1,10 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import * as Survey from 'survey-react';
 import 'survey-react/survey.css';
+import { v4 as uuid } from 'uuid';
+import { useAuth } from '../../contexts/AuthContext';
+import { firestore, firebaseApp } from '../../firebase';
 
 Survey.StylesManager.applyTheme('stone');
-export default function Review() {
+export default function Review(props) {
   const [isCompleted, setIsCompleted] = useState(false);
+  const { currentUser } = useAuth();
+  const history = useHistory();
+
+  const postReview = async (details) => {
+    const id = uuid();
+    await firestore
+      .collection('reviews')
+      .doc(id)
+      .set(
+        {
+          ...details,
+          // postedOn: firebaseApp.firestore.FieldValue.serverTimestamp(),
+          videoId: props.match.params.ID,
+          postId: id,
+          userId: currentUser.email,
+          username: currentUser.displayName,
+          photo: currentUser.photoURL,
+        },
+        { merge: true },
+      );
+    // fetchJobs();
+    history.push('/landing');
+  };
 
   function onCompleteComponent() {
     setIsCompleted(true);
@@ -49,9 +76,12 @@ export default function Review() {
   //       <div style={{ fontSize: "30px" }}>완료되었습니다.</div>
   //     )
   //   : null;
-  function onComplete(survey, options) {
+  var arr = [];
+  async function onComplete(survey, options) {
     //Write survey results into database
     console.log('Survey results: ' + JSON.stringify(survey.data));
+    arr.push(JSON.stringify(survey.data));
+    await postReview(arr);
   }
   return (
     <div style={{ width: '1000px', margin: '0 auto' }}>

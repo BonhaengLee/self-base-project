@@ -120,6 +120,7 @@ export default function AddTeacher() {
   const handleSubmit = async () => {
     setLoading(true);
     await postTeacher(email);
+    // window.location.replace('/add-teacher'); // 새로고침 효과
     setLoading(false);
   };
 

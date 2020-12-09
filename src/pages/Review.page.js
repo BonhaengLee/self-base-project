@@ -11,9 +11,16 @@ import { firebase } from '../firebase';
 export default function ReviewPage() {
   const { currentUser } = useAuth();
   const [subj_title, setSubj_title] = useState([]);
+  const [eval1, setEval1] = useState(0);
+  const [eval2, setEval2] = useState(0);
 
-  const nowu = 50;
-  const nows = 50;
+  function handleEval(x, y) {
+    setEval1(x);
+    setEval2(y);
+  }
+
+  const nowu = eval1;
+  const nows = eval2;
 
   const progressInstanceU = (
     <ProgressBar
@@ -175,7 +182,7 @@ export default function ReviewPage() {
                 강의 후기
               </div>
               <div>
-                <ReviewGrid st={subj_title} />
+                <ReviewGrid st={subj_title} handleEval={handleEval} />
               </div>
             </Grid>
           </Col>

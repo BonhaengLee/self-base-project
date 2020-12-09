@@ -53,7 +53,8 @@ export function AuthProvider({ children }) {
       uid: u.uid,
       uname: u.displayName,
       photoURL: u.photoURL, // 프로필 이미지
-      manner: 0, // 매너 룰러 점수
+      // u_eval: 0, // 이해도
+      // s_eval: 0, // 만족도
     });
   }
 
