@@ -15,35 +15,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function GroupedSelect() {
+export default function GroupedSelect(props) {
   const classes = useStyles();
+  const OPTIONS = props.st;
+  const [subj, setSubj] = React.useState('');
+  const [vid, setVid] = React.useState('');
+
+  const handleChangeS = (event) => {
+    setSubj(event.target.value);
+  };
+  const handleChangeV = (event) => {
+    setVid(event.target.value);
+  };
+
+  console.log(OPTIONS);
+  console.log(subj);
+  console.log(vid);
 
   return (
     <div style={{ marginTop: '-20px' }}>
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="grouped-select">강의 선택</InputLabel>
-        <Select defaultValue="" id="grouped-select">
+        <InputLabel htmlFor="grouped-select">과목 선택</InputLabel>
+        <Select defaultValue="" id="grouped-select" onChange={handleChangeS}>
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <ListSubheader>캡스톤디자인</ListSubheader>
-          <MenuItem value={1}>Option 1</MenuItem>
-          <MenuItem value={2}>Option 2</MenuItem>
-          <ListSubheader>자기주도연구</ListSubheader>
-          <MenuItem value={3}>Option 3</MenuItem>
-          <MenuItem value={4}>Option 4</MenuItem>
-          <ListSubheader>자기주도프로젝트</ListSubheader>
-          <MenuItem value={5}>Option 3</MenuItem>
-          <MenuItem value={6}>Option 4</MenuItem>
-          <ListSubheader>수학1</ListSubheader>
-          <MenuItem value={7}>Option 3</MenuItem>
-          <MenuItem value={8}>Option 4</MenuItem>
-          <ListSubheader>약품분자생물학</ListSubheader>
-          <MenuItem value={9}>Option 3</MenuItem>
-          <MenuItem value={10}>Option 4</MenuItem>
-          <ListSubheader>국제금융론</ListSubheader>
-          <MenuItem value={11}>Option 3</MenuItem>
-          <MenuItem value={12}>Option 4</MenuItem>
+          {OPTIONS.map((x, i) => {
+            return <MenuItem value={x.subject}>{x.subject}</MenuItem>;
+          })}
+        </Select>
+      </FormControl>
+
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="grouped-select">영상 선택</InputLabel>
+        <Select defaultValue="" id="grouped-select" onChange={handleChangeV}>
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {OPTIONS.map((x, i) => {
+            return <MenuItem value={x.title}>{x.title}</MenuItem>;
+          })}
         </Select>
       </FormControl>
     </div>

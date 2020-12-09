@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Paper } from '@material-ui/core';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -6,31 +6,45 @@ import { Col, Container, ProgressBar, Row } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import './mypage.css';
 import ReviewGrid from '../components/ReviewSystem/ReviewGrid';
-import GroupedSelect from 'components/GroupedSelect';
 import { firebase } from '../firebase';
 
 export default function ReviewPage() {
   const { currentUser } = useAuth();
+  const [subj_title, setSubj_title] = useState([]);
 
-  const now = 50;
+  const nowu = 50;
+  const nows = 50;
 
-  const progressInstance = (
+  const progressInstanceU = (
     <ProgressBar
       variant={'YOU_PICK_A_NAME'}
       className="progress-custom"
       min={0}
       max={100}
-      now={now}
-      label={`${now}%`}
+      now={nowu}
+      label={`${nowu}%`}
       style={{
-        height: '75px',
-        fontColor: 'gray',
+        height: '32.5px',
+      }}
+    />
+  );
+
+  const progressInstanceS = (
+    <ProgressBar
+      variant={'YOU_PICK_A_NAME2'}
+      className="progress-custom2"
+      min={0}
+      max={100}
+      now={nows}
+      label={`${nows}%`}
+      style={{
+        height: '32.5px',
       }}
     />
   );
 
   var ar = [];
-  var videos = [];
+  // var subj_title = [];
 
   const getVideos = async () => {
     try {
@@ -51,7 +65,7 @@ export default function ReviewPage() {
       );
       console.log(videosPayload);
 
-      videos = videosPayload;
+      setSubj_title(videosPayload);
     } catch (err) {
       throw err;
     }
@@ -60,19 +74,16 @@ export default function ReviewPage() {
   useEffect(() => {
     (async () => {
       try {
-        // setLoading(true);
-        // await fetchTeachers();
-        // setLoading(false);
-
         await getVideos();
       } catch (err) {}
     })();
   }, []);
 
+  console.log(subj_title);
+
   return (
     <Container>
       <Container
-        //   className="d-flex align-items-center justify-content-center"
         style={{ marginTop: '100px', width: '1000px' }} // 1150px
       >
         <Row>
@@ -80,7 +91,7 @@ export default function ReviewPage() {
             <Paper style={{ height: '280px' }}>
               <Container>
                 <Row>
-                  <Col xs="4">
+                  <Col xs="3">
                     <img
                       src={currentUser.photoURL}
                       height="150px"
@@ -94,7 +105,7 @@ export default function ReviewPage() {
                     />
                   </Col>
                   <Col
-                    xs="3"
+                    xs="2"
                     style={{
                       lineHeight: '190px',
                       fontSize: '26px',
@@ -104,35 +115,34 @@ export default function ReviewPage() {
                     {currentUser.displayName}
                   </Col>
                   <Col
-                    xs="2"
+                    xs="3"
                     style={{
-                      marginLeft: '-30px',
+                      marginLeft: '40px',
                       lineHeight: '190px',
                       fontSize: '21px',
                       fontWeight: '400',
-                      color: 'gray',
-                      display: 'flex',
+                      color: '#81c784',
                     }}
                   >
-                    <span>00</span>
+                    <span>학생 이해도 : {nowu}%</span>
                   </Col>
                   <Col
                     xs="3"
                     style={{
-                      marginLeft: '20px',
                       lineHeight: '190px',
                       fontSize: '21px',
                       fontWeight: '400',
-                      color: 'gray',
+                      color: '#e57373',
                     }}
                   >
-                    <span>만족도 : {now}%</span>
+                    <span>학생 만족도 : {nows}%</span>
                   </Col>
                 </Row>
               </Container>
               <Container>
                 <Row>
-                  <Col xs="12">{progressInstance}</Col>
+                  <Col xs="12">{progressInstanceU}</Col>
+                  <Col xs="12">{progressInstanceS}</Col>
                 </Row>
               </Container>
             </Paper>
@@ -165,8 +175,7 @@ export default function ReviewPage() {
                 강의 후기
               </div>
               <div>
-                <GroupedSelect />
-                <ReviewGrid />
+                <ReviewGrid st={subj_title} />
               </div>
             </Grid>
           </Col>

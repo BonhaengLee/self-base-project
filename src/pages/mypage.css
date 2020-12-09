@@ -87,3 +87,19 @@
   grid-column: 2;
   grid-row: 2;
 }
+.progress-custom {
+  background-color: #e8f5e9;
+}
+.bg-YOU_PICK_A_NAME {
+  background-color: #81c784 !important;
+  text-align: right;
+  color: white !important;
+}
+.progress-custom2 {
+  background-color: #ffcdd2;
+}
+.bg-YOU_PICK_A_NAME2 {
+  background-color: #e57373 !important;
+  text-align: right;
+  color: white !important;
+}
