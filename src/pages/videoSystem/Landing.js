@@ -12,6 +12,7 @@ import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import { InputAdornment, Paper, SvgIcon, TextField } from '@material-ui/core';
 import * as dateFns from 'date-fns';
 import { useAuth } from 'contexts/AuthContext';
+import { ToastsContainer, ToastsStore } from 'react-toasts';
 
 const Container = styled.div`
   width: 90%;
@@ -436,10 +437,13 @@ const Landing = () => {
               </div>
             </div>
           </div>
+          
         </div>
       );
     });
   };
+
+
 
   console.log(tch);
   // console.log(vid);

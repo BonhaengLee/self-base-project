@@ -31,14 +31,12 @@ export default function GroupedSelect(props) {
           onChange={props.handleChangeV}
         >
           <MenuItem value="">
-            <em>None</em>
+            <em>전체</em>
           </MenuItem>
           {OPTIONS.map((x, i) => {
             return (
-
               <MenuItem value={x.vId}>
                 [{x.subject}]{x.title}
-
               </MenuItem>
             );
           })}

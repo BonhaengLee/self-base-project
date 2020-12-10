@@ -230,6 +230,8 @@ const Video = () => {
     }
   };
 
+  console.log(currentUser.email);
+
   return !loading ? (
     <Container darkMode={darkMode} style={{ marginTop: '70px' }}>
       {alert && <Alert type={alert.type} text={alert.text} />}
@@ -259,17 +261,17 @@ const Video = () => {
             <div className="meta">
               <h2 style={{ display: 'flex' }}>
                 {video && video.title}
-                {/* <Link to="/write-review" style={{ textDecoration: 'none' }}> */}
-                <Button
-                  variant="dark"
-                  className="text-center ml-2 mr-1 mb-1 bg-transprant rounded"
-                  onClick={appKeyPress}
-                  style={{ fontWeight: '700', width: '20px !important' }}
-                >
-                  후기 작성
-                  <CreateIcon style={{ marginLeft: '5px' }} />
-                </Button>{' '}
-                {/* </Link> */}
+                {video && video.userEmail !== currentUser.email && (
+                  <Button
+                    variant="dark"
+                    className="text-center ml-2 mr-1 mb-1 bg-transprant rounded"
+                    onClick={appKeyPress}
+                    style={{ fontWeight: '700', width: '20px !important' }}
+                  >
+                    후기 작성
+                    <CreateIcon style={{ marginLeft: '5px' }} />
+                  </Button>
+                )}
               </h2>
 
               <div>

@@ -65,8 +65,6 @@ export default function ComplexGrid(props) {
       }));
 
       tempReviews.map((x, i) => {
-        // console.log(JSON.parse(x['0']).understanding);
-        // console.log(JSON.parse(x['0']).satisfaction);
         if (
           JSON.parse(x['0']).understanding < 3 &&
           JSON.parse(x['0']).satisfaction < 3
@@ -74,36 +72,31 @@ export default function ComplexGrid(props) {
           un -= parseInt(JSON.parse(x['0']).understanding) / 10;
           st -= parseInt(JSON.parse(x['0']).satisfaction) / 10;
         } else if (
-          JSON.parse(x['0']).satisfaction < 3 ||
+          JSON.parse(x['0']).satisfaction < 3 &&
           JSON.parse(x['0']).understanding >= 3
         ) {
           un += parseInt(JSON.parse(x['0']).understanding) / 10;
           st -= parseInt(JSON.parse(x['0']).satisfaction) / 10;
         } else if (
-          JSON.parse(x['0']).satisfaction >= 3 ||
+          JSON.parse(x['0']).satisfaction >= 3 &&
           JSON.parse(x['0']).understanding >= 3
         ) {
           un += parseInt(JSON.parse(x['0']).understanding) / 10;
           st += parseInt(JSON.parse(x['0']).satisfaction) / 10;
         } else if (
-          JSON.parse(x['0']).satisfaction >= 3 ||
+          JSON.parse(x['0']).satisfaction >= 3 &&
           JSON.parse(x['0']).understanding < 3
         ) {
           un -= parseInt(JSON.parse(x['0']).understanding) / 10;
           st += parseInt(JSON.parse(x['0']).satisfaction) / 10;
         }
-        // un += parseInt(JSON.parse(x['0']).understanding) / 10;
-        // st += parseInt(JSON.parse(x['0']).satisfaction) / 10;
-        // console.log(un);
       });
-      // await postScore(un, st);
       const fileRef = db.collection('scores').doc(id);
       fileRef.set(
         {
           un: 50 + un,
           st: 50 + st,
           email: currentUser.email,
-          // userId: currentUser.uId,
           username: currentUser.displayName,
           // postedOn: firebase.firestore.FieldValue.serverTimestamp(),
         },
@@ -132,16 +125,10 @@ export default function ComplexGrid(props) {
 
   const db = firebaseApp.firestore();
 
-  // const postScore = async (un, st) => {
-
-  // };
-
-  console.log(reviews);
-  console.log(vid);
-
+  // console.log(reviews);
+  // console.log(vid);
   var un = 0;
   var st = 0;
-  var details = [];
 
   return (
     <>

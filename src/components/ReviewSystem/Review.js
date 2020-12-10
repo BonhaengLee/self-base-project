@@ -4,7 +4,12 @@ import * as Survey from 'survey-react';
 import 'survey-react/survey.css';
 import { v4 as uuid } from 'uuid';
 import { useAuth } from '../../contexts/AuthContext';
-import { firestore, firebaseApp } from '../../firebase';
+import { firestore } from '../../firebase';
+import {
+  ToastsContainer,
+  ToastsStore,
+  ToastsContainerPosition,
+} from 'react-toasts';
 
 Survey.StylesManager.applyTheme('stone');
 export default function Review(props) {
@@ -13,10 +18,28 @@ export default function Review(props) {
   const history = useHistory();
 
   const postReview = async (details) => {
+    const req = await firestore
+      .collection('reviews')
+      .doc(currentUser.email + props.match.params.ID)
+      .get()
+      .then(function (doc) {
+        // 중복 체크
+        if (doc.exists === false) {
+          push(details);
+        } else {
+          toast();
+        }
+      })
+      .catch(function (error) {
+        console.log('Error getting document:', error);
+      });
+  };
+
+  const push = async (details) => {
     const id = uuid();
     await firestore
       .collection('reviews')
-      .doc(id)
+      .doc(currentUser.email + props.match.params.ID)
       .set(
         {
           ...details,
@@ -29,9 +52,14 @@ export default function Review(props) {
         },
         { merge: true },
       );
-    // fetchJobs();
-    history.push('/landing');
   };
+
+  function toast() {
+    ToastsStore.error('이미 후기를 남겼습니다!');
+    window.setTimeout(() => {
+      history.push('/landing');
+    }, 2000);
+  }
 
   function onCompleteComponent() {
     setIsCompleted(true);
@@ -84,9 +112,23 @@ export default function Review(props) {
     await postReview(arr);
   }
   return (
-    <div style={{ width: '1000px', margin: '0 auto' }}>
-      {surveyRender}
-      {onCompleteComponent}
-    </div>
+    <>
+      <div style={{ width: '1000px', margin: '0 auto' }}>
+        {surveyRender}
+        {onCompleteComponent}
+      </div>
+      <div
+        style={{
+          height: '100px !important',
+          width: '100px !important',
+          fontSize: '20px',
+        }}
+      >
+        <ToastsContainer
+          store={ToastsStore}
+          position={ToastsContainerPosition.BOTTOM_CENTER}
+        />
+      </div>
+    </>
   );
 }
